@@ -7,6 +7,7 @@ export interface User extends BaseEntity {
   salt?: string;
   passwordHash?: string;
   passwordSalt?: string;
+  isPro: boolean;
 }
 
 export interface JwtPayload {
@@ -19,6 +20,7 @@ export interface AuthData {
   id: UUID;
   token: string;
   expiresAt: Date | string;
+  isPro: boolean;
 }
 
 export interface EmailRequest {

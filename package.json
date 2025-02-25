@@ -6,6 +6,8 @@
     "start:api": "tsx ./api/server.ts",
     "build:check:api": "tsc --noEmit",
     "lint:api": "eslint ./api --ext .ts",
+    "start:db": "docker-compose -f api/docker/dev-db.docker-compose.yml up",
+    "clear:db": "docker-compose -f api/docker/dev-db.docker-compose.yml down -v",
     "start:ui:dev": "npm run setenv && ng serve",
     "start:ui:prod": "npm run setenv && ng serve --configuration production",
     "build:ui": "npm run setenv && ng build",
@@ -14,7 +16,7 @@
     "lint": "npm run lint:ui && npm run lint:api",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "setenv": "node ui/setenv.js",
+    "setenv": "node ui/setenv.cjs",
     "ng": "ng",
     "prepare": "husky"
   },
@@ -22,6 +24,7 @@
     "node": ">=22.5.1"
   },
   "private": true,
+  "type": "module",
   "dependencies": {
     "@angular/animations": "^19.1.0",
     "@angular/common": "^19.1.0",
