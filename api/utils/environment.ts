@@ -14,8 +14,13 @@ type EnvVariable =
 export function getEnv(...variables: EnvVariable[]): string[] {
   return variables.map(variable => {
     const value = process.env[variable];
+    if (process.env.PK_ENV === 'dev' && variable === 'SERVER_ROUTE') {
+      return value ?? '';
+    }
     if (!value) {
-      console.log(`Attempted to read ${variable} from the environment but there was no value.`);
+      console.warn(
+        `[Environment] Attempted to read ${variable} from the environment but there was no value.`
+      );
     }
     return value ?? '';
   });

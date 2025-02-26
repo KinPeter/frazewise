@@ -40,9 +40,9 @@ export async function requestLoginCode(
       const createdAt = new Date();
       user = { id, email, createdAt, isPro: false };
       await users.insertOne({ id, email, createdAt, isPro: false });
-      console.log('Created new user:', email, id);
+      console.log('[Auth] Created new user:', email, id);
       await createInitialSettings(db, id);
-      console.log('Created initial settings data');
+      console.log('[Auth] Created initial settings data');
       emailManager.sendSignupNotification(email).then(); // no need to await this
     } else {
       user = existingUser;

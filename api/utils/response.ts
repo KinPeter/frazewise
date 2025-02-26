@@ -2,31 +2,30 @@ import { ValidationError as YupValidationError } from 'yup';
 import { ApiError } from '../../common/enums/api-errors';
 import type { ValidationError } from '../../common/enums/api-errors';
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'OPTIONS, GET, POST, PUT, PATCH, DELETE',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Content-Type': 'application/json',
-};
-
 export class OkResponse<T> extends Response {
   constructor(data: T, status = 200) {
-    super(JSON.stringify(data), { status, headers });
+    const payload = JSON.stringify(data);
+    super(payload, { status });
     const returnedItems = Array.isArray(data) ? data.length : 1;
-    console.log(`${status} Status Success response generated ${returnedItems} item(s) in payload`);
+    console.log(
+      `[Response] ${status} Status Success response generated ${returnedItems} item(s) in payload:`,
+      `${payload.substring(0, 100)} ${payload.length > 100 ? '...' : ''}`
+    );
   }
 }
 
 export class CorsOkResponse extends Response {
   constructor() {
-    super('ok', { headers });
+    super('ok');
   }
 }
 
 export class ErrorResponse extends Response {
   constructor(message: string, status: number, details?: any) {
-    super(JSON.stringify({ error: message, details }), { status, headers });
-    console.log(`${status} Status Error response generated with message: ${message}`);
+    super(JSON.stringify({ error: message, details }), { status });
+    console.log(
+      `[Response] ${status} Status Error response generated with message: ${message} ${details ? JSON.stringify(details) : ''}`
+    );
   }
 }
 
@@ -46,6 +45,12 @@ export class UnauthorizedErrorResponse extends ErrorResponse {
 export class NotFoundErrorResponse extends ErrorResponse {
   constructor(item: string) {
     super(ApiError.ITEM_NOT_FOUND, 404, { item });
+  }
+}
+
+export class ModuleNotFoundErrorResponse extends ErrorResponse {
+  constructor(module: string) {
+    super(ApiError.MODULE_NOT_FOUND, 404, { module });
   }
 }
 
@@ -70,7 +75,7 @@ export class UnauthorizedInvalidAccessTokenErrorResponse extends UnauthorizedErr
 export class UnknownErrorResponse extends ErrorResponse {
   constructor(error: unknown) {
     super(ApiError.UNKNOWN_ERROR, 500, error);
-    console.log(JSON.stringify(error));
+    console.log('[Response]', JSON.stringify(error));
   }
 }
 

@@ -29,7 +29,7 @@ export async function instantLoginCode(req: Request, db: Db): Promise<Response> 
     }
 
     const { email } = body;
-    console.warn(`[DEV] ${email} is getting instant login code on '${PK_ENV}' env`);
+    console.warn(`[Auth][DEV] ${email} is getting instant login code on '${PK_ENV}' env`);
 
     const users = db.collection<User>(DbCollection.USERS);
     const existingUser = await users.findOne({ email });
@@ -39,9 +39,9 @@ export async function instantLoginCode(req: Request, db: Db): Promise<Response> 
       const id = uuid();
       user = { id, email, createdAt: new Date(), isPro: false };
       await users.insertOne(user);
-      console.log('Created new user:', email, id);
+      console.log('[Auth] Created new user:', email, id);
       await createInitialSettings(db, id);
-      console.log('Created initial settings data');
+      console.log('[Auth] Created initial settings data');
     } else {
       user = existingUser;
     }

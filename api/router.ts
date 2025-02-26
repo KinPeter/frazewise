@@ -1,40 +1,34 @@
 import { Db } from 'mongodb';
-import { parse } from 'url';
-import { stripPathname } from './utils/request-utils';
-import { getEnv } from './utils/environment';
-import { OkResponse, UnknownOperationErrorResponse } from './utils/response';
+import { ModuleNotFoundErrorResponse, OkResponse, UnknownErrorResponse } from './utils/response';
+import { ApiModule } from './utils/constants';
+import { serveAuth } from './modules/auth';
+import { logRequest, parsePath } from './utils/request-utils';
 
 export async function routeRequest(req: Request, db: Db): Promise<Response> {
-  const [SERVER_ROUTE] = getEnv('SERVER_ROUTE');
-  const baseRoute = SERVER_ROUTE || '';
-  const { method, url } = req;
-  const parsedUrl = parse(url || '', true);
-  const pathname = stripPathname(parsedUrl.pathname ?? '', baseRoute);
-  let response: Response;
-  console.log(
-    '\n[Router] Request:',
-    method,
-    parsedUrl.pathname,
-    Object.keys(parsedUrl.query).length ? JSON.stringify(parsedUrl.query) : ''
-  );
+  try {
+    const { parsedUrl, moduleName } = parsePath(req);
+    logRequest(req, parsedUrl);
+    let response: Response;
 
-  console.log({ pathname });
-  switch (pathname) {
-    case '':
-    case '/':
-      response = new OkResponse('hello world');
-      break;
-    default:
-      response = new UnknownOperationErrorResponse(pathname);
-      break;
+    switch (moduleName) {
+      case ApiModule.AUTH:
+        response = await serveAuth(req, db);
+        break;
+      case ApiModule.SETTINGS:
+      case ApiModule.DECKS:
+      case ApiModule.CARDS:
+      case '':
+      case '/':
+        response = new OkResponse('hello world');
+        break;
+      default:
+        response = new ModuleNotFoundErrorResponse(moduleName);
+        break;
+    }
+
+    return response;
+  } catch (e) {
+    console.error('[Router]', e);
+    return new UnknownErrorResponse((e as any).message ?? e);
   }
-
-  // console.log(
-  //   '[Router] Response:',
-  //   response.status,
-  //   responseBody.substring(0, 100),
-  //   responseBody.length > 100 ? '...' : ''
-  // );
-
-  return response;
 }
