@@ -1,0 +1,44 @@
+name: FrazeWise UI Deploy
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'ui-v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  ui-deploy:
+    name: FrazeWise UI Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '>=22.5.1'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check code format
+        run: npm run format:check
+
+      - name: Lint UI
+        run: npm run lint:ui
+
+      - name: Build UI
+        run: npm run build:ui
+        env:
+          PK_API_URL_PROD: ${{ secrets.PROD_API_URL }}
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/ui/browser/
+          server-dir: ${{ secrets.FTP_FOLDER }}
