@@ -12,7 +12,9 @@ const paths = {
 };
 
 const packageJson = readFileSync(resolve(__dirname, '..', 'package.json'));
-const version = JSON.parse(packageJson).version;
+const version = JSON.parse(packageJson).uiVersion;
+
+console.log('[setenv] Current UI version:', version);
 
 environments.forEach(env => {
   const isProd = env === 'PROD';

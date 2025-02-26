@@ -1,6 +1,7 @@
 {
   "name": "frazewise",
   "version": "0.0.0",
+  "uiVersion": "0.0.0",
   "author": "Peter Kin",
   "scripts": {
     "start:api": "tsx ./api/server.ts",
@@ -15,6 +16,7 @@
     "lint:ui": "ng lint",
     "lint": "npm run lint:ui && npm run lint:api",
     "format:check": "prettier --check .",
+    "checks": "npm run lint && npm run format:check && npm run build:check:api && npm run build:ui",
     "format": "prettier --write .",
     "setenv": "node ui/setenv.cjs",
     "ng": "ng",
@@ -36,6 +38,8 @@
     "@angular/router": "^19.1.0",
     "@ng-icons/core": "^30.3.0",
     "@ng-icons/tabler-icons": "^30.3.0",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
     "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.13.1",

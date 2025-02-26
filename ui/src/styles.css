@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('./styles/_colors.css');
+
+body {
+  background-color: var(--color-body);
+  color: var(--color-text);
+}
