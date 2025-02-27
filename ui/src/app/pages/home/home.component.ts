@@ -59,11 +59,13 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
               perferendis, porro quia recusandae rerum similique suscipit vel vero voluptatum.
               <a href="/decks">A link to decks</a>
             </p>
+            <hr />
             <ng-container *ngTemplateOutlet="buttonsAndInputs"></ng-container>
           </div>
         </div>
 
         <h3>Background 2</h3>
+        <hr />
         <ng-container *ngTemplateOutlet="buttonsAndInputs"></ng-container>
       </div>
 
@@ -91,6 +93,23 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
         <pk-icon-button variant="outline"><ng-icon name="tablerHash" size="1rem" /></pk-icon-button>
         <pk-icon-button variant="subtle"><ng-icon name="tablerHash" size="1rem" /></pk-icon-button>
         <pk-icon-button variant="ghost"><ng-icon name="tablerHash" size="1rem" /></pk-icon-button>
+      </div>
+      <div [style]="{ display: 'flex', gap: '1rem', marginBottom: '1rem' }">
+        <pk-icon-button variant="default" [accent]="true"
+          ><ng-icon name="tablerHash" size="1rem"
+        /></pk-icon-button>
+        <pk-icon-button variant="filled" [accent]="true"
+          ><ng-icon name="tablerHash" size="1rem"
+        /></pk-icon-button>
+        <pk-icon-button variant="outline" [accent]="true"
+          ><ng-icon name="tablerHash" size="1rem"
+        /></pk-icon-button>
+        <pk-icon-button variant="subtle" [accent]="true"
+          ><ng-icon name="tablerHash" size="1rem"
+        /></pk-icon-button>
+        <pk-icon-button variant="ghost" [accent]="true"
+          ><ng-icon name="tablerHash" size="1rem"
+        /></pk-icon-button>
       </div>
       <div [style]="{ display: 'flex', gap: '1rem', marginBottom: '1rem' }">
         <pk-icon-button variant="default" [disabled]="true"

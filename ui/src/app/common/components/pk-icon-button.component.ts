@@ -34,7 +34,7 @@ export type PkIconButtonVariant = 'default' | 'filled' | 'outline' | 'subtle' | 
           cursor: not-allowed;
 
           &:hover {
-            background-color: var(--color-bg);
+            background-color: transparent;
           }
         }
 
@@ -88,7 +88,7 @@ export type PkIconButtonVariant = 'default' | 'filled' | 'outline' | 'subtle' | 
             border-color: var(--color-text-disabled);
 
             &:hover {
-              background-color: var(--color-bg);
+              background-color: transparent;
             }
           }
         }
@@ -114,7 +114,7 @@ export type PkIconButtonVariant = 'default' | 'filled' | 'outline' | 'subtle' | 
             color: var(--color-text-disabled);
 
             &:hover {
-              background-color: var(--color-bg);
+              background-color: transparent;
             }
           }
         }
@@ -134,6 +134,10 @@ export type PkIconButtonVariant = 'default' | 'filled' | 'outline' | 'subtle' | 
 
           &:disabled {
             color: var(--color-text-disabled);
+
+            &:hover {
+              background-color: transparent;
+            }
           }
         }
       }

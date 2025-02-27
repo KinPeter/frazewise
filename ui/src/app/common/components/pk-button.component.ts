@@ -15,10 +15,11 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
         font-weight: 700;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-default);
-        height: 2.25rem;
+        height: 2.5rem;
         padding: 0 1.5rem;
         display: block;
         cursor: pointer;
+        font-size: 0.95rem;
 
         &.icon-prefix {
           display: flex;
@@ -64,6 +65,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
         }
 
         &.outline {
+          background-color: transparent;
           border-color: var(--color-primary);
           color: var(--color-primary);
 
@@ -75,7 +77,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
             color: var(--color-text-disabled);
 
             &:hover {
-              background-color: var(--color-bg);
+              background-color: transparent;
             }
           }
         }
@@ -93,7 +95,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
             color: var(--color-text-disabled);
 
             &:hover {
-              background-color: var(--color-bg);
+              background-color: transparent;
             }
           }
         }
@@ -109,6 +111,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
 
           &:disabled {
             color: var(--color-text-disabled);
+            text-decoration: none;
 
             &:hover {
               background-color: transparent;
