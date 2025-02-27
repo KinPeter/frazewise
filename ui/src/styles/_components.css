@@ -4,7 +4,7 @@ div.pk-card {
   padding: 0.5rem;
   background-color: var(--color-bg-lighter);
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
 
   a {
     color: var(--color-text-accent);

@@ -1,4 +1,4 @@
-html {
+body {
   --radius-default: 1rem;
   --radius-sm: 0.5rem;
   --focus-box-shadow: 0 0 2px 1px var(--color-primary);

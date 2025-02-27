@@ -41,7 +41,7 @@ import { parseError } from '../../utils/parse-error';
           </pk-input>
           <pk-button
             variant="filled"
-            (onClick)="onPasswordLogin()"
+            (clicked)="onPasswordLogin()"
             [loading]="loading()"
             [disabled]="loading() || emailInvalid() || passwordInvalid()">
             Log in
@@ -49,21 +49,21 @@ import { parseError } from '../../utils/parse-error';
         } @else {
           <pk-button
             variant="subtle"
-            (onClick)="onRequestLoginCode()"
+            (clicked)="onRequestLoginCode()"
             [loading]="loading()"
             [disabled]="loading() || emailInvalid()">
             Get login code
           </pk-button>
         }
         @if (usePassword()) {
-          <pk-button variant="link" (onClick)="usePassword.set(false)">
+          <pk-button variant="link" (clicked)="usePassword.set(false)">
             Use email login code
           </pk-button>
         } @else {
-          <pk-button variant="link" (onClick)="usePassword.set(true)"> Use password </pk-button>
+          <pk-button variant="link" (clicked)="usePassword.set(true)"> Use password </pk-button>
         }
         @if (hasEmailSaved() && !usePassword()) {
-          <pk-button variant="link" (onClick)="step.set(1)">
+          <pk-button variant="link" (clicked)="step.set(1)">
             I already have a login code
           </pk-button>
         } @else {
@@ -82,10 +82,10 @@ import { parseError } from '../../utils/parse-error';
           variant="filled"
           [loading]="loading()"
           [disabled]="loading() || loginCodeInvalid()"
-          (onClick)="onCodeLogin()">
+          (clicked)="onCodeLogin()">
           Log in
         </pk-button>
-        <pk-button variant="link" (onClick)="step.set(0)"> I need a new login code </pk-button>
+        <pk-button variant="link" (clicked)="step.set(0)"> I need a new login code </pk-button>
       }
     </div>
   `,
