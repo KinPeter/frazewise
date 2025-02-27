@@ -1,0 +1,12 @@
+html {
+  --radius-default: 1rem;
+  --radius-sm: 0.5rem;
+  --focus-box-shadow: 0 0 2px 1px var(--color-primary);
+
+  /* global Z-indexes */
+  --overlay-content-z-index: 5;
+  --overlay-backdrop-z-index: 4;
+  --notification-log-z-index: 3;
+  --popup-content-z-index: 2;
+  --backdrop-z-index: 1;
+}

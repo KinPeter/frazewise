@@ -1,16 +1,21 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ThemeSwitchComponent } from './components/core/theme-switch.component';
+import { ThemeSwitchComponent } from './common/components/theme-switch.component';
+import { AuthService } from './pages/auth/auth.service';
+import { PkButtonComponent } from './common/components/pk-button.component';
 
 @Component({
   selector: 'pk-root',
-  imports: [RouterOutlet, TranslatePipe, ThemeSwitchComponent],
+  imports: [RouterOutlet, TranslatePipe, ThemeSwitchComponent, PkButtonComponent],
   template: `
     <h1>{{ 'hello' | translate }} {{ title }}!</h1>
 
-    <button (click)="toggleLanguage()">Switch language</button>
-    <pk-theme-switch />
+    <div [style]="{ display: 'flex' }">
+      <pk-button (click)="toggleLanguage()">Switch language</pk-button>
+      <pk-theme-switch />
+      <pk-button (click)="logout()">Log out</pk-button>
+    </div>
     <router-outlet />
   `,
   styles: [],
@@ -18,9 +23,13 @@ import { ThemeSwitchComponent } from './components/core/theme-switch.component';
 export class AppComponent {
   title = 'FrazeWise';
 
-  constructor(private translateService: TranslateService) {
+  constructor(
+    private authService: AuthService,
+    private translateService: TranslateService
+  ) {
     this.translateService.setDefaultLang('en');
     this.translateService.use('en');
+    this.authService.autoLogin();
   }
 
   public toggleLanguage(): void {
@@ -29,5 +38,10 @@ export class AppComponent {
     } else {
       this.translateService.use('en');
     }
+  }
+
+  public logout(): void {
+    this.authService.logout();
+    location.reload();
   }
 }

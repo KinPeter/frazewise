@@ -1,0 +1,32 @@
+body,
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color-1) var(--scrollbar-bg-color-1);
+}
+
+body * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color-2) var(--scrollbar-bg-color-2);
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+body::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg-color-1);
+  border-radius: 4px;
+}
+body *::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg-color-2);
+  border-radius: 4px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color-1);
+  border-radius: 2px;
+}
+body *::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color-2);
+  border-radius: 2px;
+}

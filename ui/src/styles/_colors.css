@@ -27,6 +27,10 @@ body {
   --color-border: var(--color-dark-4);
   --color-white: #fff;
   --color-black: #000;
+  --scrollbar-bg-color-1: var(--color-body);
+  --scrollbar-bg-color-2: var(--color-bg);
+  --scrollbar-thumb-color-1: var(--color-primary);
+  --scrollbar-thumb-color-2: var(--color-info);
 }
 
 body.dark {

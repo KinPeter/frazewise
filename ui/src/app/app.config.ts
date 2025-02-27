@@ -2,8 +2,17 @@ import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideIcons } from '@ng-icons/core';
+import { icons } from './utils/icons';
+import { AuthGuard } from './pages/auth/auth.guard';
+import { AuthInterceptor } from './pages/auth/auth.interceptor';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, './i18n/', '.json');
@@ -11,7 +20,7 @@ const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: Http
 export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
     provideTranslateService({
       loader: {
@@ -20,5 +29,8 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient],
       },
     }),
+    provideIcons(icons),
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 };

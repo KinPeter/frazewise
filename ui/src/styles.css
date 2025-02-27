@@ -1,5 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
 @import url('./styles/_colors.css');
+@import url('./styles/_variables.css');
+@import url('./styles/_scrollbar.css');
+@import url('./styles/_forms.css');
+@import url('./styles/_typography.css');
+@import url('./styles/_components.css');
 
 body {
   background-color: var(--color-body);
