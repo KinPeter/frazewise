@@ -1,5 +1,6 @@
 import { ApiError, ApiErrorMap } from '../../../../common/enums/api-errors';
 
+// eslint-disable-next-line
 export function parseError(e: any): string {
   if (e.message) {
     return e.message;

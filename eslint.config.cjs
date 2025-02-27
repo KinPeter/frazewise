@@ -48,6 +48,12 @@ module.exports = tseslint.config(
     },
   },
   {
+    files: ['ui/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
+  {
     files: ['**/*.html'],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {
