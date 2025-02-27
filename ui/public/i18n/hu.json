@@ -1,3 +1,18 @@
 {
-  "hello": "Szia!"
+  "hello": "Szia!",
+  "menu": {
+    "darkTheme": "Sötét téma",
+    "downloadDataBackup": "Adatmentés letöltése",
+    "emailDataBackup": "Adatmentés emailben",
+    "enterFullscreen": "Teljes képernyő",
+    "lightTheme": "Világos téma",
+    "logOut": "Kijelentkezés",
+    "menu": "Menü"
+  },
+  "pages": {
+    "home": "Főoldal",
+    "decks": "Paklik",
+    "practice": "Gyakorlás",
+    "settings": "Beállítások"
+  }
 }

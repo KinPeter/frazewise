@@ -1,3 +1,18 @@
 {
-  "hello": "Hello!"
+  "hello": "Hello!",
+  "menu": {
+    "darkTheme": "Dark theme",
+    "downloadDataBackup": "Download data backup",
+    "emailDataBackup": "Email data backup",
+    "enterFullscreen": "Enter fullscreen",
+    "lightTheme": "Light theme",
+    "logOut": "Log out",
+    "menu": "Menu"
+  },
+  "pages": {
+    "home": "Home",
+    "decks": "Decks",
+    "practice": "Practice",
+    "settings": "Settings"
+  }
 }

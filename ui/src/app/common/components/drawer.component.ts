@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, input, output, signal } from '@angular/core';
+import { AfterViewInit, Component, effect, input, output, signal } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 
 @Component({
@@ -108,7 +108,7 @@ import { NgIcon } from '@ng-icons/core';
       <div class="header">
         <h1>{{ name() }}</h1>
         <div>
-          <button type="button" (click)="close.emit()">
+          <button type="button" (click)="close.emit()" id="drawer-close-button">
             <ng-icon name="tablerX" />
           </button>
         </div>
@@ -121,11 +121,16 @@ export class DrawerComponent implements AfterViewInit {
   public open = input<boolean>(true);
   public name = input<string>('');
   public size = input<'sm' | 'md' | 'lg'>('md');
-
   public enabled = signal(false);
-
   public close = output<void>();
 
+  constructor() {
+    effect(() => {
+      if (this.open()) {
+        document.getElementById('drawer-close-button')?.focus();
+      }
+    });
+  }
   ngAfterViewInit() {
     this.enabled.set(true);
   }
