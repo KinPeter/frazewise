@@ -1,8 +1,9 @@
 import { Db } from 'mongodb';
 import { ModuleNotFoundErrorResponse, OkResponse, UnknownErrorResponse } from './utils/response';
 import { ApiModule } from './utils/constants';
-import { serveAuth } from './modules/auth';
 import { logRequest, parsePath } from './utils/request-utils';
+import { serveAuth } from './modules/auth';
+import { serveSettings } from './modules/settings';
 
 export async function routeRequest(req: Request, db: Db): Promise<Response> {
   try {
@@ -15,6 +16,8 @@ export async function routeRequest(req: Request, db: Db): Promise<Response> {
         response = await serveAuth(req, db);
         break;
       case ApiModule.SETTINGS:
+        response = await serveSettings(req, db);
+        break;
       case ApiModule.DECKS:
       case ApiModule.CARDS:
       case '':

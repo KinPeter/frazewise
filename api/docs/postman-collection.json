@@ -1,0 +1,230 @@
+{
+  "info": {
+    "_postman_id": "e8bd06ef-6076-4db4-b65b-cb391f9a3a38",
+    "name": "FrazeWise",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "7965151"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Get login code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/auth/crash",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["auth", "crash"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify login code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"loginCode\": \"985565\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/auth/verify-code",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["auth", "verify-code"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Password login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/auth/password-login",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["auth", "password-login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/auth/set-password",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["auth", "set-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Token refresh",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/auth/token-refresh",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["auth", "token-refresh"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "[DEV ONLY] Instant login code",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/auth/instant-login-code",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["auth", "instant-login-code"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Get settings",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{FW_BASE_URL}}/settings",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["settings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update settings",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Peti\",\r\n    \"profilePicUrl\": \"https://lh3.googleusercontent.com/a/ACg8ocI_3apHpEDF5lOpLr8M7DGJ7_bXpXh-0BNdtdyBsn7VLQ4YT6Hn1w=s83-c-mo\",\r\n    \"language\": \"hu\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/settings",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["settings"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
