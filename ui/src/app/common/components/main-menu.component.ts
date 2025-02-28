@@ -95,7 +95,7 @@ export class MainMenuComponent {
     },
     {
       icon: 'tablerLogout',
-      label: 'Log out',
+      label: 'menu.logOut',
       action: () => {
         this.authService.logout();
         location.reload();
