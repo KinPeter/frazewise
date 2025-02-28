@@ -1,18 +1,83 @@
 {
   "hello": "Hello!",
+  "common": {
+    "close": "Close"
+  },
   "menu": {
+    "menu": "Menu",
     "darkTheme": "Dark theme",
+    "lightTheme": "Light theme",
     "downloadDataBackup": "Download data backup",
     "emailDataBackup": "Email data backup",
     "enterFullscreen": "Enter fullscreen",
-    "lightTheme": "Light theme",
-    "logOut": "Log out",
-    "menu": "Menu"
+    "logOut": "Log out"
   },
   "pages": {
     "home": "Home",
     "decks": "Decks",
     "practice": "Practice",
     "settings": "Settings"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "loginCode": "Login code",
+    "login": "Log in",
+    "getLoginCode": "Get login code",
+    "useLoginCode": "Use email login code",
+    "usePassword": "Use password",
+    "alreadyHaveLoginCode": "I already have a login code",
+    "needNewLoginCode": "I need a new login code",
+    "signingUp": "Signing up?",
+    "signupTooltip": "If this is your first time here, just enter your email above and click Log in. You will receive a 6 digit code via email that you can use to log in. Afterwards you may set up a password too if you like.",
+    "forgotOrNoPassword": "Don't have a password yet, or just forgot it?",
+    "passwordTooltip": "Use an email login code to access your settings and you can set up a new password there."
+  },
+  "errorNotifications": {
+    "couldNotRequestLoginCode": "Could not request login code",
+    "loginFailed": "Login failed",
+    "tokenRefreshError": "Token refresh failed"
+  },
+  "apiErrors": {
+    "EMAIL_REGISTERED": "Email Registered",
+    "INVALID_AUTH_TOKEN": "Invalid Auth Token",
+    "EXPIRED_AUTH_TOKEN": "Expired Auth Token",
+    "INVALID_LOGIN_CODE": "Invalid Login Code",
+    "EXPIRED_LOGIN_CODE": "Expired Login Code",
+    "INVALID_PASSWORD": "Invalid Password",
+    "UNABLE_TO_SEND": "Unable To Send",
+    "MODULE_NOT_FOUND": "Module Not Found",
+    "USER_NOT_FOUND": "User Not Found",
+    "ITEM_NOT_FOUND": "Item Not Found",
+    "REQUEST_VALIDATION_FAILED": "Request Validation Failed",
+    "UNAUTHORIZED": "Unauthorized",
+    "METHOD_NOT_ALLOWED": "Method Not Allowed",
+    "UNKNOWN_ERROR": "Unknown Error",
+    "DATA_ALREADY_EXISTS": "Data Already Exists",
+    "UNKNOWN_OPERATION": "Unknown Operation",
+    "FORBIDDEN_OPERATION": "Forbidden Operation",
+    "CONFLICT": "Conflict"
+  },
+  "validationErrors": {
+    "ARRAY_REQUIRED": "Array required",
+    "OBJECT_REQUIRED": "Object required",
+    "BOOLEAN_REQUIRED": "Boolean required",
+    "INVALID_DATE": "Invalid date",
+    "INVALID_TIME": "Invalid time",
+    "INVALID_EMAIL": "Invalid email address",
+    "INVALID_FORMAT": "Invalid format",
+    "INVALID_LOGIN_CODE": "Invalid login code",
+    "INVALID_URL": "Invalid url",
+    "INVALID_UUID": "Invalid UUID",
+    "MAX_LENGTH": "Maximum length exceeded",
+    "MAX_VALUE": "Maximum value exceeded",
+    "MIN_LENGTH": "Minimum length not reached",
+    "MIN_VALUE": "Minimum value not reached",
+    "EXACT_LENGTH": "Exact string length needed",
+    "NUMBER_REQUIRED": "Number required",
+    "STRING_REQUIRED": "String required",
+    "NULLABLE_FIELD_REQUIRED": "Field is nullable but required",
+    "TEXT_OR_LINK_REQUIRED": "Text or link required",
+    "NOT_SUPPORTED_VALUE": "Not supported value"
   }
 }

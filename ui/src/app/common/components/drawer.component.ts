@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, effect, input, output, signal } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'pk-drawer',
-  imports: [NgIcon],
+  imports: [NgIcon, TranslatePipe],
   providers: [],
   styles: `
     .backdrop {
@@ -108,7 +109,11 @@ import { NgIcon } from '@ng-icons/core';
       <div class="header">
         <h1>{{ name() }}</h1>
         <div>
-          <button type="button" (click)="close.emit()" id="drawer-close-button">
+          <button
+            type="button"
+            (click)="close.emit()"
+            id="drawer-close-button"
+            [title]="'common.close' | translate">
             <ng-icon name="tablerX" />
           </button>
         </div>

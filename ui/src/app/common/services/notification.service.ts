@@ -1,5 +1,6 @@
 import { computed, effect, Injectable } from '@angular/core';
 import { Store } from '../../utils/store';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum MessageType {
   ERROR = 'error',
@@ -24,7 +25,7 @@ const initialState: NotificationState = {
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService extends Store<NotificationState> {
-  constructor() {
+  constructor(private translateService: TranslateService) {
     super(initialState);
 
     // FIXME remove when notifications are displayed
@@ -41,7 +42,8 @@ export class NotificationService extends Store<NotificationState> {
     });
   }
 
-  public showError(message: string): void {
+  public showError(baseMessage: string, errorCode?: string): void {
+    const message = `${this.translateService.instant(baseMessage)}${errorCode ? `: ${this.translateService.instant(`apiErrors.${errorCode}`)}` : ''}`;
     this.setState({
       notifications: [
         {

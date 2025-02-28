@@ -126,7 +126,7 @@ export class AuthService {
         this.scheduleTokenRefresh(expires);
       },
       error: err => {
-        this.notificationService.showError('Token refresh error: ' + parseError(err));
+        this.notificationService.showError('errorNotifications.tokenRefreshError', parseError(err));
       },
     });
   }

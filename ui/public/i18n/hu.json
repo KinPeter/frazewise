@@ -1,18 +1,83 @@
 {
   "hello": "Szia!",
+  "common": {
+    "close": "Bezárás"
+  },
   "menu": {
+    "menu": "Menü",
     "darkTheme": "Sötét téma",
+    "lightTheme": "Világos téma",
     "downloadDataBackup": "Adatmentés letöltése",
     "emailDataBackup": "Adatmentés emailben",
     "enterFullscreen": "Teljes képernyő",
-    "lightTheme": "Világos téma",
-    "logOut": "Kijelentkezés",
-    "menu": "Menü"
+    "logOut": "Kijelentkezés"
   },
   "pages": {
     "home": "Főoldal",
     "decks": "Paklik",
     "practice": "Gyakorlás",
     "settings": "Beállítások"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Jelszó",
+    "loginCode": "Bejelentkezési kód",
+    "login": "Bejelentkezés",
+    "getLoginCode": "Bejelentkezési kódot kérek",
+    "useLoginCode": "Email bejelentkezési kód használata",
+    "usePassword": "Jelszó használata",
+    "alreadyHaveLoginCode": "Már van bejelentkezési kódom",
+    "needNewLoginCode": "Új bejelentkezési kódra van szükségem",
+    "signingUp": "Regisztrálnál?",
+    "signupTooltip": "Ha először jársz itt, csak add meg az e-mail címed fent és kattints a Bejelentkezés gombra. Emailben kapsz egy 6 számjegyű kódot, amellyel be tudsz jelentkezni. Ezt követően ha szeretnéd, jelszót is beállíthatsz.",
+    "forgotOrNoPassword": "Még nincs jelszavad, vagy csak elfelejtetted?",
+    "passwordTooltip": "Használj email bejelentkezési kódot a beállítások eléréséhez, ahol új jelszót állíthatsz be."
+  },
+  "errorNotifications": {
+    "couldNotRequestLoginCode": "Nem sikerült bejelentkezési kódot kérni",
+    "loginFailed": "Bejelentkezés sikertelen",
+    "tokenRefreshError": "Nem sikerült a hitelesítési token frissítése"
+  },
+  "apiErrors": {
+    "EMAIL_REGISTERED": "Email már regisztrálva",
+    "INVALID_AUTH_TOKEN": "Érvénytelen hitelesítési token",
+    "EXPIRED_AUTH_TOKEN": "Lejárt hitelesítési token",
+    "INVALID_LOGIN_CODE": "Érvénytelen bejelentkezési kód",
+    "EXPIRED_LOGIN_CODE": "Lejárt bejelentkezési kód",
+    "INVALID_PASSWORD": "Érvénytelen jelszó",
+    "UNABLE_TO_SEND": "Küldés sikertelen",
+    "MODULE_NOT_FOUND": "Modul nem található",
+    "USER_NOT_FOUND": "Felhasználó nem található",
+    "ITEM_NOT_FOUND": "Elem nem található",
+    "REQUEST_VALIDATION_FAILED": "A kérés érvényesítése sikertelen",
+    "UNAUTHORIZED": "Jogosulatlan hozzáférés",
+    "METHOD_NOT_ALLOWED": "Módszer nem engedélyezett",
+    "UNKNOWN_ERROR": "Ismeretlen hiba",
+    "DATA_ALREADY_EXISTS": "Az adatok már léteznek",
+    "UNKNOWN_OPERATION": "Ismeretlen művelet",
+    "FORBIDDEN_OPERATION": "Tiltott művelet",
+    "CONFLICT": "Ütközés"
+  },
+  "validationErrors": {
+    "ARRAY_REQUIRED": "Tömb szükséges",
+    "OBJECT_REQUIRED": "Objektum szükséges",
+    "BOOLEAN_REQUIRED": "Logikai érték szükséges",
+    "INVALID_DATE": "Érvénytelen dátum",
+    "INVALID_TIME": "Érvénytelen idő",
+    "INVALID_EMAIL": "Érvénytelen email cím",
+    "INVALID_FORMAT": "Érvénytelen formátum",
+    "INVALID_LOGIN_CODE": "Érvénytelen bejelentkezési kód",
+    "INVALID_URL": "Érvénytelen URL",
+    "INVALID_UUID": "Érvénytelen UUID",
+    "MAX_LENGTH": "Maximális hossz túllépve",
+    "MAX_VALUE": "Maximális érték túllépve",
+    "MIN_LENGTH": "Minimális hossz nem érte el",
+    "MIN_VALUE": "Minimális érték nem érte el",
+    "EXACT_LENGTH": "Pontosan ilyen hosszúságú karakterlánc szükséges",
+    "NUMBER_REQUIRED": "Szám szükséges",
+    "STRING_REQUIRED": "Karakterlánc szükséges",
+    "NULLABLE_FIELD_REQUIRED": "Mező null értékkel megengedett, de szükséges",
+    "TEXT_OR_LINK_REQUIRED": "Szöveg vagy link szükséges",
+    "NOT_SUPPORTED_VALUE": "Nem támogatott érték"
   }
 }

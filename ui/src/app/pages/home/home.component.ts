@@ -166,8 +166,10 @@ export class HomeComponent {
   public toggleLanguage(): void {
     if (this.translateService.currentLang === 'en') {
       this.translateService.use('hu');
-    } else {
+    } else if (this.translateService.currentLang === 'ko') {
       this.translateService.use('en');
+    } else {
+      this.translateService.use('ko');
     }
   }
 

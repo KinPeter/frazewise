@@ -21,27 +21,6 @@ export const ApiError = {
 
 export type ApiError = (typeof ApiError)[keyof typeof ApiError];
 
-export const ApiErrorMap: Record<ApiError, string> = {
-  [ApiError.EMAIL_REGISTERED]: 'Email is already registered',
-  [ApiError.INVALID_AUTH_TOKEN]: 'Unauthorized: Auth token is invalid',
-  [ApiError.EXPIRED_AUTH_TOKEN]: 'Unauthorized: Auth token is expired',
-  [ApiError.INVALID_LOGIN_CODE]: 'Unauthorized: Login code is invalid',
-  [ApiError.EXPIRED_LOGIN_CODE]: 'Unauthorized: Login code is expired',
-  [ApiError.INVALID_PASSWORD]: 'Unauthorized: Invalid password',
-  [ApiError.UNABLE_TO_SEND]: 'Could not send email',
-  [ApiError.USER_NOT_FOUND]: 'User not found',
-  [ApiError.ITEM_NOT_FOUND]: 'Item not found',
-  [ApiError.MODULE_NOT_FOUND]: 'Module not found',
-  [ApiError.REQUEST_VALIDATION_FAILED]: 'Request validation failed',
-  [ApiError.UNAUTHORIZED]: 'Unauthorized',
-  [ApiError.METHOD_NOT_ALLOWED]: 'HTTP Method not allowed',
-  [ApiError.UNKNOWN_ERROR]: 'Something went wrong: server or database error',
-  [ApiError.DATA_ALREADY_EXISTS]: 'Data already exists',
-  [ApiError.UNKNOWN_OPERATION]: 'Unknown operation',
-  [ApiError.FORBIDDEN_OPERATION]: 'Forbidden operation',
-  [ApiError.CONFLICT]: 'Conflict',
-};
-
 export const ValidationError = {
   INVALID_EMAIL: 'INVALID_EMAIL',
   INVALID_LOGIN_CODE: 'INVALID_LOGIN_CODE',
@@ -66,26 +45,3 @@ export const ValidationError = {
 } as const;
 
 export type ValidationError = (typeof ValidationError)[keyof typeof ValidationError];
-
-export const ValidationErrorMap: Record<ValidationError, string> = {
-  [ValidationError.ARRAY_REQUIRED]: 'Array required',
-  [ValidationError.OBJECT_REQUIRED]: 'Object required',
-  [ValidationError.BOOLEAN_REQUIRED]: 'Boolean required',
-  [ValidationError.INVALID_DATE]: 'Invalid date',
-  [ValidationError.INVALID_TIME]: 'Invalid time',
-  [ValidationError.INVALID_EMAIL]: 'Invalid email address',
-  [ValidationError.INVALID_FORMAT]: 'Invalid format',
-  [ValidationError.INVALID_LOGIN_CODE]: 'Invalid login code',
-  [ValidationError.INVALID_URL]: 'Invalid url',
-  [ValidationError.INVALID_UUID]: 'Invalid UUID',
-  [ValidationError.MAX_LENGTH]: 'Maximum length exceeded',
-  [ValidationError.MAX_VALUE]: 'Maximum value exceeded',
-  [ValidationError.MIN_LENGTH]: 'Minimum length not reached',
-  [ValidationError.MIN_VALUE]: 'Minimum value not reached',
-  [ValidationError.EXACT_LENGTH]: 'Exact string length needed',
-  [ValidationError.NUMBER_REQUIRED]: 'Number required',
-  [ValidationError.STRING_REQUIRED]: 'String required',
-  [ValidationError.NULLABLE_FIELD_REQUIRED]: 'Field is nullable but required',
-  [ValidationError.TEXT_OR_LINK_REQUIRED]: 'Text or link required',
-  [ValidationError.NOT_SUPPORTED_VALUE]: 'Not supported value',
-};

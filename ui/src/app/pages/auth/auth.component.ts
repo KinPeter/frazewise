@@ -10,10 +10,18 @@ import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { NotificationService } from '../../common/services/notification.service';
 import { parseError } from '../../utils/parse-error';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'pk-auth',
-  imports: [FormsModule, NgStyle, PkInputDirective, PkInputComponent, PkButtonComponent],
+  imports: [
+    FormsModule,
+    NgStyle,
+    PkInputDirective,
+    PkInputComponent,
+    PkButtonComponent,
+    TranslatePipe,
+  ],
   providers: [],
   styles: `
     .container {
@@ -28,11 +36,11 @@ import { parseError } from '../../utils/parse-error';
   template: `
     <div class="container">
       @if (step() === 0) {
-        <pk-input label="Email" [withAsterisk]="true" width="250px">
+        <pk-input [label]="'auth.email' | translate" [withAsterisk]="true" width="250px">
           <input pkInput type="text" [(ngModel)]="email" (keyup.enter)="onRequestLoginCode()" />
         </pk-input>
         @if (usePassword()) {
-          <pk-input label="Password" [withAsterisk]="true" width="250px">
+          <pk-input [label]="'auth.password' | translate" [withAsterisk]="true" width="250px">
             <input
               pkInput
               type="password"
@@ -44,7 +52,7 @@ import { parseError } from '../../utils/parse-error';
             (clicked)="onPasswordLogin()"
             [loading]="loading()"
             [disabled]="loading() || emailInvalid() || passwordInvalid()">
-            Log in
+            {{ 'auth.login' | translate }}
           </pk-button>
         } @else {
           <pk-button
@@ -52,25 +60,27 @@ import { parseError } from '../../utils/parse-error';
             (clicked)="onRequestLoginCode()"
             [loading]="loading()"
             [disabled]="loading() || emailInvalid()">
-            Get login code
+            {{ 'auth.getLoginCode' | translate }}
           </pk-button>
         }
         @if (usePassword()) {
           <pk-button variant="link" (clicked)="usePassword.set(false)">
-            Use email login code
+            {{ 'auth.useLoginCode' | translate }}
           </pk-button>
         } @else {
-          <pk-button variant="link" (clicked)="usePassword.set(true)"> Use password </pk-button>
+          <pk-button variant="link" (clicked)="usePassword.set(true)">
+            {{ 'auth.usePassword' | translate }}
+          </pk-button>
         }
         @if (hasEmailSaved() && !usePassword()) {
           <pk-button variant="link" (clicked)="step.set(1)">
-            I already have a login code
+            {{ 'auth.alreadyHaveLoginCode' | translate }}
           </pk-button>
         } @else {
           <span [ngStyle]="{ opacity: 0 }">placeholder</span>
         }
       } @else if (step() === 1) {
-        <pk-input label="Login code" [withAsterisk]="true" width="250px">
+        <pk-input [label]="'auth.loginCode' | translate" [withAsterisk]="true" width="250px">
           <input
             pkInput
             type="text"
@@ -83,9 +93,11 @@ import { parseError } from '../../utils/parse-error';
           [loading]="loading()"
           [disabled]="loading() || loginCodeInvalid()"
           (clicked)="onCodeLogin()">
-          Log in
+          {{ 'auth.login' | translate }}
         </pk-button>
-        <pk-button variant="link" (clicked)="step.set(0)"> I need a new login code </pk-button>
+        <pk-button variant="link" (clicked)="step.set(0)">
+          {{ 'auth.needNewLoginCode' | translate }}
+        </pk-button>
       }
     </div>
   `,
@@ -120,7 +132,10 @@ export class AuthComponent {
         this.loading.set(false);
       },
       error: err => {
-        this.notificationService.showError('Could not request login code. ' + parseError(err));
+        this.notificationService.showError(
+          'errorNotifications.couldNotRequestLoginCode',
+          parseError(err)
+        );
         this.loading.set(false);
       },
     });
@@ -135,7 +150,7 @@ export class AuthComponent {
         this.router.navigate(['/']).then();
       },
       error: err => {
-        this.notificationService.showError('Login failed. ' + parseError(err));
+        this.notificationService.showError('errorNotifications.loginFailed', parseError(err));
         this.loading.set(false);
       },
     });
@@ -150,7 +165,7 @@ export class AuthComponent {
         this.router.navigate(['/']).then();
       },
       error: err => {
-        this.notificationService.showError('Login failed. ' + parseError(err));
+        this.notificationService.showError('errorNotifications.loginFailed', parseError(err));
         this.loading.set(false);
       },
     });
