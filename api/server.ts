@@ -1,7 +1,7 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import 'dotenv/config';
 import { MongoDbManager } from './utils/mongo-db-manager';
-import { convertRequest } from './utils/request-utils';
+import { convertRequest, logServerError } from './utils/request-utils';
 import { Db } from 'mongodb';
 import { routeRequest } from './router';
 
@@ -38,11 +38,17 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse, db: Db):
   });
 
   req.on('end', async () => {
-    const request = convertRequest(req, body);
-    const response = await routeRequest(request, db);
-    const responseBody = await response.text();
-    res.statusCode = response.status;
-    res.end(responseBody);
+    try {
+      const request = convertRequest(req, body);
+      const response = await routeRequest(request, db);
+      const responseBody = await response.text();
+      res.statusCode = response.status;
+      res.end(responseBody);
+    } catch (e: any) {
+      logServerError(req, e);
+      res.statusCode = 500;
+      res.end(JSON.stringify({ message: e.message }));
+    }
   });
 }
 

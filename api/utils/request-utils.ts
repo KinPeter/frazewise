@@ -61,6 +61,16 @@ export function logRequest(req: Request, parsedUrl: UrlWithParsedQuery): void {
   );
 }
 
+export function logServerError(req: IncomingMessage, e: any): void {
+  console.log(
+    '\n[server.ts] 500 Server error:',
+    e.message ?? 'unknown',
+    'For request:',
+    req.method,
+    req.url
+  );
+}
+
 export function getParams(pathOptions: string[], pathname: string): Record<string, string> {
   for (const pathOption of pathOptions) {
     const pathParts = pathOption.split('/').filter(part => part.length > 0);
