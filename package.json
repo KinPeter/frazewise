@@ -16,8 +16,8 @@
     "lint:ui": "ng lint",
     "lint": "npm run lint:ui && npm run lint:api",
     "format:check": "prettier --check .",
-    "checks": "npm run lint && npm run format:check && npm run build:check:api && npm run build:ui",
     "format": "prettier --write .",
+    "checks": "npm run lint && npm run format:check && npm run build:check:api && npm run build:ui",
     "setenv": "node ui/setenv.cjs",
     "ng": "ng",
     "prepare": "husky"
