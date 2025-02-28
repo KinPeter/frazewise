@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from './pages/auth/auth.service';
 import { AppBarComponent } from './common/components/app-bar.component';
 import { MainMenuComponent } from './common/components/main-menu.component';
+import { LanguageService } from './common/services/language.service';
 
 @Component({
   selector: 'pk-root',
@@ -22,10 +23,9 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-    private translateService: TranslateService
+    private languageService: LanguageService
   ) {
-    this.translateService.setDefaultLang('en');
-    this.translateService.use('en');
+    this.languageService.init();
     this.authService.autoLogin();
   }
 }

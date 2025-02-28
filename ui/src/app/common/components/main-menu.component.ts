@@ -5,10 +5,12 @@ import { MainMenuService } from '../services/main-menu.service';
 import { AuthService } from '../../pages/auth/auth.service';
 import { NgIcon } from '@ng-icons/core';
 import { Router } from '@angular/router';
+import { LanguageSelectComponent } from './language-select.component';
+import { AuthStore } from '../../pages/auth/auth.store';
 
 @Component({
   selector: 'pk-main-menu',
-  imports: [DrawerComponent, TranslatePipe, NgIcon],
+  imports: [DrawerComponent, TranslatePipe, NgIcon, LanguageSelectComponent],
   providers: [],
   styles: `
     nav {
@@ -35,23 +37,29 @@ import { Router } from '@angular/router';
   `,
   template: `
     <pk-drawer [name]="'menu.menu' | translate" [open]="open()" size="sm" (close)="close()">
-      <nav>
-        @for (item of items; track item.label) {
-          <button type="button" (click)="item.action()">
-            <ng-icon [name]="item.icon" size="1.2rem" />
-            <span>{{ item.label | translate }}</span>
-          </button>
-        }
-      </nav>
+      @if (isAuth()) {
+        <nav>
+          @for (item of items; track item.label) {
+            <button type="button" (click)="item.action()">
+              <ng-icon [name]="item.icon" size="1.2rem" />
+              <span>{{ item.label | translate }}</span>
+            </button>
+          }
+        </nav>
+        <hr />
+      }
+      <pk-language-select />
     </pk-drawer>
   `,
 })
 export class MainMenuComponent {
   public open: Signal<boolean>;
+  public isAuth: Signal<boolean>;
 
   constructor(
     private mainMenuService: MainMenuService,
     private authService: AuthService,
+    private authStore: AuthStore,
     private router: Router
   ) {
     document.addEventListener('keyup', (e: KeyboardEvent) => {
@@ -60,6 +68,7 @@ export class MainMenuComponent {
       }
     });
     this.open = this.mainMenuService.isMainMenuOpen;
+    this.isAuth = this.authStore.isAuth;
   }
 
   public items = [

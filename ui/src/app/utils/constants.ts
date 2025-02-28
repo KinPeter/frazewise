@@ -1,6 +1,7 @@
 export enum StoreKeys {
   AUTH = 'fw-auth',
   SETTINGS = 'fw-settings',
+  LOCALE = 'fw-locale',
 }
 
 export enum ApiRoutes {

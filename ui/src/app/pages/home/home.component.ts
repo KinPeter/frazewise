@@ -3,7 +3,6 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { PkCardDirective } from '../../common/components/pk-card.directive';
 import { ThemeSwitchComponent } from '../../common/components/theme-switch.component';
 import { AuthService } from '../auth/auth.service';
-import { TranslateService } from '@ngx-translate/core';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 import { NgIcon } from '@ng-icons/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -31,7 +30,6 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
       <h2>Home</h2>
 
       <div [style]="{ display: 'flex' }">
-        <pk-button (click)="toggleLanguage()">Switch language</pk-button>
         <pk-theme-switch />
         <pk-button (click)="logout()">Log out</pk-button>
       </div>
@@ -158,20 +156,7 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
   `,
 })
 export class HomeComponent {
-  constructor(
-    private authService: AuthService,
-    private translateService: TranslateService
-  ) {}
-
-  public toggleLanguage(): void {
-    if (this.translateService.currentLang === 'en') {
-      this.translateService.use('hu');
-    } else if (this.translateService.currentLang === 'ko') {
-      this.translateService.use('en');
-    } else {
-      this.translateService.use('ko');
-    }
-  }
+  constructor(private authService: AuthService) {}
 
   public logout(): void {
     this.authService.logout();
