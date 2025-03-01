@@ -24,6 +24,11 @@ import {
   tablerX,
 } from '@ng-icons/tabler-icons';
 
+/**
+ * Icons:
+ * https://ng-icons.github.io/ng-icons/#/browse-icons
+ * --> Choose Tabler icons --> scroll down
+ */
 export const icons = {
   tablerAlertTriangle,
   tablerArrowsMaximize,
