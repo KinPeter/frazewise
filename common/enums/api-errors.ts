@@ -17,6 +17,7 @@ export const ApiError = {
   UNKNOWN_OPERATION: 'UNKNOWN_OPERATION',
   FORBIDDEN_OPERATION: 'FORBIDDEN_OPERATION',
   CONFLICT: 'CONFLICT',
+  CONTENT_GENERATION_FAILED: 'CONTENT_GENERATION_FAILED',
 } as const;
 
 export type ApiError = (typeof ApiError)[keyof typeof ApiError];
@@ -44,6 +45,7 @@ export const ValidationError = {
   NOT_SUPPORTED_VALUE: 'NOT_SUPPORTED_VALUE',
   DECK_CARD_LANGUAGE_MISMATCH: 'DECK_CARD_LANGUAGE_MISMATCH',
   LANGUAGE_MUST_NOT_CHANGE: 'LANGUAGE_MUST_NOT_CHANGE',
+  LANGUAGE_NOT_SUPPORTED: 'LANGUAGE_NOT_SUPPORTED',
 } as const;
 
 export type ValidationError = (typeof ValidationError)[keyof typeof ValidationError];

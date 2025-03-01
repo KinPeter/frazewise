@@ -7,6 +7,7 @@ import { serveSettings } from './modules/settings';
 import { serveDecks } from './modules/decks';
 import { serveCards } from './modules/cards';
 import { servePractice } from './modules/practice';
+import { serveAi } from './modules/ai';
 
 export async function routeRequest(req: Request, db: Db): Promise<Response> {
   try {
@@ -29,6 +30,9 @@ export async function routeRequest(req: Request, db: Db): Promise<Response> {
         break;
       case ApiModule.PRACTICE:
         response = await servePractice(req, db);
+        break;
+      case ApiModule.AI:
+        response = await serveAi(req, db);
         break;
       default:
         response = new ModuleNotFoundErrorResponse(moduleName);

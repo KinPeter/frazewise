@@ -56,7 +56,8 @@
     "DATA_ALREADY_EXISTS": "데이터가 이미 존재합니다",
     "UNKNOWN_OPERATION": "알 수 없는 작업",
     "FORBIDDEN_OPERATION": "금지된 작업",
-    "CONFLICT": "충돌"
+    "CONFLICT": "충돌",
+    "CONTENT_GENERATION_FAILED": "AI 콘텐츠 생성 실패"
   },
   "validationErrors": {
     "ARRAY_REQUIRED": "배열 필요",
@@ -80,6 +81,7 @@
     "NULLABLE_FIELD_REQUIRED": "널 수락 필드 필요",
     "NOT_SUPPORTED_VALUE": "지원되지 않는 값",
     "DECK_CARD_LANGUAGE_MISMATCH": "덱과 카드 언어 불일치",
-    "LANGUAGE_MUST_NOT_CHANGE": "언어 변경 불가"
+    "LANGUAGE_MUST_NOT_CHANGE": "언어 변경 불가",
+    "LANGUAGE_NOT_SUPPORTED": "지원되지 않는 언어"
   }
 }

@@ -492,6 +492,43 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "AI",
+      "item": [
+        {
+          "name": "Generate cards",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"sourceLang\": \"en\",\r\n    \"targetLang\": \"de\",\r\n    \"topic\": \"visiting family\",\r\n    \"level\": \"basic\",\r\n    \"cardCount\": 30\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/ai/generate-cards",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["ai", "generate-cards"]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

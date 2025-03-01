@@ -31,7 +31,10 @@ export class ErrorResponse extends Response {
 
 export class ValidationErrorResponse extends ErrorResponse {
   constructor(error: YupValidationError | ValidationError) {
-    const payload = error instanceof YupValidationError ? error.errors : { reason: error };
+    const payload =
+      error instanceof YupValidationError
+        ? { path: error.path, error: error.errors[0] }
+        : { reason: error };
     super(ApiError.REQUEST_VALIDATION_FAILED, 400, payload);
   }
 }
@@ -76,6 +79,12 @@ export class UnknownErrorResponse extends ErrorResponse {
   constructor(error: unknown) {
     super(ApiError.UNKNOWN_ERROR, 500, error);
     console.log('[Response]', JSON.stringify(error));
+  }
+}
+
+export class AIGenerationFailedErrorResponse extends ErrorResponse {
+  constructor(error: unknown) {
+    super(ApiError.CONTENT_GENERATION_FAILED, 500, error);
   }
 }
 

@@ -56,7 +56,8 @@
     "DATA_ALREADY_EXISTS": "Az adatok már léteznek",
     "UNKNOWN_OPERATION": "Ismeretlen művelet",
     "FORBIDDEN_OPERATION": "Tiltott művelet",
-    "CONFLICT": "Ütközés"
+    "CONFLICT": "Ütközés",
+    "CONTENT_GENERATION_FAILED": "AI tartalom generálás sikertelen"
   },
   "validationErrors": {
     "ARRAY_REQUIRED": "Tömb szükséges",
@@ -80,6 +81,7 @@
     "NULLABLE_FIELD_REQUIRED": "Mező null értékkel megengedett, de szükséges",
     "NOT_SUPPORTED_VALUE": "Nem támogatott érték",
     "DECK_CARD_LANGUAGE_MISMATCH": "A pakli és a kártya nyelve nem egyezik",
-    "LANGUAGE_MUST_NOT_CHANGE": "A nyelv nem változhat"
+    "LANGUAGE_MUST_NOT_CHANGE": "A nyelv nem változhat",
+    "LANGUAGE_NOT_SUPPORTED": "A nyelv nem támogatott"
   }
 }

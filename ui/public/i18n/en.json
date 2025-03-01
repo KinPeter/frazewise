@@ -56,7 +56,8 @@
     "DATA_ALREADY_EXISTS": "Data Already Exists",
     "UNKNOWN_OPERATION": "Unknown Operation",
     "FORBIDDEN_OPERATION": "Forbidden Operation",
-    "CONFLICT": "Conflict"
+    "CONFLICT": "Conflict",
+    "CONTENT_GENERATION_FAILED": "AI Content Generation Failed"
   },
   "validationErrors": {
     "ARRAY_REQUIRED": "Array required",
@@ -80,6 +81,7 @@
     "NULLABLE_FIELD_REQUIRED": "Field is nullable but required",
     "NOT_SUPPORTED_VALUE": "Not supported value",
     "DECK_CARD_LANGUAGE_MISMATCH": "Deck and card language do not match",
-    "LANGUAGE_MUST_NOT_CHANGE": "Language must not change"
+    "LANGUAGE_MUST_NOT_CHANGE": "Language must not change",
+    "LANGUAGE_NOT_SUPPORTED": "Language not supported"
   }
 }
