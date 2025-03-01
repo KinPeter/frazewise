@@ -8,7 +8,7 @@
     "serve:api:docker:build": "docker-compose -f ./api/docker/api.docker-compose.yml up --build",
     "serve:api:docker": "docker-compose -f ./api/docker/api.docker-compose.yml up",
     "build:check:api": "tsc --noEmit",
-    "build-publish:api": "node ./api/docker/build-publish.mjs",
+    "build-publish:api": "node api/scripts/build-publish.mjs",
     "lint:api": "eslint ./api --ext .ts",
     "start:db": "docker-compose -f api/docker/dev-db.docker-compose.yml up",
     "clear:db": "docker-compose -f api/docker/dev-db.docker-compose.yml down -v",
@@ -20,7 +20,8 @@
     "lint": "npm run lint:ui && npm run lint:api",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "checks": "npm run lint && npm run format:check && npm run build:check:api && npm run build:ui",
+    "checks": "npm run lint && npm run format:check && npm run build:check:api && npm run build:ui && npm run check-dependencies",
+    "check-dependencies": "node api/scripts/check-dependencies.mjs",
     "setenv": "node ui/setenv.cjs",
     "ng": "ng",
     "prepare": "husky"
