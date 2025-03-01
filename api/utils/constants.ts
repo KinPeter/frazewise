@@ -3,6 +3,7 @@ export const ApiModule = {
   SETTINGS: 'settings',
   DECKS: 'decks',
   CARDS: 'cards',
+  PRACTICE: 'practice',
 } as const;
 
 export type ApiModule = (typeof ApiModule)[keyof typeof ApiModule];

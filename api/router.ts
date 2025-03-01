@@ -1,9 +1,12 @@
 import { Db } from 'mongodb';
-import { ModuleNotFoundErrorResponse, OkResponse, UnknownErrorResponse } from './utils/response';
+import { ModuleNotFoundErrorResponse, UnknownErrorResponse } from './utils/response';
 import { ApiModule } from './utils/constants';
 import { logRequest, parsePath } from './utils/request-utils';
 import { serveAuth } from './modules/auth';
 import { serveSettings } from './modules/settings';
+import { serveDecks } from './modules/decks';
+import { serveCards } from './modules/cards';
+import { servePractice } from './modules/practice';
 
 export async function routeRequest(req: Request, db: Db): Promise<Response> {
   try {
@@ -19,10 +22,13 @@ export async function routeRequest(req: Request, db: Db): Promise<Response> {
         response = await serveSettings(req, db);
         break;
       case ApiModule.DECKS:
+        response = await serveDecks(req, db);
+        break;
       case ApiModule.CARDS:
-      case '':
-      case '/':
-        response = new OkResponse('hello world');
+        response = await serveCards(req, db);
+        break;
+      case ApiModule.PRACTICE:
+        response = await servePractice(req, db);
         break;
       default:
         response = new ModuleNotFoundErrorResponse(moduleName);

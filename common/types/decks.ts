@@ -1,10 +1,10 @@
 import { BaseEntity, UUID } from './misc';
+import { Card } from './cards';
 
 export interface Deck extends BaseEntity {
   userId: UUID;
   name: string;
   sourceLang: string;
-  hasSourceAlt: boolean;
   targetLang: string;
   hasTargetAlt: boolean;
   cardCount: number;
@@ -12,7 +12,8 @@ export interface Deck extends BaseEntity {
   // TODO add stats, score, gamification?
 }
 
-export type DeckRequest = Pick<
-  Deck,
-  'name' | 'sourceLang' | 'hasSourceAlt' | 'targetLang' | 'hasTargetAlt'
->;
+export interface DeckWithCards extends Deck {
+  cards: Card[];
+}
+
+export type DeckRequest = Pick<Deck, 'name' | 'sourceLang' | 'targetLang' | 'hasTargetAlt'>;

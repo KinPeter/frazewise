@@ -225,6 +225,273 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Decks",
+      "item": [
+        {
+          "name": "Get decks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{FW_BASE_URL}}/decks",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["decks"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get deck",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{FW_BASE_URL}}/decks/463ab120-6c3b-4c77-9ab2-585a2fd6b2b7",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["decks", "463ab120-6c3b-4c77-9ab2-585a2fd6b2b7"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create deck",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"First deck\",\r\n    \"sourceLang\": \"en\",\r\n    \"targetLang\": \"hu\",\r\n    \"hasTargetAlt\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/decks",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["decks"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update deck",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"First deck\",\r\n    \"sourceLang\": \"en\",\r\n    \"targetLang\": \"hu\",\r\n    \"hasTargetAlt\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/decks/22e8a66f-10f7-45a7-ab74-a67c520c71ce",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["decks", "22e8a66f-10f7-45a7-ab74-a67c520c71ce"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete deck",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{FW_BASE_URL}}/decks/22e8a66f-10f7-45a7-ab74-a67c520c71ce",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["decks", "22e8a66f-10f7-45a7-ab74-a67c520c71ce"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "item": [
+        {
+          "name": "Create cards",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"deckId\": \"463ab120-6c3b-4c77-9ab2-585a2fd6b2b7\",\r\n    \"cards\": [\r\n        {\r\n            \"sourceLang\": \"en\",\r\n            \"source\": \"table\",\r\n            \"targetLang\": \"hu\",\r\n            \"target\": \"asztal\",\r\n            \"targetAlt\": null\r\n        },\r\n        {\r\n            \"sourceLang\": \"en\",\r\n            \"source\": \"wall\",\r\n            \"targetLang\": \"hu\",\r\n            \"target\": \"fal\",\r\n            \"targetAlt\": null\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/cards",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["cards"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update card",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"deckId\": \"463ab120-6c3b-4c77-9ab2-585a2fd6b2b7\",\r\n    \"source\": \"hello\",\r\n    \"sourceLang\": \"en\",\r\n    \"target\": \"sziaszia\",\r\n    \"targetLang\": \"hu\",\r\n    \"targetAlt\": \"csao\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/cards/d235942c-b985-4c13-a1dd-74d37a75e888",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["cards", "d235942c-b985-4c13-a1dd-74d37a75e888"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete card",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{FW_BASE_URL}}/cards/05bca21b-c33c-4a00-880a-df55b5c37646",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["cards", "05bca21b-c33c-4a00-880a-df55b5c37646"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "item": [
+        {
+          "name": "Practice card",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{FW_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cardId\": \"baa40e54-e365-449f-8e87-6e2e39465ef7\",\r\n    \"isSuccess\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{FW_BASE_URL}}/practice",
+              "host": ["{{FW_BASE_URL}}"],
+              "path": ["practice"]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

@@ -73,11 +73,13 @@
     "MAX_VALUE": "Maximum value exceeded",
     "MIN_LENGTH": "Minimum length not reached",
     "MIN_VALUE": "Minimum value not reached",
+    "MAX_ITEM_COUNT": "Maximum item count exceeded",
     "EXACT_LENGTH": "Exact string length needed",
     "NUMBER_REQUIRED": "Number required",
     "STRING_REQUIRED": "String required",
     "NULLABLE_FIELD_REQUIRED": "Field is nullable but required",
-    "TEXT_OR_LINK_REQUIRED": "Text or link required",
-    "NOT_SUPPORTED_VALUE": "Not supported value"
+    "NOT_SUPPORTED_VALUE": "Not supported value",
+    "DECK_CARD_LANGUAGE_MISMATCH": "Deck and card language do not match",
+    "LANGUAGE_MUST_NOT_CHANGE": "Language must not change"
   }
 }

@@ -1,4 +1,5 @@
 import {
+  MethodNotAllowedResponse,
   NotFoundErrorResponse,
   OkResponse,
   UnknownErrorResponse,
@@ -14,6 +15,7 @@ import { toSettingsRequest } from '../../utils/request-mappers';
 
 export async function updateSettings(req: Request, db: Db, user: User): Promise<Response> {
   try {
+    if (req.method !== 'PUT') return new MethodNotAllowedResponse(req.method);
     const requestBody = (await req.json()) as SettingsRequest;
 
     try {

@@ -71,13 +71,15 @@
     "INVALID_UUID": "유효하지 않은 UUID",
     "MAX_LENGTH": "최대 길이 초과",
     "MAX_VALUE": "최대 값 초과",
+    "MAX_ITEM_COUNT": "최대 항목 수 초과",
     "MIN_LENGTH": "최소 길이에 도달하지 않음",
     "MIN_VALUE": "최소 값에 도달하지 않음",
     "EXACT_LENGTH": "정확한 문자열 길이 필요",
     "NUMBER_REQUIRED": "숫자 필요",
     "STRING_REQUIRED": "문자열 필요",
     "NULLABLE_FIELD_REQUIRED": "널 수락 필드 필요",
-    "TEXT_OR_LINK_REQUIRED": "텍스트 또는 링크 필요",
-    "NOT_SUPPORTED_VALUE": "지원되지 않는 값"
+    "NOT_SUPPORTED_VALUE": "지원되지 않는 값",
+    "DECK_CARD_LANGUAGE_MISMATCH": "덱과 카드 언어 불일치",
+    "LANGUAGE_MUST_NOT_CHANGE": "언어 변경 불가"
   }
 }

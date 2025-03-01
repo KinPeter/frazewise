@@ -1,12 +1,18 @@
-import { NotFoundErrorResponse, OkResponse, UnknownErrorResponse } from '../../utils/response';
+import {
+  MethodNotAllowedResponse,
+  NotFoundErrorResponse,
+  OkResponse,
+  UnknownErrorResponse,
+} from '../../utils/response';
 import { omitIdsForOne } from '../../utils/omit-ids';
 import { DbCollection } from '../../utils/db-collections';
 import { Settings } from '../../../common/types/settings';
 import { Db } from 'mongodb';
 import { User } from '../../../common/types/auth';
 
-export async function getSettings(_req: Request, db: Db, user: User): Promise<Response> {
+export async function getSettings(req: Request, db: Db, user: User): Promise<Response> {
   try {
+    if (req.method !== 'GET') return new MethodNotAllowedResponse(req.method);
     const collection = db.collection<Settings>(DbCollection.SETTINGS);
     const settings = await collection.findOne({ userId: user.id });
     if (!settings) return new NotFoundErrorResponse('User settings');

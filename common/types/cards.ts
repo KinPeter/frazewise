@@ -4,17 +4,26 @@ export interface Card extends BaseEntity {
   userId: UUID;
   deckId: UUID;
   source: string;
-  sourceAlt: string | null;
+  sourceLang: string;
   target: string;
+  targetLang: string;
   targetAlt: string | null;
   lastPracticed: string | Date | null;
   successCount: number;
   missCount: number;
 }
 
-export type CardRequest = Pick<Card, 'deckId' | 'source' | 'sourceAlt' | 'target' | 'targetAlt'>;
+export type BaseCardRequest = Pick<
+  Card,
+  'source' | 'sourceLang' | 'target' | 'targetLang' | 'targetAlt'
+>;
 
-export interface PracticeRequest {
-  cardId: UUID;
-  isSuccess: boolean;
+export type UpdateCardRequest = Pick<
+  Card,
+  'deckId' | 'source' | 'sourceLang' | 'target' | 'targetLang' | 'targetAlt'
+>;
+
+export interface BulkCardsRequest {
+  deckId: UUID;
+  cards: Card[];
 }

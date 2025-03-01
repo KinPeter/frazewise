@@ -73,11 +73,13 @@
     "MAX_VALUE": "Maximális érték túllépve",
     "MIN_LENGTH": "Minimális hossz nem érte el",
     "MIN_VALUE": "Minimális érték nem érte el",
+    "MAX_ITEM_COUNT": "Maximális darabszám túllépve",
     "EXACT_LENGTH": "Pontosan ilyen hosszúságú karakterlánc szükséges",
     "NUMBER_REQUIRED": "Szám szükséges",
     "STRING_REQUIRED": "Karakterlánc szükséges",
     "NULLABLE_FIELD_REQUIRED": "Mező null értékkel megengedett, de szükséges",
-    "TEXT_OR_LINK_REQUIRED": "Szöveg vagy link szükséges",
-    "NOT_SUPPORTED_VALUE": "Nem támogatott érték"
+    "NOT_SUPPORTED_VALUE": "Nem támogatott érték",
+    "DECK_CARD_LANGUAGE_MISMATCH": "A pakli és a kártya nyelve nem egyezik",
+    "LANGUAGE_MUST_NOT_CHANGE": "A nyelv nem változhat"
   }
 }
