@@ -1,0 +1,12 @@
+services:
+  fw-api-server:
+    build:
+      context: ../../
+      dockerfile: ./api/docker/api.Dockerfile
+    ports:
+      - '5200:5200'
+    volumes:
+      - ../../:/app
+    working_dir: /app
+    env_file: ../../.env
+    restart: always

@@ -24,9 +24,9 @@
               }
             },
             "url": {
-              "raw": "{{FW_BASE_URL}}/auth/crash",
+              "raw": "{{FW_BASE_URL}}/auth/login",
               "host": ["{{FW_BASE_URL}}"],
-              "path": ["auth", "crash"]
+              "path": ["auth", "login"]
             }
           },
           "response": []

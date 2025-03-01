@@ -5,7 +5,10 @@
   "author": "Peter Kin",
   "scripts": {
     "start:api": "tsx ./api/server.ts",
+    "serve:api:docker:build": "docker-compose -f ./api/docker/api.docker-compose.yml up --build",
+    "serve:api:docker": "docker-compose -f ./api/docker/api.docker-compose.yml up",
     "build:check:api": "tsc --noEmit",
+    "build-publish:api": "node ./api/docker/build-publish.mjs",
     "lint:api": "eslint ./api --ext .ts",
     "start:db": "docker-compose -f api/docker/dev-db.docker-compose.yml up",
     "clear:db": "docker-compose -f api/docker/dev-db.docker-compose.yml down -v",

@@ -1,0 +1,8 @@
+services:
+  fw-server:
+    image: kinp/frazewise:latest
+    ports:
+      - '5200:5200'
+    restart: always
+    env_file:
+      - .env
