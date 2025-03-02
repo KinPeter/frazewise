@@ -9,6 +9,8 @@ import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkInputDirective } from '../../common/components/pk-input.directive';
+import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'pk-home',
@@ -22,11 +24,14 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
     FormsModule,
     PkInputComponent,
     PkInputDirective,
+    PkPageContentDirective,
+    TranslatePipe,
   ],
   providers: [],
   styles: ``,
   template: `
-    <div [style]="{ padding: '1rem' }">
+    <div pkPageContent>
+      <h1>{{ 'hello' | translate }} {{ title }}!</h1>
       <h2>Home</h2>
 
       <div [style]="{ display: 'flex' }">
@@ -36,14 +41,14 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
 
       <div
         [style]="{
-          width: '60vw',
+          width: '100%',
           backgroundColor: 'var(--color-bg)',
           padding: '0.5rem 1rem',
           margin: '2rem 0',
         }">
         <h1>Heading 1</h1>
         <h2>Heading 2</h2>
-        <div [style]="{ width: '50vw', padding: '2rem 0' }">
+        <div [style]="{ width: '100%', padding: '2rem 0' }">
           <div pkCard>
             <h3>Hello from heading 3</h3>
 
@@ -156,6 +161,8 @@ import { PkInputDirective } from '../../common/components/pk-input.directive';
   `,
 })
 export class HomeComponent {
+  public title = 'FrazeWise';
+
   constructor(private authService: AuthService) {}
 
   public logout(): void {

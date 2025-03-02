@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'pk-practice',
-  imports: [],
+  imports: [PkPageContentDirective, TranslatePipe],
   providers: [],
   styles: ``,
-  template: `<h2>Practice</h2>`,
+  template: `
+    <div pkPageContent>
+      <h1>{{ 'pages.practice' | translate }}</h1>
+    </div>
+  `,
 })
 export class PracticeComponent {}

@@ -1,3 +1,21 @@
+div.pk-page-content {
+  margin: 0 auto;
+  padding: 60px 0;
+  width: 100%;
+
+  @media screen and (min-width: 400px) {
+    width: 400px;
+  }
+
+  @media screen and (min-width: 550px) {
+    width: 75vw;
+  }
+
+  @media screen and (min-width: 1350px) {
+    width: 1000px;
+  }
+}
+
 div.pk-card {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);

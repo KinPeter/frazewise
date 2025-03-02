@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'pk-settings',
-  imports: [],
+  imports: [PkPageContentDirective, TranslatePipe],
   providers: [],
   styles: ``,
-  template: `<h2>Settings</h2>`,
+  template: `
+    <div pkPageContent>
+      <h1>{{ 'pages.settings' | translate }}</h1>
+    </div>
+  `,
 })
 export class SettingsComponent {}
