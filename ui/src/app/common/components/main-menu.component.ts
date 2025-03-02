@@ -5,12 +5,12 @@ import { MainMenuService } from '../services/main-menu.service';
 import { AuthService } from '../../pages/auth/auth.service';
 import { NgIcon } from '@ng-icons/core';
 import { Router } from '@angular/router';
-import { LanguageSelectComponent } from './language-select.component';
+import { LocaleSelectComponent } from './locale-select.component';
 import { AuthStore } from '../../pages/auth/auth.store';
 
 @Component({
   selector: 'pk-main-menu',
-  imports: [DrawerComponent, TranslatePipe, NgIcon, LanguageSelectComponent],
+  imports: [DrawerComponent, TranslatePipe, NgIcon, LocaleSelectComponent],
   providers: [],
   styles: `
     nav {
@@ -48,7 +48,7 @@ import { AuthStore } from '../../pages/auth/auth.store';
         </nav>
         <hr />
       }
-      <pk-language-select />
+      <pk-locale-select />
     </pk-drawer>
   `,
 })

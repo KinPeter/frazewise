@@ -4,7 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from './pages/auth/auth.service';
 import { AppBarComponent } from './common/components/app-bar.component';
 import { MainMenuComponent } from './common/components/main-menu.component';
-import { LanguageService } from './common/services/language.service';
+import { LocaleService } from './common/services/locale.service';
 
 @Component({
   selector: 'pk-root',
@@ -23,7 +23,7 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-    private languageService: LanguageService
+    private languageService: LocaleService
   ) {
     this.languageService.init();
     this.authService.autoLogin();
