@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthStore } from './auth.store';
 import { NgStyle } from '@angular/common';
 import { LOGIN_CODE_REGEX } from '../../../../../common/utils/regex';
-import { PkInputDirective } from '../../common/components/pk-input.directive';
+import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { NotificationService } from '../../common/services/notification.service';

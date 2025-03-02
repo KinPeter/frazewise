@@ -1,9 +1,9 @@
 import { Component, Signal } from '@angular/core';
-import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DecksService } from './decks.service';
 import { Deck } from '../../../../../common/types/decks';
-import { PkCardDirective } from '../../common/components/pk-card.directive';
+import { PkCardDirective } from '../../common/directives/pk-card.directive';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { Router } from '@angular/router';
 import { UUID } from '../../../../../common/types/misc';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, effect, ElementRef, input, Signal, viewChild } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { PkCheckboxDirective } from './pk-checkbox.directive';
+import { PkCheckboxDirective } from '../directives/pk-checkbox.directive';
 
 @Component({
   selector: 'pk-checkbox',

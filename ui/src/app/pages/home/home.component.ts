@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
-import { PkCardDirective } from '../../common/components/pk-card.directive';
+import { PkCardDirective } from '../../common/directives/pk-card.directive';
 import { ThemeSwitchComponent } from '../../common/components/theme-switch.component';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 import { NgIcon } from '@ng-icons/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PkInputComponent } from '../../common/components/pk-input.component';
-import { PkInputDirective } from '../../common/components/pk-input.directive';
-import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { PkInputDirective } from '../../common/directives/pk-input.directive';
+import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

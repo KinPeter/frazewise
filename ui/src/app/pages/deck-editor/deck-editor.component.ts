@@ -1,5 +1,5 @@
 import { Component, OnInit, Signal, signal } from '@angular/core';
-import { PkPageContentDirective } from '../../common/components/pk-page-content.directive';
+import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DecksService } from '../decks/decks.service';
 import { ActivatedRoute } from '@angular/router';

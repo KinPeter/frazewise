@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { supportedLanguages } from '../../../../../common/constants/languages';
 import { CustomValidators } from '../../utils/custom-validators';
 import { PkInputComponent } from '../../common/components/pk-input.component';
-import { PkInputDirective } from '../../common/components/pk-input.directive';
+import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PkCheckboxComponent } from '../../common/components/pk-checkbox.component';
-import { PkCheckboxDirective } from '../../common/components/pk-checkbox.directive';
+import { PkCheckboxDirective } from '../../common/directives/pk-checkbox.directive';
 import { NgIcon } from '@ng-icons/core';
 
 @Component({

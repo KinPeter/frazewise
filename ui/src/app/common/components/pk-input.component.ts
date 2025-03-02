@@ -1,5 +1,5 @@
 import { Component, effect, ElementRef, input, Signal, viewChild } from '@angular/core';
-import { PkInputDirective } from './pk-input.directive';
+import { PkInputDirective } from '../directives/pk-input.directive';
 import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
