@@ -7,10 +7,11 @@ import { NgIcon } from '@ng-icons/core';
 import { Router } from '@angular/router';
 import { LocaleSelectComponent } from './locale-select.component';
 import { AuthStore } from '../../pages/auth/auth.store';
+import { ThemeSwitchComponent } from './theme-switch.component';
 
 @Component({
   selector: 'pk-main-menu',
-  imports: [DrawerComponent, TranslatePipe, NgIcon, LocaleSelectComponent],
+  imports: [DrawerComponent, TranslatePipe, NgIcon, LocaleSelectComponent, ThemeSwitchComponent],
   providers: [],
   styles: `
     nav {
@@ -48,6 +49,7 @@ import { AuthStore } from '../../pages/auth/auth.store';
         </nav>
         <hr />
       }
+      <pk-theme-switch />
       <pk-locale-select />
     </pk-drawer>
   `,

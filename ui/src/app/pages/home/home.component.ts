@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { PkCardDirective } from '../../common/components/pk-card.directive';
 import { ThemeSwitchComponent } from '../../common/components/theme-switch.component';
-import { AuthService } from '../auth/auth.service';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 import { NgIcon } from '@ng-icons/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -36,7 +35,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 
       <div [style]="{ display: 'flex' }">
         <pk-theme-switch />
-        <pk-button (click)="logout()">Log out</pk-button>
       </div>
 
       <div
@@ -162,11 +160,4 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class HomeComponent {
   public title = 'FrazeWise';
-
-  constructor(private authService: AuthService) {}
-
-  public logout(): void {
-    this.authService.logout();
-    location.reload();
-  }
 }
