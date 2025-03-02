@@ -1,7 +1,11 @@
 {
   "hello": "Hello!",
   "common": {
-    "close": "Close"
+    "close": "Close",
+    "name": "Name",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back"
   },
   "menu": {
     "menu": "Menu",
@@ -15,6 +19,8 @@
   "pages": {
     "home": "Home",
     "decks": "Decks",
+    "newDeck": "New Deck",
+    "editDeck": "Edit {{name}}",
     "practice": "Practice",
     "settings": "Settings"
   },
@@ -33,10 +39,20 @@
     "forgotOrNoPassword": "Don't have a password yet, or just forgot it?",
     "passwordTooltip": "Use an email login code to access your settings and you can set up a new password there."
   },
+  "decks": {
+    "createNew": "Create new deck",
+    "editThis": "Edit this deck",
+    "name": "Name",
+    "sourceLang": "Source language",
+    "targetLang": "Target language",
+    "alternative": "Alternative phrasing"
+  },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Could not request login code",
     "loginFailed": "Login failed",
-    "tokenRefreshError": "Token refresh failed"
+    "tokenRefreshError": "Token refresh failed",
+    "couldNotFetchDecks": "Could not fetch decks",
+    "couldNotFetchDeck": "Could not fetch deck"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "Email Registered",
@@ -78,6 +94,7 @@
     "EXACT_LENGTH": "Exact string length needed",
     "NUMBER_REQUIRED": "Number required",
     "STRING_REQUIRED": "String required",
+    "REQUIRED_FIELD": "Required field",
     "NULLABLE_FIELD_REQUIRED": "Field is nullable but required",
     "NOT_SUPPORTED_VALUE": "Not supported value",
     "DECK_CARD_LANGUAGE_MISMATCH": "Deck and card language do not match",

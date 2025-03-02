@@ -15,6 +15,8 @@
   "pages": {
     "home": "홈",
     "decks": "덱스",
+    "newDeck": "새 덱",
+    "editDeck": "{{name}} 편집",
     "practice": "연습",
     "settings": "설정"
   },
@@ -36,7 +38,9 @@
   "errorNotifications": {
     "couldNotRequestLoginCode": "로그인 코드를 요청할 수 없습니다",
     "loginFailed": "로그인 실패",
-    "tokenRefreshError": "토큰 갱신 실패"
+    "tokenRefreshError": "토큰 갱신 실패",
+    "couldNotFetchDecks": "덱스를 가져올 수 없습니다",
+    "couldNotFetchDeck": "덱올 가져올 수 없습니다"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "이메일 등록됨",
@@ -78,6 +82,7 @@
     "EXACT_LENGTH": "정확한 문자열 길이 필요",
     "NUMBER_REQUIRED": "숫자 필요",
     "STRING_REQUIRED": "문자열 필요",
+    "REQUIRED_FIELD": "필수 필드",
     "NULLABLE_FIELD_REQUIRED": "널 수락 필드 필요",
     "NOT_SUPPORTED_VALUE": "지원되지 않는 값",
     "DECK_CARD_LANGUAGE_MISMATCH": "덱과 카드 언어 불일치",

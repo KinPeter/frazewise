@@ -15,6 +15,8 @@
   "pages": {
     "home": "Főoldal",
     "decks": "Paklik",
+    "newDeck": "Új pakli",
+    "editDeck": "{{name}} szerkesztése",
     "practice": "Gyakorlás",
     "settings": "Beállítások"
   },
@@ -36,7 +38,9 @@
   "errorNotifications": {
     "couldNotRequestLoginCode": "Nem sikerült bejelentkezési kódot kérni",
     "loginFailed": "Bejelentkezés sikertelen",
-    "tokenRefreshError": "Nem sikerült a hitelesítési token frissítése"
+    "tokenRefreshError": "Nem sikerült a hitelesítési token frissítése",
+    "couldNotFetchDecks": "Nem sikerült a paklikat lekérni",
+    "couldNotFetchDeck": "Nem sikerült a paklit lekérni"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "Email már regisztrálva",
@@ -78,6 +82,7 @@
     "EXACT_LENGTH": "Pontosan ilyen hosszúságú karakterlánc szükséges",
     "NUMBER_REQUIRED": "Szám szükséges",
     "STRING_REQUIRED": "Karakterlánc szükséges",
+    "REQUIRED_FIELD": "Kötelező mező",
     "NULLABLE_FIELD_REQUIRED": "Mező null értékkel megengedett, de szükséges",
     "NOT_SUPPORTED_VALUE": "Nem támogatott érték",
     "DECK_CARD_LANGUAGE_MISMATCH": "A pakli és a kártya nyelve nem egyezik",

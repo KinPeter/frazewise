@@ -87,3 +87,38 @@ npm run build:check:api
 # Build the UI
 npm run build:ui
 ```
+
+## ToDo list
+
+### API, business logic
+
+- [ ] Data backup endpoints
+- [ ] Unit tests
+- [ ] Acceptance/integration tests
+- [ ] Support more languages (AI prompt updates)
+- [ ] Gamification
+  - [ ] Score logic or XP
+  - [ ] User public info
+    - flag switch to hide/show their data to others
+    - studied languages
+    - score/XP
+    - ?
+  - [ ] Leaderboard
+  - [ ] Quests, goals
+    - [ ] Daily, weekly, monthly
+    - [ ] Custom?
+- [ ] Follow friends
+- [ ] Friend quests
+
+### UI
+
+- [ ] Light theme
+- [ ] Language flags
+- [ ] Settings form
+- [ ] Tooltip component
+- [ ] Explanations using tooltips
+  - [ ] Auth page
+  - [ ] Decks
+- [ ] Profile picture upload & crop
+- [ ] Deck import/export
+- [ ] Static landing pages with i18n
