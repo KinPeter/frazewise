@@ -4,11 +4,11 @@ import { LocalStore } from '../../utils/store';
 import { StoreKeys } from '../../utils/constants';
 
 interface LocaleState {
-  selectedLocale: Language;
+  selectedLocale: Language | undefined;
 }
 
 const initialState: LocaleState = {
-  selectedLocale: 'en',
+  selectedLocale: undefined,
 };
 
 @Injectable({ providedIn: 'root' })
@@ -22,7 +22,15 @@ export class LocaleService extends LocalStore<LocaleState> {
   public init(): void {
     this.translateService.addLangs(this.locales);
     this.translateService.setDefaultLang('en');
-    this.translateService.use(this.state().selectedLocale);
+    const browserLang = this.translateService.getBrowserLang();
+    const langInState = this.state().selectedLocale;
+    if (langInState) {
+      this.translateService.use(langInState);
+    } else if (browserLang && this.locales.includes(browserLang)) {
+      this.changeLocale(browserLang);
+    } else {
+      this.translateService.use('en');
+    }
   }
 
   public changeLocale(language: Language): void {
