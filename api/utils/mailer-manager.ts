@@ -19,11 +19,14 @@ class EmailData {
 
 export class MailerManager extends EmailUtils {
   private readonly mailerUrl: string;
+  private readonly notificationEmailAddress: string;
 
   constructor(private http: HttpClient) {
     super();
     this.http.setHeaders({ 'Content-Type': 'application/json' });
-    this.mailerUrl = getEnv('MAILER_URL')[0];
+    const [mailerUrl, notificationEmail] = getEnv('MAILER_URL', 'NOTIFICATION_EMAIL');
+    this.mailerUrl = mailerUrl;
+    this.notificationEmailAddress = notificationEmail;
   }
 
   public async sendLoginCode(email: string, loginCode: string): Promise<any> {
@@ -36,7 +39,7 @@ export class MailerManager extends EmailUtils {
   public async sendSignupNotification(email: string): Promise<any> {
     const subject = 'A user signed up to FrazeWise';
     const { html } = this.getSignupNotificationTemplates(email);
-    const data = new EmailData(email, subject, html);
+    const data = new EmailData(this.notificationEmailAddress, subject, html);
     return await this.sendMail(data);
   }
 
