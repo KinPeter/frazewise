@@ -9,6 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { PkCheckboxComponent } from '../../common/components/pk-checkbox.component';
 import { PkCheckboxDirective } from '../../common/directives/pk-checkbox.directive';
 import { NgIcon } from '@ng-icons/core';
+import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../common/validators/decks';
 
 @Component({
   selector: 'pk-deck-form',
@@ -70,6 +71,7 @@ import { NgIcon } from '@ng-icons/core';
           <pk-input
             [label]="'decks.sourceLang' | translate"
             [withAsterisk]="true"
+            [disabled]="!isNew()"
             [error]="hasError('sourceLang') ? ('validationErrors.REQUIRED_FIELD' | translate) : ''"
             width="150px"
             type="select">
@@ -82,6 +84,7 @@ import { NgIcon } from '@ng-icons/core';
           <pk-input
             [label]="'decks.targetLang' | translate"
             [withAsterisk]="true"
+            [disabled]="!isNew()"
             [error]="hasError('targetLang') ? ('validationErrors.REQUIRED_FIELD' | translate) : ''"
             width="150px"
             type="select">
@@ -93,7 +96,7 @@ import { NgIcon } from '@ng-icons/core';
           </pk-input>
         </div>
         <div class="alternative">
-          <pk-checkbox [label]="'decks.alternative' | translate">
+          <pk-checkbox [label]="'decks.alternative' | translate" [disabled]="!isNew()">
             <input pkCheckbox type="checkbox" formControlName="hasTargetAlt" />
           </pk-checkbox>
           <ng-icon name="tablerInfoCircle" class="info-icon" size="1.2rem" />
@@ -103,20 +106,27 @@ import { NgIcon } from '@ng-icons/core';
   `,
 })
 export class DeckFormComponent {
-  public deck = input<Deck | null>();
+  public isNew = input.required<boolean>();
+  public deck = input.required<Deck | null>();
   public cancel = output<void>();
   public save = output<DeckRequest>();
+  public form: FormGroup;
   public supportedLanguageCodes = Array.from(supportedLanguages.keys());
   public languageOptions = Array.from(supportedLanguages.entries()).map(([code, { name }]) => ({
     value: code,
     label: name,
   }));
 
-  public form: FormGroup;
-
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(MIN_DECK_NAME_LENGTH),
+          Validators.maxLength(MAX_DECK_NAME_LENGTH),
+        ],
+      ],
       sourceLang: ['', [Validators.required, CustomValidators.oneOf(this.supportedLanguageCodes)]],
       targetLang: ['', [Validators.required, CustomValidators.oneOf(this.supportedLanguageCodes)]],
       hasTargetAlt: [false, Validators.required],

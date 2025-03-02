@@ -7,7 +7,7 @@ import { Deck } from '../../../../../common/types/decks';
 import { NotificationService } from '../../common/services/notification.service';
 import { parseError } from '../../utils/parse-error';
 import { PkLoaderComponent } from '../../common/components/pk-loader.component';
-import { DeckFormComponent } from '../decks/deck-form.component';
+import { DeckFormComponent } from './deck-form.component';
 
 @Component({
   selector: 'pk-deck-editor',
@@ -35,7 +35,7 @@ import { DeckFormComponent } from '../decks/deck-form.component';
               : ('pages.editDeck' | translate: { name: deckToEdit()?.name ?? '' })
           }}
         </h1>
-        <pk-deck-form [deck]="deckToEdit()" />
+        <pk-deck-form [deck]="deckToEdit()" [isNew]="isNew()" />
       }
     </div>
   `,
