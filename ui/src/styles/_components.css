@@ -1,6 +1,6 @@
 div.pk-page-content {
   margin: 0 auto;
-  padding: 60px 0;
+  padding: 60px 0 1rem;
   width: 100%;
 
   @media screen and (min-width: 400px) {

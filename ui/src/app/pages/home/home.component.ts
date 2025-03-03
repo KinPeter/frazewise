@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { PkCardDirective } from '../../common/directives/pk-card.directive';
-import { ThemeSwitchComponent } from '../../common/components/theme-switch.component';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 import { NgIcon } from '@ng-icons/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -16,7 +15,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [
     PkButtonComponent,
     PkCardDirective,
-    ThemeSwitchComponent,
     PkIconButtonComponent,
     NgIcon,
     NgTemplateOutlet,
@@ -32,11 +30,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     <div pkPageContent>
       <h1>{{ 'hello' | translate }} {{ title }}!</h1>
       <h2>Home</h2>
-
-      <div [style]="{ display: 'flex' }">
-        <pk-theme-switch />
-      </div>
-
       <div
         [style]="{
           width: '100%',

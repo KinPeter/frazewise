@@ -39,7 +39,7 @@ import { PkLoaderComponent } from '../../common/components/pk-loader.component';
         </div>
       } @else {
         <h1>{{ 'pages.decks' | translate }}</h1>
-        <pk-button [iconPrefix]="true" (click)="createNewDeck()">
+        <pk-button [iconPrefix]="true" (clicked)="createNewDeck()">
           <ng-icon name="tablerPlus" />
           {{ 'decks.createNew' | translate }}
         </pk-button>

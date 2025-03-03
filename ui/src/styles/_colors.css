@@ -21,9 +21,9 @@ body {
   --color-info: var(--color-blue-5);
   --color-anchor: var(--color-tomato-4);
   --color-body: var(--color-gray-2);
-  --color-bg: var(--color-gray-3);
-  --color-bg-darker: var(--color-gray-4);
-  --color-bg-lighter: var(--color-gray-2);
+  --color-bg: var(--color-gray-4);
+  --color-bg-darker: var(--color-gray-5);
+  --color-bg-lighter: var(--color-gray-3);
   --color-bg-opaque: rgba(218, 223, 223, 0.65);
   --color-bg-opaque-lighter: rgba(218, 223, 223, 0.75);
   --color-border: var(--color-dark-2);

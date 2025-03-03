@@ -1,4 +1,4 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, input, OnDestroy, output } from '@angular/core';
 import { Deck, DeckRequest } from '../../../../../common/types/decks';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { supportedLanguages } from '../../../../../common/constants/languages';
@@ -10,6 +10,7 @@ import { PkCheckboxComponent } from '../../common/components/pk-checkbox.compone
 import { PkCheckboxDirective } from '../../common/directives/pk-checkbox.directive';
 import { NgIcon } from '@ng-icons/core';
 import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../common/validators/decks';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'pk-deck-form',
@@ -105,9 +106,10 @@ import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../commo
     </form>
   `,
 })
-export class DeckFormComponent {
+export class DeckFormComponent implements OnDestroy {
   public isNew = input.required<boolean>();
   public deck = input.required<Deck | null>();
+  public hasTargetAltChanged = output<boolean>();
   public cancel = output<void>();
   public save = output<DeckRequest>();
   public form: FormGroup;
@@ -116,6 +118,8 @@ export class DeckFormComponent {
     value: code,
     label: name,
   }));
+
+  private formSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -132,6 +136,10 @@ export class DeckFormComponent {
       hasTargetAlt: [false, Validators.required],
     });
 
+    this.formSubscription = this.form.get('hasTargetAlt')!.valueChanges.subscribe(value => {
+      this.hasTargetAltChanged.emit(value);
+    });
+
     effect(() => {
       if (this.deck()) {
         const { name, sourceLang, targetLang, hasTargetAlt } = this.deck() as Deck;
@@ -145,6 +153,10 @@ export class DeckFormComponent {
         this.resetForm();
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
   }
 
   public hasError(formControlName: string): boolean {

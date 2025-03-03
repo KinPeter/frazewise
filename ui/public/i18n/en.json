@@ -4,6 +4,7 @@
     "close": "Close",
     "name": "Name",
     "save": "Save",
+    "confirm": "Confirm",
     "cancel": "Cancel",
     "back": "Back"
   },
@@ -45,7 +46,17 @@
     "name": "Name",
     "sourceLang": "Source language",
     "targetLang": "Target language",
-    "alternative": "Alternative phrasing"
+    "alternative": "Alternative phrasing",
+    "noCards": "No cards yet in this deck"
+  },
+  "cards": {
+    "source": "Source",
+    "target": "Target",
+    "alternative": "Alternative",
+    "addCard": "Add card",
+    "editCard": "Edit card",
+    "deleteCard": "Delete card",
+    "saveCard": "Save card"
   },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Could not request login code",

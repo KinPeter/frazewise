@@ -1,6 +1,6 @@
 import { computed, Injectable } from '@angular/core';
 import { Store } from '../../utils/store';
-import { Deck, DeckRequest } from '../../../../../common/types/decks';
+import { Deck, DeckRequest, DeckWithCards } from '../../../../../common/types/decks';
 import { IdObject, UUID } from '../../../../../common/types/misc';
 import { NotificationService } from '../../common/services/notification.service';
 import { ApiService } from '../../common/services/api.service';
@@ -50,18 +50,19 @@ export class DecksService extends Store<DecksState> {
     });
   }
 
-  public create(request: DeckRequest): Observable<Deck> {
+  public getDeck(id: UUID): Observable<DeckWithCards> {
     this.setState({ loading: true });
-    return this.apiService.post<DeckRequest, Deck>(ApiRoutes.DECKS, request).pipe(
+    return this.apiService.get<DeckWithCards>(ApiRoutes.DECKS + `/${id}`).pipe(
       tap({
         next: () => this.setState({ loading: false }),
         error: () => this.setState({ loading: false }),
       })
     );
   }
-  public getDeck(id: UUID): Observable<Deck> {
+
+  public create(request: DeckRequest): Observable<Deck> {
     this.setState({ loading: true });
-    return this.apiService.get<Deck>(ApiRoutes.DECKS + `/${id}`).pipe(
+    return this.apiService.post<DeckRequest, Deck>(ApiRoutes.DECKS, request).pipe(
       tap({
         next: () => this.setState({ loading: false }),
         error: () => this.setState({ loading: false }),

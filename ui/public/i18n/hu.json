@@ -2,10 +2,11 @@
   "hello": "Szia!",
   "common": {
     "close": "Bezárás",
-    "name": "",
-    "save": "",
-    "cancel": "",
-    "back": ""
+    "name": "Név",
+    "save": "Mentés",
+    "cancel": "Mégsem",
+    "confirm": "Megerősítés",
+    "back": "Vissza"
   },
   "menu": {
     "menu": "Menü",
@@ -40,12 +41,13 @@
     "passwordTooltip": "Használj email bejelentkezési kódot a beállítások eléréséhez, ahol új jelszót állíthatsz be."
   },
   "decks": {
-    "createNew": "",
-    "editThis": "",
-    "name": "",
-    "sourceLang": "",
-    "targetLang": "",
-    "alternative": ""
+    "createNew": "Új pakli létrehozása",
+    "editThis": "Pakli szerkesztése",
+    "name": "Név",
+    "sourceLang": "Forrás nyelv",
+    "targetLang": "Cél nyelv",
+    "alternative": "Alternatív szöveg",
+    "noCards": "Nincsenek még kártyák a pakliban"
   },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Nem sikerült bejelentkezési kódot kérni",
@@ -93,7 +95,7 @@
     "MAX_ITEM_COUNT": "Maximális darabszám túllépve",
     "EXACT_LENGTH": "Pontosan ilyen hosszúságú karakterlánc szükséges",
     "NUMBER_REQUIRED": "Szám szükséges",
-    "STRING_REQUIRED": "Karakterlánc szükséges",
+    "STRING_REQUIRED": "Szöveg szükséges",
     "REQUIRED_FIELD": "Kötelező mező",
     "NULLABLE_FIELD_REQUIRED": "Mező null értékkel megengedett, de szükséges",
     "NOT_SUPPORTED_VALUE": "Nem támogatott érték",
