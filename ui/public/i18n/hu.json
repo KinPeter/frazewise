@@ -1,7 +1,11 @@
 {
   "hello": "Szia!",
   "common": {
-    "close": "Bezárás"
+    "close": "Bezárás",
+    "name": "",
+    "save": "",
+    "cancel": "",
+    "back": ""
   },
   "menu": {
     "menu": "Menü",
@@ -34,6 +38,14 @@
     "signupTooltip": "Ha először jársz itt, csak add meg az e-mail címed fent és kattints a Bejelentkezés gombra. Emailben kapsz egy 6 számjegyű kódot, amellyel be tudsz jelentkezni. Ezt követően ha szeretnéd, jelszót is beállíthatsz.",
     "forgotOrNoPassword": "Még nincs jelszavad, vagy csak elfelejtetted?",
     "passwordTooltip": "Használj email bejelentkezési kódot a beállítások eléréséhez, ahol új jelszót állíthatsz be."
+  },
+  "decks": {
+    "createNew": "",
+    "editThis": "",
+    "name": "",
+    "sourceLang": "",
+    "targetLang": "",
+    "alternative": ""
   },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Nem sikerült bejelentkezési kódot kérni",
