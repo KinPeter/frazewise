@@ -46,6 +46,7 @@ export type PkIconButtonVariant = 'default' | 'filled' | 'outline' | 'subtle' | 
         &.filled {
           border: 1px solid transparent;
           background-color: var(--color-primary);
+          color: var(--color-text-on-primary);
 
           &:hover {
             background-color: var(--color-primary-hover);
@@ -61,6 +62,7 @@ export type PkIconButtonVariant = 'default' | 'filled' | 'outline' | 'subtle' | 
 
           &:disabled {
             background-color: var(--color-bg);
+            color: var(--color-text-disabled);
           }
         }
 

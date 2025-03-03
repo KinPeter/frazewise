@@ -11,7 +11,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
     `
       button {
         background-color: var(--color-bg);
-        color: var(--color-white);
+        color: var(--color-text-stronger);
         font-weight: 700;
         border: 1px solid var(--color-border);
         border-radius: var(--radius-default);
@@ -54,6 +54,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
         &.filled {
           border: none;
           background-color: var(--color-primary);
+          color: var(--color-text-on-primary);
 
           &:hover {
             background-color: var(--color-primary-hover);
@@ -61,6 +62,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
 
           &:disabled {
             background-color: var(--color-bg);
+            color: var(--color-text-disabled);
           }
         }
 
@@ -75,6 +77,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
 
           &:disabled {
             color: var(--color-text-disabled);
+            border-color: var(--color-border);
 
             &:hover {
               background-color: transparent;
