@@ -1,4 +1,4 @@
-import { Component, effect, input, OnDestroy, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { Deck, DeckRequest } from '../../../../../common/types/decks';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { supportedLanguages } from '../../../../../common/constants/languages';
@@ -10,7 +10,7 @@ import { PkCheckboxComponent } from '../../common/components/pk-checkbox.compone
 import { PkCheckboxDirective } from '../../common/directives/pk-checkbox.directive';
 import { NgIcon } from '@ng-icons/core';
 import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../common/validators/decks';
-import { Subscription } from 'rxjs';
+import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 
 @Component({
   selector: 'pk-deck-form',
@@ -22,6 +22,7 @@ import { Subscription } from 'rxjs';
     PkCheckboxComponent,
     PkCheckboxDirective,
     NgIcon,
+    PkIconButtonComponent,
   ],
   providers: [],
   styles: `
@@ -102,15 +103,22 @@ import { Subscription } from 'rxjs';
           </pk-checkbox>
           <ng-icon name="tablerInfoCircle" class="info-icon" size="1.2rem" />
         </div>
+        <div class="actions">
+          <pk-icon-button
+            variant="filled"
+            type="submit"
+            [tooltip]="'common.save' | translate"
+            [disabled]="form.untouched || !form.dirty || form.invalid">
+            <ng-icon name="tablerDeviceFloppy" size="1.2rem" />
+          </pk-icon-button>
+        </div>
       </div>
     </form>
   `,
 })
-export class DeckFormComponent implements OnDestroy {
+export class DeckFormComponent {
   public isNew = input.required<boolean>();
   public deck = input.required<Deck | null>();
-  public hasTargetAltChanged = output<boolean>();
-  public cancel = output<void>();
   public save = output<DeckRequest>();
   public form: FormGroup;
   public supportedLanguageCodes = Array.from(supportedLanguages.keys());
@@ -118,8 +126,6 @@ export class DeckFormComponent implements OnDestroy {
     value: code,
     label: name,
   }));
-
-  private formSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -134,10 +140,6 @@ export class DeckFormComponent implements OnDestroy {
       sourceLang: ['', [Validators.required, CustomValidators.oneOf(this.supportedLanguageCodes)]],
       targetLang: ['', [Validators.required, CustomValidators.oneOf(this.supportedLanguageCodes)]],
       hasTargetAlt: [false, Validators.required],
-    });
-
-    this.formSubscription = this.form.get('hasTargetAlt')!.valueChanges.subscribe(value => {
-      this.hasTargetAltChanged.emit(value);
     });
 
     effect(() => {
@@ -155,10 +157,6 @@ export class DeckFormComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.formSubscription.unsubscribe();
-  }
-
   public hasError(formControlName: string): boolean {
     const control = this.form?.get(formControlName);
     return (control?.errors && (control?.dirty || !control?.untouched)) ?? false;
@@ -166,11 +164,6 @@ export class DeckFormComponent implements OnDestroy {
 
   public onSubmit(): void {
     this.save.emit(this.form.value);
-  }
-
-  public onCancel(): void {
-    this.resetForm();
-    this.cancel.emit();
   }
 
   private resetForm(): void {

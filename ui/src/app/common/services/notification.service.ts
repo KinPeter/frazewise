@@ -62,7 +62,7 @@ export class NotificationService extends Store<NotificationState> {
         {
           type: MessageType.WARNING,
           date: new Date(),
-          message,
+          message: this.translateService.instant(message),
         },
         ...this.state().notifications,
       ],
@@ -75,7 +75,7 @@ export class NotificationService extends Store<NotificationState> {
         {
           type: MessageType.SUCCESS,
           date: new Date(),
-          message,
+          message: this.translateService.instant(message),
         },
         ...this.state().notifications,
       ],
@@ -88,7 +88,7 @@ export class NotificationService extends Store<NotificationState> {
         {
           type: MessageType.INFO,
           date: new Date(),
-          message,
+          message: this.translateService.instant(message),
         },
         ...this.state().notifications,
       ],

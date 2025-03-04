@@ -25,5 +25,9 @@ export type UpdateCardRequest = Pick<
 
 export interface BulkCardsRequest {
   deckId: UUID;
-  cards: Card[];
+  cards: BaseCardRequest[];
+}
+
+export interface BulkCardsResponse {
+  created: number;
 }

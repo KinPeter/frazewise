@@ -1,5 +1,5 @@
-import { Component, effect, input, signal } from '@angular/core';
-import { Card } from '../../../../../common/types/cards';
+import { Component, effect, input, output, signal } from '@angular/core';
+import { Card, UpdateCardRequest } from '../../../../../common/types/cards';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   MAX_CARD_CONTENT_LENGTH,
@@ -11,6 +11,7 @@ import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { NgIcon } from '@ng-icons/core';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
+import { UUID } from '../../../../../common/types/misc';
 
 @Component({
   selector: 'pk-editable-card',
@@ -106,7 +107,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
               </pk-icon-button>
               <pk-icon-button
                 variant="filled"
-                (clicked)="onSubmit()"
+                type="submit"
                 [tooltip]="'cards.saveCard' | translate"
                 [disabled]="form.invalid || !form.dirty">
                 <ng-icon name="tablerDeviceFloppy" size="1.2rem" />
@@ -122,6 +123,8 @@ export class EditableCardComponent {
   public card = input.required<Card>();
   public number = input.required<number>();
   public hasTargetAlt = input.required<boolean>();
+  public updateCard = output<UpdateCardRequest & { id: UUID }>();
+  public deleteCard = output<UUID>();
   public form: FormGroup;
   public isConfirmMode = signal<boolean>(false);
 
@@ -174,7 +177,7 @@ export class EditableCardComponent {
   }
 
   public onSubmit(): void {
-    // update card
+    this.updateCard.emit({ ...this.card(), ...this.form.value });
   }
 
   public onDelete(): void {
@@ -186,6 +189,6 @@ export class EditableCardComponent {
   }
 
   public onConfirmDelete(): void {
-    // delete card
+    this.deleteCard.emit(this.card().id);
   }
 }

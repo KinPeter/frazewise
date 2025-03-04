@@ -56,14 +56,28 @@
     "addCard": "Add card",
     "editCard": "Edit card",
     "deleteCard": "Delete card",
-    "saveCard": "Save card"
+    "saveCard": "Save card",
+    "saveNewCards": "Save new cards"
+  },
+  "successNotifications": {
+    "deckCreated": "Deck created",
+    "deckUpdated": "Deck updated",
+    "deckDeleted": "Deck deleted",
+    "cardsCreated": "Cards created",
+    "cardUpdated": "Card updated",
+    "cardDeleted": "Card deleted"
   },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Could not request login code",
     "loginFailed": "Login failed",
     "tokenRefreshError": "Token refresh failed",
     "couldNotFetchDecks": "Could not fetch decks",
-    "couldNotFetchDeck": "Could not fetch deck"
+    "couldNotFetchDeck": "Could not fetch deck",
+    "couldNotCreateDeck": "Could not create deck",
+    "couldNotUpdateDeck": "Could not update deck",
+    "couldNotCreateCards": "Could not create cards",
+    "couldNotUpdateCard": "Could not update card",
+    "couldNotDeleteCard": "Could not delete card"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "Email Registered",

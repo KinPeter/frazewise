@@ -1,14 +1,17 @@
-import { Component, computed, OnInit, Signal, signal } from '@angular/core';
+import { Component, OnInit, Signal, signal } from '@angular/core';
 import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DecksService } from '../decks/decks.service';
-import { ActivatedRoute } from '@angular/router';
-import { DeckWithCards } from '../../../../../common/types/decks';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DeckRequest, DeckWithCards } from '../../../../../common/types/decks';
 import { NotificationService } from '../../common/services/notification.service';
 import { parseError } from '../../utils/parse-error';
 import { PkLoaderComponent } from '../../common/components/pk-loader.component';
 import { DeckFormComponent } from './deck-form.component';
 import { CardsComponent } from './cards.component';
+import { CardsService } from './cards.service';
+import { BulkCardsRequest, UpdateCardRequest } from '../../../../../common/types/cards';
+import { UUID } from '../../../../../common/types/misc';
 
 @Component({
   selector: 'pk-deck-editor',
@@ -38,7 +41,7 @@ import { CardsComponent } from './cards.component';
   `,
   template: `
     <div pkPageContent>
-      @if (deckLoading()) {
+      @if (deckLoading() || cardsLoading()) {
         <div class="deck-loading">
           <pk-loader />
         </div>
@@ -50,13 +53,16 @@ import { CardsComponent } from './cards.component';
               : ('pages.editDeck' | translate: { name: deckToEdit()?.name ?? '' })
           }}
         </h1>
-        <pk-deck-form
-          [deck]="deckToEdit()"
-          [isNew]="isNew()"
-          (hasTargetAltChanged)="hasTargetAltOnForm.set($event)" />
-        <div class="cards-container" id="deck-editor-cards-container">
-          <pk-cards [loadedCards]="deckToEdit()?.cards ?? []" [hasTargetAlt]="hasTargetAlt()" />
-        </div>
+        <pk-deck-form [deck]="deckToEdit()" [isNew]="isNew()" (save)="saveDeck($event)" />
+        @if (!isNew() && deckToEdit()) {
+          <div class="cards-container" id="deck-editor-cards-container">
+            <pk-cards
+              [deck]="deckToEdit()!"
+              (saveNewCards)="saveNewCards($event)"
+              (updateCard)="updateCard($event)"
+              (deleteCard)="deleteCard($event)" />
+          </div>
+        }
       }
     </div>
   `,
@@ -66,23 +72,17 @@ export class DeckEditorComponent implements OnInit {
   public deckToEdit = signal<DeckWithCards | null>(null);
   public deckLoading: Signal<boolean>;
   public cardsLoading: Signal<boolean>;
-  public hasTargetAltOnForm = signal(false);
 
   constructor(
     private decksService: DecksService,
+    private cardsService: CardsService,
     private activatedRoute: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {
     this.deckLoading = this.decksService.loading;
-    this.cardsLoading = signal(false); // TODO connect to cards loading
+    this.cardsLoading = this.cardsService.loading;
   }
-
-  public hasTargetAlt: Signal<boolean> = computed(() => {
-    if (!this.isNew() && this.deckToEdit()) {
-      return this.deckToEdit()!.hasTargetAlt;
-    }
-    return this.hasTargetAltOnForm();
-  });
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -91,15 +91,78 @@ export class DeckEditorComponent implements OnInit {
         this.isNew.set(true);
       } else {
         this.isNew.set(false);
-        this.decksService.getDeck(id).subscribe({
-          next: deck => this.deckToEdit.set(deck),
-          error: e =>
-            this.notificationService.showError(
-              'errorNotifications.couldNotFetchDeck',
-              parseError(e)
-            ),
-        });
+        this.getDeckWithCards(id);
       }
+    });
+  }
+
+  public saveDeck(values: DeckRequest): void {
+    const deckToEdit = this.deckToEdit();
+    if (!deckToEdit) {
+      this.decksService.create(values).subscribe({
+        next: res => {
+          this.notificationService.showSuccess('successNotifications.deckCreated');
+          this.router.navigate(['/deck', res.id]);
+        },
+        error: e =>
+          this.notificationService.showError(
+            'errorNotifications.couldNotCreateDeck',
+            parseError(e)
+          ),
+      });
+    } else {
+      this.decksService.update(deckToEdit.id, values).subscribe({
+        next: () => {
+          this.notificationService.showSuccess('successNotifications.deckUpdated');
+          this.getDeckWithCards(deckToEdit.id);
+        },
+        error: e =>
+          this.notificationService.showError(
+            'errorNotifications.couldNotUpdateDeck',
+            parseError(e)
+          ),
+      });
+    }
+  }
+
+  public saveNewCards(req: BulkCardsRequest): void {
+    this.cardsService.bulkCreate(req).subscribe({
+      next: () => {
+        this.notificationService.showSuccess('successNotifications.cardsCreated');
+        this.getDeckWithCards(this.deckToEdit()!.id);
+      },
+      error: e =>
+        this.notificationService.showError('errorNotifications.couldNotCreateCards', parseError(e)),
+    });
+  }
+
+  public updateCard(card: UpdateCardRequest & { id: UUID }): void {
+    this.cardsService.update(card.id, card).subscribe({
+      next: () => {
+        this.notificationService.showSuccess('successNotifications.cardUpdated');
+        this.getDeckWithCards(this.deckToEdit()!.id);
+      },
+      error: e =>
+        this.notificationService.showError('errorNotifications.couldNotUpdateCard', parseError(e)),
+    });
+  }
+
+  public deleteCard(id: string): void {
+    this.cardsService.delete(id).subscribe({
+      next: () => {
+        this.notificationService.showSuccess('successNotifications.cardDeleted');
+        this.getDeckWithCards(this.deckToEdit()!.id);
+      },
+      error: e =>
+        this.notificationService.showError('errorNotifications.couldNotDeleteCard', parseError(e)),
+    });
+  }
+
+  private getDeckWithCards(id: string): void {
+    this.decksService.getDeck(id).subscribe({
+      next: deck => this.deckToEdit.set(deck),
+      error: e =>
+        this.notificationService.showError('errorNotifications.couldNotFetchDeck', parseError(e)),
     });
   }
 }

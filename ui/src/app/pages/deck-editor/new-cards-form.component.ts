@@ -3,6 +3,7 @@ import { PkCardDirective } from '../../common/directives/pk-card.directive';
 import { Component, input, output } from '@angular/core';
 import {
   MAX_CARD_CONTENT_LENGTH,
+  MAX_CARD_COUNT,
   MIN_CARD_CONTENT_LENGTH,
 } from '../../../../../common/validators/cards';
 import { PkInputComponent } from '../../common/components/pk-input.component';
@@ -72,6 +73,12 @@ export interface CardFormValues {
         display: block;
       }
     }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   `,
   template: `
     <div pkCard>
@@ -83,11 +90,7 @@ export interface CardFormValues {
               <pk-icon-button class="only-sm" variant="default" (clicked)="removeCard(idx)">
                 <ng-icon name="tablerTrash" size="1.2rem" />
               </pk-icon-button>
-              <pk-input
-                width="100%"
-                [error]="
-                  hasError(idx, 'source') ? ('validationErrors.STRING_REQUIRED' | translate) : ''
-                ">
+              <pk-input width="100%" [error]="getError(idx, 'source') | translate">
                 <input
                   pkInput
                   type="text"
@@ -95,11 +98,7 @@ export interface CardFormValues {
                   [attr.aria-label]="'cards.source' | translate"
                   formControlName="source" />
               </pk-input>
-              <pk-input
-                width="100%"
-                [error]="
-                  hasError(idx, 'target') ? ('validationErrors.STRING_REQUIRED' | translate) : ''
-                ">
+              <pk-input width="100%" [error]="getError(idx, 'target') | translate">
                 <input
                   pkInput
                   type="text"
@@ -110,13 +109,7 @@ export interface CardFormValues {
             </div>
             <div class="part-2">
               @if (hasTargetAlt()) {
-                <pk-input
-                  width="100%"
-                  [error]="
-                    hasError(idx, 'targetAlt')
-                      ? ('validationErrors.STRING_REQUIRED' | translate)
-                      : ''
-                  ">
+                <pk-input width="100%" [error]="getError(idx, 'targetAlt') | translate">
                   <input
                     pkInput
                     type="text"
@@ -137,10 +130,23 @@ export interface CardFormValues {
           <hr class="only-sm" />
         }
         <div class="actions">
-          <pk-button variant="outline" [iconPrefix]="true" (clicked)="addCard()">
-            <ng-icon name="tablerPlus" />
-            {{ 'cards.addCard' | translate }}
-          </pk-button>
+          <div class="left">
+            <pk-button
+              variant="outline"
+              [iconPrefix]="true"
+              [disabled]="cardCount() + cards.length >= MAX_CARD_COUNT"
+              (clicked)="addCard()">
+              <ng-icon name="tablerPlus" />
+              {{ 'cards.addCard' | translate }}
+            </pk-button>
+          </div>
+          <div class="right">
+            @if (cards.length > 0) {
+              <pk-button variant="filled" type="submit" [disabled]="form.invalid">
+                {{ 'cards.saveNewCards' | translate }}
+              </pk-button>
+            }
+          </div>
         </div>
       </form>
     </div>
@@ -151,6 +157,7 @@ export class NewCardsFormComponent {
   public hasTargetAlt = input.required<boolean>();
   public saveCards = output<CardFormValues[]>();
   public form: FormGroup;
+  public readonly MAX_CARD_COUNT = MAX_CARD_COUNT;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = formBuilder.group({
@@ -207,8 +214,16 @@ export class NewCardsFormComponent {
     cards.removeAt(index);
   }
 
-  public hasError(index: number, formControlName: string): boolean {
+  public getError(index: number, formControlName: string): string {
     const control = (this.form?.get('cards') as FormArray).at(index).get(formControlName);
-    return (control?.errors && (control?.dirty || !control?.untouched)) ?? false;
+    if (!control?.dirty || control?.untouched) {
+      return '';
+    }
+    if (control?.errors?.['required']) {
+      return 'validationErrors.STRING_REQUIRED';
+    } else if (control?.errors?.['maxlength']) {
+      return 'validationErrors.MAX_LENGTH';
+    }
+    return '';
   }
 }
