@@ -2,7 +2,7 @@ import { Component, input, output, signal } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { PkLoaderComponent } from './pk-loader.component';
 
-export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtle';
+export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'link-accent' | 'subtle';
 
 @Component({
   selector: 'pk-button',
@@ -20,6 +20,7 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
         display: block;
         cursor: pointer;
         font-size: 0.95rem;
+        white-space: nowrap;
 
         &.icon-prefix {
           display: flex;
@@ -106,6 +107,25 @@ export type PkButtonVariant = 'default' | 'filled' | 'outline' | 'link' | 'subtl
         &.link {
           background-color: transparent;
           color: var(--color-primary);
+          border: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          &:disabled {
+            color: var(--color-text-disabled);
+            text-decoration: none;
+
+            &:hover {
+              background-color: transparent;
+            }
+          }
+        }
+
+        &.link-accent {
+          background-color: transparent;
+          color: var(--color-accent);
           border: none;
 
           &:hover {

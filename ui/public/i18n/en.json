@@ -52,7 +52,7 @@
     "noCards": "No cards yet in this deck",
     "numberOfCards": "{{count}} cards",
     "lastPracticed": "Last practiced",
-    "filterAllLanguages": "Filter: all languages"
+    "deckIsFull": "This deck is full, you cannot add more cards"
   },
   "cards": {
     "source": "Source",
@@ -62,7 +62,12 @@
     "editCard": "Edit card",
     "deleteCard": "Delete card",
     "saveCard": "Save card",
-    "saveNewCards": "Save new cards"
+    "saveNewCards": "Save new cards",
+    "cards": "Cards",
+    "addNew": "Add new",
+    "import": "Import",
+    "export": "Export",
+    "generate": "Generate"
   },
   "successNotifications": {
     "deckCreated": "Deck created",

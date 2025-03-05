@@ -12,10 +12,19 @@ import { CardsService } from './cards.service';
 import { BulkCardsRequest, UpdateCardRequest } from '../../../../../common/types/cards';
 import { UUID } from '../../../../../common/types/misc';
 import { AppBarService } from '../../common/services/app-bar.service';
+import { CardsTab, CardsToolbarComponent } from './cards-toolbar.component';
+import { AddNewCardsComponent } from './add-new-cards.component';
 
 @Component({
   selector: 'pk-deck-editor',
-  imports: [PkPageContentDirective, PkLoaderComponent, DeckFormComponent, CardsComponent],
+  imports: [
+    PkPageContentDirective,
+    PkLoaderComponent,
+    DeckFormComponent,
+    CardsComponent,
+    CardsToolbarComponent,
+    AddNewCardsComponent,
+  ],
   providers: [],
   styles: `
     .deck-loading {
@@ -42,12 +51,19 @@ import { AppBarService } from '../../common/services/app-bar.service';
       } @else {
         <pk-deck-form [deck]="deckToEdit()" [isNew]="isNew()" (save)="saveDeck($event)" />
         @if (!isNew() && deckToEdit()) {
+          <pk-cards-toolbar (tabChanged)="setTab($event)" />
           <div class="cards-container" id="deck-editor-cards-container">
-            <pk-cards
-              [deck]="deckToEdit()!"
-              (saveNewCards)="saveNewCards($event)"
-              (updateCard)="updateCard($event)"
-              (deleteCard)="deleteCard($event)" />
+            @switch (tab()) {
+              @case ('cards') {
+                <pk-cards
+                  [deck]="deckToEdit()!"
+                  (updateCard)="updateCard($event)"
+                  (deleteCard)="deleteCard($event)" />
+              }
+              @case ('addNew') {
+                <pk-add-new-cards [deck]="deckToEdit()!" (saveNewCards)="saveNewCards($event)" />
+              }
+            }
           </div>
         }
       }
@@ -57,6 +73,7 @@ import { AppBarService } from '../../common/services/app-bar.service';
 export class DeckEditorComponent implements OnInit {
   public isNew = signal(false);
   public deckToEdit = signal<DeckWithCards | null>(null);
+  public tab = signal<CardsTab>('cards');
   public deckLoading: Signal<boolean>;
   public cardsLoading: Signal<boolean>;
 
@@ -84,6 +101,10 @@ export class DeckEditorComponent implements OnInit {
         this.getDeckWithCards(id);
       }
     });
+  }
+
+  public setTab(tab: CardsTab): void {
+    this.tab.set(tab);
   }
 
   public saveDeck(values: DeckRequest): void {
@@ -153,6 +174,7 @@ export class DeckEditorComponent implements OnInit {
       next: deck => {
         this.deckToEdit.set(deck);
         this.appBarService.setTitle(deck.name);
+        this.setTab('cards');
       },
       error: e =>
         this.notificationService.showError('errorNotifications.couldNotFetchDeck', parseError(e)),

@@ -161,7 +161,7 @@ export class NewCardsFormComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.form = formBuilder.group({
-      cards: this.formBuilder.array([]),
+      cards: this.formBuilder.array([this.cardFormGroup()]),
     });
   }
 
@@ -175,33 +175,7 @@ export class NewCardsFormComponent {
 
   public addCard(): void {
     const cards = this.form.get('cards') as FormArray;
-    cards.push(
-      this.formBuilder.group({
-        source: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(MIN_CARD_CONTENT_LENGTH),
-            Validators.maxLength(MAX_CARD_CONTENT_LENGTH),
-          ],
-        ],
-        target: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(MIN_CARD_CONTENT_LENGTH),
-            Validators.maxLength(MAX_CARD_CONTENT_LENGTH),
-          ],
-        ],
-        targetAlt: [
-          '',
-          [
-            Validators.minLength(MIN_CARD_CONTENT_LENGTH),
-            Validators.maxLength(MAX_CARD_CONTENT_LENGTH),
-          ],
-        ],
-      })
-    );
+    cards.push(this.cardFormGroup());
     setTimeout(() => {
       document
         .getElementById('deck-editor-cards-container')
@@ -226,4 +200,31 @@ export class NewCardsFormComponent {
     }
     return '';
   }
+
+  private cardFormGroup = () =>
+    this.formBuilder.group({
+      source: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(MIN_CARD_CONTENT_LENGTH),
+          Validators.maxLength(MAX_CARD_CONTENT_LENGTH),
+        ],
+      ],
+      target: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(MIN_CARD_CONTENT_LENGTH),
+          Validators.maxLength(MAX_CARD_CONTENT_LENGTH),
+        ],
+      ],
+      targetAlt: [
+        '',
+        [
+          Validators.minLength(MIN_CARD_CONTENT_LENGTH),
+          Validators.maxLength(MAX_CARD_CONTENT_LENGTH),
+        ],
+      ],
+    });
 }
