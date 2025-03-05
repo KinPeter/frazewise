@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, effect, signal, Signal, WritableSignal } from '@angular/core';
 import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DecksService } from './decks.service';
@@ -12,6 +12,10 @@ import { DeckCardComponent } from './deck-card.component';
 import { NotificationService } from '../../common/services/notification.service';
 import { parseError } from '../../utils/parse-error';
 import { AppBarService } from '../../common/services/app-bar.service';
+import { PkInputComponent } from '../../common/components/pk-input.component';
+import { PkInputDirective } from '../../common/directives/pk-input.directive';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 
 @Component({
   selector: 'pk-decks',
@@ -22,6 +26,10 @@ import { AppBarService } from '../../common/services/app-bar.service';
     NgIcon,
     PkLoaderComponent,
     DeckCardComponent,
+    PkInputComponent,
+    PkInputDirective,
+    ReactiveFormsModule,
+    PkIconButtonComponent,
   ],
   providers: [],
   styles: `
@@ -31,6 +39,35 @@ import { AppBarService } from '../../common/services/app-bar.service';
       padding-top: 30%;
       color: var(--color-primary);
     }
+
+    .toolbar {
+      padding: 0.5rem 2px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      overflow-x: auto;
+
+      pk-button {
+        display: none;
+        min-width: 182px;
+        margin-top: 4px;
+      }
+
+      pk-icon-button {
+        display: block;
+        margin-top: 4px;
+      }
+
+      @media screen and (min-width: 630px) {
+        pk-button {
+          display: block;
+        }
+        pk-icon-button {
+          display: none;
+        }
+      }
+    }
   `,
   template: `
     <div pkPageContent>
@@ -39,10 +76,25 @@ import { AppBarService } from '../../common/services/app-bar.service';
           <pk-loader />
         </div>
       } @else {
-        <pk-button [iconPrefix]="true" (clicked)="createNewDeck()">
-          <ng-icon name="tablerPlus" />
-          {{ 'decks.createNew' | translate }}
-        </pk-button>
+        <div class="toolbar">
+          <pk-button [iconPrefix]="true" (clicked)="createNewDeck()">
+            <ng-icon name="tablerPlus" />
+            {{ 'decks.createNew' | translate }}
+          </pk-button>
+          <pk-icon-button
+            variant="filled"
+            [tooltip]="'decks.createNew' | translate"
+            (clicked)="createNewDeck()">
+            <ng-icon name="tablerPlus" size="1.6rem" />
+          </pk-icon-button>
+          <pk-input width="250px">
+            <input
+              pkInput
+              type="text"
+              [placeholder]="'common.search' | translate"
+              (input)="search($event)" />
+          </pk-input>
+        </div>
         @for (deck of decks(); track deck.id) {
           <pk-deck-card [deck]="deck" (edit)="editDeck($event)" (delete)="deleteDeck($event)" />
         }
@@ -51,7 +103,8 @@ import { AppBarService } from '../../common/services/app-bar.service';
   `,
 })
 export class DecksComponent {
-  public decks: Signal<Deck[]>;
+  public allDecks: Signal<Deck[]>;
+  public decks: WritableSignal<Deck[]> = signal([]);
   public loading: Signal<boolean>;
 
   constructor(
@@ -60,11 +113,15 @@ export class DecksComponent {
     private appBarService: AppBarService,
     private router: Router
   ) {
-    this.decks = this.decksService.decks;
+    this.allDecks = this.decksService.decks;
     this.loading = this.decksService.loading;
     this.decksService.fetchDecks();
     this.appBarService.setTitle('pages.decks');
     this.appBarService.setBackRoute(['/']);
+
+    effect(() => {
+      this.decks.set([...this.decksService.decks()]);
+    });
   }
 
   public createNewDeck(): void {
@@ -84,5 +141,17 @@ export class DecksComponent {
       error: e =>
         this.notificationService.showError('errorNotifications.couldNotDeleteDeck', parseError(e)),
     });
+  }
+
+  public search(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    if (value) {
+      this.decks.set(
+        this.allDecks().filter(deck => deck.name.toLowerCase().includes(value.toLowerCase()))
+      );
+    } else {
+      this.decks.set(this.allDecks());
+    }
   }
 }

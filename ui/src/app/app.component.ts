@@ -8,12 +8,19 @@ import { LocaleService } from './common/services/locale.service';
 @Component({
   selector: 'pk-root',
   imports: [RouterOutlet, AppBarComponent, MainMenuComponent],
+  styles: `
+    .wrapper {
+      height: 100vh;
+      overflow: auto;
+    }
+  `,
   template: `
     <pk-app-bar />
-    <router-outlet />
+    <div class="wrapper">
+      <router-outlet />
+    </div>
     <pk-main-menu />
   `,
-  styles: [],
 })
 export class AppComponent {
   constructor(

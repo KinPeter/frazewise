@@ -53,7 +53,11 @@ export class CardsComponent {
         sourceLang: this.deck().sourceLang,
         target: card.target,
         targetLang: this.deck().targetLang,
-        targetAlt: this.deck().hasTargetAlt ? card.targetAlt : null,
+        targetAlt: this.deck().hasTargetAlt
+          ? card.targetAlt?.length
+            ? card.targetAlt
+            : null
+          : null,
       })),
     };
     this.saveNewCards.emit(request);

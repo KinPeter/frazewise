@@ -5,27 +5,41 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
 import { TranslatePipe } from '@ngx-translate/core';
 import { Deck } from '../../../../../common/types/decks';
 import { UUID } from '../../../../../common/types/misc';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'pk-deck-card',
-  imports: [NgIcon, PkCardDirective, PkIconButtonComponent, TranslatePipe],
+  imports: [NgIcon, PkCardDirective, PkIconButtonComponent, TranslatePipe, DatePipe],
   providers: [],
   styles: `
     header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 2rem;
+      height: 2.5rem;
+
+      h2 {
+        margin: 0;
+        color: var(--color-text-accent);
+        cursor: pointer;
+      }
+
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+      }
     }
 
-    .actions {
-      display: flex;
-      gap: 0.5rem;
+    main {
+      padding: 1rem 0;
     }
   `,
   template: `
     <div pkCard>
       <header>
-        <h2>{{ deck().name }}</h2>
+        <h2 class="name" (click)="onEdit()">
+          {{ deck().name }}
+        </h2>
         <div class="actions">
           @if (isConfirmMode()) {
             <pk-icon-button
@@ -56,6 +70,13 @@ import { UUID } from '../../../../../common/types/misc';
           }
         </div>
       </header>
+      <main>
+        <p>
+          <span>{{ 'decks.numberOfCards' | translate: { count: deck().cardCount } }}, </span>
+          <span>{{ 'decks.lastPracticed' | translate }}: </span>
+          <span>{{ deck().lastPracticed ? (deck().lastPracticed | date) : '-' }}</span>
+        </p>
+      </main>
     </div>
   `,
 })
@@ -64,6 +85,7 @@ export class DeckCardComponent {
   public delete = output<UUID>();
   public edit = output<UUID>();
   public isConfirmMode = signal<boolean>(false);
+  public date = new Date();
 
   public onEdit(): void {
     this.edit.emit(this.deck().id);

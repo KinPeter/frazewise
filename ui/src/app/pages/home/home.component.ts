@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
-import { TranslatePipe } from '@ngx-translate/core';
 import { AppBarService } from '../../common/services/app-bar.service';
 
 @Component({
@@ -23,7 +22,6 @@ import { AppBarService } from '../../common/services/app-bar.service';
     PkInputComponent,
     PkInputDirective,
     PkPageContentDirective,
-    TranslatePipe,
   ],
   providers: [],
   styles: ``,

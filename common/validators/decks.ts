@@ -4,7 +4,7 @@ import { LANGUAGE_CODE_REGEX } from '../utils/regex';
 import { DeckRequest } from '../types/decks';
 
 export const MIN_DECK_NAME_LENGTH = 2;
-export const MAX_DECK_NAME_LENGTH = 20;
+export const MAX_DECK_NAME_LENGTH = 30;
 
 export const deckSchema = yup.object<DeckRequest>({
   name: yup

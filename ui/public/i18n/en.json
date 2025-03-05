@@ -6,7 +6,8 @@
     "save": "Save",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "back": "Back"
+    "back": "Back",
+    "search": "Search"
   },
   "menu": {
     "menu": "Menu",
@@ -48,7 +49,10 @@
     "sourceLang": "Source language",
     "targetLang": "Target language",
     "alternative": "Alternative phrasing",
-    "noCards": "No cards yet in this deck"
+    "noCards": "No cards yet in this deck",
+    "numberOfCards": "{{count}} cards",
+    "lastPracticed": "Last practiced",
+    "filterAllLanguages": "Filter: all languages"
   },
   "cards": {
     "source": "Source",

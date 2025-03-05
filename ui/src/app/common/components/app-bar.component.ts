@@ -18,6 +18,16 @@ import { AppBarService } from '../services/app-bar.service';
       left: 0;
       width: 100vw;
       background-color: var(--color-body);
+
+      @media (max-width: 600px) {
+        h1 > span {
+          display: inline-block;
+          max-width: 180px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
     }
 
     pk-icon-button.menu-button {
@@ -56,7 +66,9 @@ import { AppBarService } from '../services/app-bar.service';
         </pk-icon-button>
       }
       <div pkPageContent class="content">
-        <h1>{{ title() | translate }}</h1>
+        <h1>
+          <span>{{ title() | translate }}</span>
+        </h1>
       </div>
     </header>
   `,

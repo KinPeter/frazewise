@@ -64,7 +64,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
           [label]="'decks.name' | translate"
           width="100%"
           [withAsterisk]="true"
-          [error]="hasError('name') ? ('validationErrors.STRING_REQUIRED' | translate) : ''">
+          [error]="getError('name') | translate">
           <input pkInput formControlName="name" type="text" />
         </pk-input>
       </div>
@@ -74,7 +74,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
             [label]="'decks.sourceLang' | translate"
             [withAsterisk]="true"
             [disabled]="!isNew()"
-            [error]="hasError('sourceLang') ? ('validationErrors.REQUIRED_FIELD' | translate) : ''"
+            [error]="getError('sourceLang') | translate"
             width="150px"
             type="select">
             <select pkInput name="sourceLang" formControlName="sourceLang">
@@ -87,7 +87,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
             [label]="'decks.targetLang' | translate"
             [withAsterisk]="true"
             [disabled]="!isNew()"
-            [error]="hasError('targetLang') ? ('validationErrors.REQUIRED_FIELD' | translate) : ''"
+            [error]="getError('targetLang') | translate"
             width="150px"
             type="select">
             <select pkInput name="targetLang" formControlName="targetLang">
@@ -157,9 +157,19 @@ export class DeckFormComponent {
     });
   }
 
-  public hasError(formControlName: string): boolean {
+  public getError(formControlName: string): string {
     const control = this.form?.get(formControlName);
-    return (control?.errors && (control?.dirty || !control?.untouched)) ?? false;
+    if (control?.untouched) {
+      return '';
+    }
+    if (control?.errors?.['required']) {
+      return 'validationErrors.REQUIRED_FIELD';
+    } else if (control?.errors?.['maxlength']) {
+      return 'validationErrors.MAX_LENGTH';
+    } else if (control?.errors?.['minlength']) {
+      return 'validationErrors.MIN_LENGTH';
+    }
+    return '';
   }
 
   public onSubmit(): void {

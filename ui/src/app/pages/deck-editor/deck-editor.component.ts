@@ -1,6 +1,5 @@
 import { Component, OnInit, Signal, signal } from '@angular/core';
 import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
-import { TranslatePipe } from '@ngx-translate/core';
 import { DecksService } from '../decks/decks.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeckRequest, DeckWithCards } from '../../../../../common/types/decks';
@@ -16,13 +15,7 @@ import { AppBarService } from '../../common/services/app-bar.service';
 
 @Component({
   selector: 'pk-deck-editor',
-  imports: [
-    PkPageContentDirective,
-    TranslatePipe,
-    PkLoaderComponent,
-    DeckFormComponent,
-    CardsComponent,
-  ],
+  imports: [PkPageContentDirective, PkLoaderComponent, DeckFormComponent, CardsComponent],
   providers: [],
   styles: `
     .deck-loading {
