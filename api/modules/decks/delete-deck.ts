@@ -19,10 +19,13 @@ export async function deleteDeck(req: Request, db: Db, user: User, id: UUID): Pr
     if (!id || !yup.string().uuid().isValidSync(id))
       return new ErrorResponse(ValidationError.INVALID_UUID, 400);
 
-    const collection = db.collection<Deck>(DbCollection.DECKS);
+    const deckCollection = db.collection<Deck>(DbCollection.DECKS);
 
-    const result = await collection.findOneAndDelete({ id, userId: user.id });
+    const result = await deckCollection.findOneAndDelete({ id, userId: user.id });
     if (!result) return new NotFoundErrorResponse('Deck');
+
+    const cardsCollection = db.collection(DbCollection.CARDS);
+    await cardsCollection.deleteMany({ deckId: id, userId: user.id });
 
     return new OkResponse({ id });
   } catch (e) {
