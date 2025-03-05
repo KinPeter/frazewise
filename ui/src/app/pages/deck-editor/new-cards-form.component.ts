@@ -1,6 +1,6 @@
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PkCardDirective } from '../../common/directives/pk-card.directive';
-import { Component, input, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import {
   MAX_CARD_CONTENT_LENGTH,
   MAX_CARD_COUNT,
@@ -155,13 +155,29 @@ export interface CardFormValues {
 export class NewCardsFormComponent {
   public cardCount = input.required<number>();
   public hasTargetAlt = input.required<boolean>();
+  public importedValues = input<CardFormValues[] | null>(null);
   public saveCards = output<CardFormValues[]>();
   public form: FormGroup;
   public readonly MAX_CARD_COUNT = MAX_CARD_COUNT;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = formBuilder.group({
-      cards: this.formBuilder.array([this.cardFormGroup()]),
+      cards: this.formBuilder.array([]),
+    });
+
+    effect(() => {
+      if (this.importedValues()) {
+        this.form.reset();
+        const cards = this.form.get('cards') as FormArray;
+        this.importedValues()?.forEach(() => {
+          cards.push(this.cardFormGroup());
+        });
+        setTimeout(() => {
+          this.form.patchValue({ cards: this.importedValues() });
+        });
+      } else {
+        this.form.reset();
+      }
     });
   }
 

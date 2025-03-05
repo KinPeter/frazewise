@@ -17,7 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
         [cardCount]="deck().cardCount"
         (saveCards)="onBulkSave($event)" />
     } @else {
-      <p>{{ 'decks.deckIsFull' | translate }}</p>
+      <p>{{ 'cards.deckIsFull' | translate }}</p>
     }
   `,
 })

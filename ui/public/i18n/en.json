@@ -51,8 +51,7 @@
     "alternative": "Alternative phrasing",
     "noCards": "No cards yet in this deck",
     "numberOfCards": "{{count}} cards",
-    "lastPracticed": "Last practiced",
-    "deckIsFull": "This deck is full, you cannot add more cards"
+    "lastPracticed": "Last practiced"
   },
   "cards": {
     "source": "Source",
@@ -67,7 +66,13 @@
     "addNew": "Add new",
     "import": "Import",
     "export": "Export",
-    "generate": "Generate"
+    "generate": "Generate",
+    "importFromSheets": "Import cards from spreadsheets",
+    "pasteHere": "Copy-paste cards here from Excel or Google sheets. The first column is the source language, the second column is the target language. If selected, the third column is the alternative phrasing.",
+    "importExportedDeck": "Or import a previously exported deck",
+    "importFromFile": "Import from file",
+    "remainingCount": "You can add {{count}} more cards to this deck",
+    "deckIsFull": "This deck is full, you cannot add more cards"
   },
   "successNotifications": {
     "deckCreated": "Deck created",

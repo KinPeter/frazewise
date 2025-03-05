@@ -14,6 +14,7 @@ import { UUID } from '../../../../../common/types/misc';
 import { AppBarService } from '../../common/services/app-bar.service';
 import { CardsTab, CardsToolbarComponent } from './cards-toolbar.component';
 import { AddNewCardsComponent } from './add-new-cards.component';
+import { ImportCardsComponent } from './import-cards.component';
 
 @Component({
   selector: 'pk-deck-editor',
@@ -24,6 +25,7 @@ import { AddNewCardsComponent } from './add-new-cards.component';
     CardsComponent,
     CardsToolbarComponent,
     AddNewCardsComponent,
+    ImportCardsComponent,
   ],
   providers: [],
   styles: `
@@ -37,7 +39,7 @@ import { AddNewCardsComponent } from './add-new-cards.component';
     .cards-container {
       background-color: var(--color-bg);
       padding: 0.5rem;
-      height: calc(100vh - 200px);
+      height: calc(100vh - 220px);
       overflow-y: auto;
       border-radius: var(--radius-sm);
     }
@@ -62,6 +64,9 @@ import { AddNewCardsComponent } from './add-new-cards.component';
               }
               @case ('addNew') {
                 <pk-add-new-cards [deck]="deckToEdit()!" (saveNewCards)="saveNewCards($event)" />
+              }
+              @case ('import') {
+                <pk-import-cards [deck]="deckToEdit()!" (saveNewCards)="saveNewCards($event)" />
               }
             }
           </div>
