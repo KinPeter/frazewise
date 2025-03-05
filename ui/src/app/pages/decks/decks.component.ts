@@ -3,24 +3,24 @@ import { PkPageContentDirective } from '../../common/directives/pk-page-content.
 import { TranslatePipe } from '@ngx-translate/core';
 import { DecksService } from './decks.service';
 import { Deck } from '../../../../../common/types/decks';
-import { PkCardDirective } from '../../common/directives/pk-card.directive';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { Router } from '@angular/router';
 import { UUID } from '../../../../../common/types/misc';
-import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 import { NgIcon } from '@ng-icons/core';
 import { PkLoaderComponent } from '../../common/components/pk-loader.component';
+import { DeckCardComponent } from './deck-card.component';
+import { NotificationService } from '../../common/services/notification.service';
+import { parseError } from '../../utils/parse-error';
 
 @Component({
   selector: 'pk-decks',
   imports: [
     PkPageContentDirective,
     TranslatePipe,
-    PkCardDirective,
     PkButtonComponent,
-    PkIconButtonComponent,
     NgIcon,
     PkLoaderComponent,
+    DeckCardComponent,
   ],
   providers: [],
   styles: `
@@ -44,12 +44,7 @@ import { PkLoaderComponent } from '../../common/components/pk-loader.component';
           {{ 'decks.createNew' | translate }}
         </pk-button>
         @for (deck of decks(); track deck.id) {
-          <div pkCard>
-            <h2>{{ deck.name }}</h2>
-            <pk-icon-button (clicked)="editDeck(deck.id)">
-              <ng-icon name="tablerEdit" />
-            </pk-icon-button>
-          </div>
+          <pk-deck-card [deck]="deck" (edit)="editDeck($event)" (delete)="deleteDeck($event)" />
         }
       }
     </div>
@@ -61,6 +56,7 @@ export class DecksComponent {
 
   constructor(
     private decksService: DecksService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
     this.decks = this.decksService.decks;
@@ -74,5 +70,16 @@ export class DecksComponent {
 
   public editDeck(id: UUID): void {
     this.router.navigate(['deck', id]);
+  }
+
+  public deleteDeck(id: UUID): void {
+    this.decksService.delete(id).subscribe({
+      next: () => {
+        this.notificationService.showSuccess('successNotifications.deckDeleted');
+        this.decksService.fetchDecks();
+      },
+      error: e =>
+        this.notificationService.showError('errorNotifications.couldNotDeleteDeck', parseError(e)),
+    });
   }
 }

@@ -43,6 +43,7 @@
   "decks": {
     "createNew": "Create new deck",
     "editThis": "Edit this deck",
+    "deleteThis": "Delete this deck",
     "name": "Name",
     "sourceLang": "Source language",
     "targetLang": "Target language",
@@ -75,6 +76,7 @@
     "couldNotFetchDeck": "Could not fetch deck",
     "couldNotCreateDeck": "Could not create deck",
     "couldNotUpdateDeck": "Could not update deck",
+    "couldNotDeleteDeck": "Could not delete deck",
     "couldNotCreateCards": "Could not create cards",
     "couldNotUpdateCard": "Could not update card",
     "couldNotDeleteCard": "Could not delete card"

@@ -43,6 +43,7 @@
   "decks": {
     "createNew": "Új pakli létrehozása",
     "editThis": "Pakli szerkesztése",
+    "deleteThis": "Pakli törlése",
     "name": "Név",
     "sourceLang": "Forrás nyelv",
     "targetLang": "Cél nyelv",
