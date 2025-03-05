@@ -2,9 +2,7 @@ import * as yup from 'yup';
 import { ValidationError } from '../enums/api-errors';
 import { LANGUAGE_CODE_REGEX } from '../utils/regex';
 import { DeckRequest } from '../types/decks';
-
-export const MIN_DECK_NAME_LENGTH = 2;
-export const MAX_DECK_NAME_LENGTH = 30;
+import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../utils/constants';
 
 export const deckSchema = yup.object<DeckRequest>({
   name: yup

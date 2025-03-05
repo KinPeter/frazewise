@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import {
   MAX_CARD_CONTENT_LENGTH,
   MIN_CARD_CONTENT_LENGTH,
-} from '../../../../../common/validators/cards';
+} from '../../../../../common/utils/constants';
 import { PkCardDirective } from '../../common/directives/pk-card.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PkInputComponent } from '../../common/components/pk-input.component';

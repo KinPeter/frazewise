@@ -11,10 +11,11 @@ import {
 } from '../../utils/response';
 import { Deck } from '../../../common/types/decks';
 import { DbCollection } from '../../utils/db-collections';
-import { bulkCardsSchema, MAX_CARD_COUNT } from '../../../common/validators/cards';
+import { bulkCardsSchema } from '../../../common/validators/cards';
 import { BulkCardsRequest, Card } from '../../../common/types/cards';
 import { ApiError, ValidationError } from '../../../common/enums/api-errors';
 import { toBaseCardRequest } from '../../utils/request-mappers';
+import { MAX_CARD_COUNT } from '../../../common/utils/constants';
 
 export async function createCards(req: Request, db: Db, user: User): Promise<Response> {
   try {

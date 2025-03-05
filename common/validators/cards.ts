@@ -2,10 +2,11 @@ import * as yup from 'yup';
 import { ValidationError } from '../enums/api-errors';
 import { LANGUAGE_CODE_REGEX } from '../utils/regex';
 import { BulkCardsRequest, BaseCardRequest } from '../types/cards';
-
-export const MIN_CARD_CONTENT_LENGTH = 1;
-export const MAX_CARD_CONTENT_LENGTH = 100;
-export const MAX_CARD_COUNT = 200;
+import {
+  MAX_CARD_CONTENT_LENGTH,
+  MAX_CARD_COUNT,
+  MIN_CARD_CONTENT_LENGTH,
+} from '../utils/constants';
 
 export const baseCardSchema = yup.object<BaseCardRequest>({
   sourceLang: yup

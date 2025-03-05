@@ -9,7 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { PkCheckboxComponent } from '../../common/components/pk-checkbox.component';
 import { PkCheckboxDirective } from '../../common/directives/pk-checkbox.directive';
 import { NgIcon } from '@ng-icons/core';
-import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../common/validators/decks';
+import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../common/utils/constants';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
 
 @Component({

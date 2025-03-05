@@ -1,7 +1,7 @@
 import { Component, computed, input, output } from '@angular/core';
 import { EditableCardComponent } from './editable-card.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MAX_CARD_COUNT } from '../../../../../common/validators/cards';
+import { MAX_CARD_COUNT } from '../../../../../common/utils/constants';
 import { CardFormValues, NewCardsFormComponent } from './new-cards-form.component';
 import { DeckWithCards } from '../../../../../common/types/decks';
 import { BulkCardsRequest, UpdateCardRequest } from '../../../../../common/types/cards';

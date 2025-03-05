@@ -5,7 +5,7 @@ import {
   MAX_CARD_CONTENT_LENGTH,
   MAX_CARD_COUNT,
   MIN_CARD_CONTENT_LENGTH,
-} from '../../../../../common/validators/cards';
+} from '../../../../../common/utils/constants';
 import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { TranslatePipe } from '@ngx-translate/core';
