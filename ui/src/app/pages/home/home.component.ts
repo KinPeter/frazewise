@@ -9,6 +9,7 @@ import { PkInputComponent } from '../../common/components/pk-input.component';
 import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { PkPageContentDirective } from '../../common/directives/pk-page-content.directive';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AppBarService } from '../../common/services/app-bar.service';
 
 @Component({
   selector: 'pk-home',
@@ -28,7 +29,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styles: ``,
   template: `
     <div pkPageContent>
-      <h1>{{ 'hello' | translate }} {{ title }}!</h1>
       <h2>Home</h2>
       <div
         [style]="{
@@ -152,5 +152,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   `,
 })
 export class HomeComponent {
-  public title = 'FrazeWise';
+  constructor(private appBarService: AppBarService) {
+    this.appBarService.setTitle('FrazeWise');
+    this.appBarService.clearBackRoute();
+  }
 }

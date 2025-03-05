@@ -12,6 +12,7 @@ import { CardsComponent } from './cards.component';
 import { CardsService } from './cards.service';
 import { BulkCardsRequest, UpdateCardRequest } from '../../../../../common/types/cards';
 import { UUID } from '../../../../../common/types/misc';
+import { AppBarService } from '../../common/services/app-bar.service';
 
 @Component({
   selector: 'pk-deck-editor',
@@ -46,13 +47,6 @@ import { UUID } from '../../../../../common/types/misc';
           <pk-loader />
         </div>
       } @else {
-        <h1>
-          {{
-            isNew()
-              ? ('pages.newDeck' | translate)
-              : ('pages.editDeck' | translate: { name: deckToEdit()?.name ?? '' })
-          }}
-        </h1>
         <pk-deck-form [deck]="deckToEdit()" [isNew]="isNew()" (save)="saveDeck($event)" />
         @if (!isNew() && deckToEdit()) {
           <div class="cards-container" id="deck-editor-cards-container">
@@ -78,6 +72,7 @@ export class DeckEditorComponent implements OnInit {
     private cardsService: CardsService,
     private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService,
+    private appBarService: AppBarService,
     private router: Router
   ) {
     this.deckLoading = this.decksService.loading;
@@ -85,10 +80,12 @@ export class DeckEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.appBarService.setBackRoute(['/decks']);
     this.activatedRoute.params.subscribe(params => {
       const { id } = params;
       if (id === 'new') {
         this.isNew.set(true);
+        this.appBarService.setTitle('pages.newDeck');
       } else {
         this.isNew.set(false);
         this.getDeckWithCards(id);
@@ -160,7 +157,10 @@ export class DeckEditorComponent implements OnInit {
 
   private getDeckWithCards(id: string): void {
     this.decksService.getDeck(id).subscribe({
-      next: deck => this.deckToEdit.set(deck),
+      next: deck => {
+        this.deckToEdit.set(deck);
+        this.appBarService.setTitle(deck.name);
+      },
       error: e =>
         this.notificationService.showError('errorNotifications.couldNotFetchDeck', parseError(e)),
     });
