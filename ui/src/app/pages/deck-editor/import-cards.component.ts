@@ -49,6 +49,7 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
   `,
   template: `
     <h2>{{ 'cards.importFromSheets' | translate }}</h2>
+    <p>{{ 'cards.importFromSheetsInfo' | translate }}</p>
     <pk-input width="100%" class="paste-area">
       <textarea
         pkInput
@@ -57,6 +58,7 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
         (input)="onPaste($event)"></textarea>
     </pk-input>
     <h2>{{ 'cards.importExportedDeck' | translate }}</h2>
+    <p>{{ 'cards.importExportedDeckInfo' | translate }}</p>
     <pk-button variant="outline" [iconPrefix]="true" (clicked)="onImportClick()">
       <ng-icon name="tablerFileUpload" size="1.2rem" />
       {{ 'cards.importFromFile' | translate }}

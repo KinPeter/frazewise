@@ -68,11 +68,15 @@
     "export": "Export",
     "generate": "Generate",
     "importFromSheets": "Import cards from spreadsheets",
-    "pasteHere": "Copy-paste cards here from Excel or Google sheets. The first column is the source language, the second column is the target language. If selected, the third column is the alternative phrasing.",
-    "importExportedDeck": "Or import a previously exported deck",
+    "importFromSheetsInfo": "Copy-paste cards from Excel or Google sheets. The first column will be the source language and the second column is the target language. If selected for the deck, the third column is the alternative phrasing.",
+    "pasteHere": "Paste here",
+    "importExportedDeck": "Or import from file",
+    "importExportedDeckInfo": "Import cards from a file that was previously exported from FrazeWise.",
     "importFromFile": "Import from file",
     "remainingCount": "You can add {{count}} more cards to this deck",
-    "deckIsFull": "This deck is full, you cannot add more cards"
+    "deckIsFull": "This deck is full, you cannot add more cards",
+    "exportDeck": "Export deck",
+    "exportDeckInfo": "Export all the cards from this deck to a file that can be imported back into FrazeWise. You can also share this file with others."
   },
   "successNotifications": {
     "deckCreated": "Deck created",

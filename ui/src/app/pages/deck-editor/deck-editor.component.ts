@@ -15,6 +15,7 @@ import { AppBarService } from '../../common/services/app-bar.service';
 import { CardsTab, CardsToolbarComponent } from './cards-toolbar.component';
 import { AddNewCardsComponent } from './add-new-cards.component';
 import { ImportCardsComponent } from './import-cards.component';
+import { ExportCardsComponent } from './export-cards.component';
 
 @Component({
   selector: 'pk-deck-editor',
@@ -26,6 +27,7 @@ import { ImportCardsComponent } from './import-cards.component';
     CardsToolbarComponent,
     AddNewCardsComponent,
     ImportCardsComponent,
+    ExportCardsComponent,
   ],
   providers: [],
   styles: `
@@ -67,6 +69,9 @@ import { ImportCardsComponent } from './import-cards.component';
               }
               @case ('import') {
                 <pk-import-cards [deck]="deckToEdit()!" (saveNewCards)="saveNewCards($event)" />
+              }
+              @case ('export') {
+                <pk-export-cards [deck]="deckToEdit()!" />
               }
             }
           </div>
