@@ -38,6 +38,18 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
       color: var(--color-info);
     }
 
+    .error-message {
+      color: var(--color-error);
+    }
+
+    .success-info {
+      color: var(--color-success);
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
     p ng-icon {
       position: relative;
       top: 3px;
@@ -63,7 +75,12 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
       <ng-icon name="tablerFileUpload" size="1.2rem" />
       {{ 'cards.importFromFile' | translate }}
     </pk-button>
-    <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput />
+    <input
+      type="file"
+      accept=".json, application/json"
+      (change)="onFileSelected($event)"
+      style="display: none;"
+      #fileInput />
     <hr />
     @if (isFull()) {
       <p class="full-warning">
@@ -76,7 +93,17 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
         {{ 'cards.remainingCount' | translate: { count: remainingCount() } }}
       </p>
     }
+    @if (errorMessage()) {
+      <p class="error-message">
+        <ng-icon name="tablerAlertTriangle" size="1.2rem" />
+        {{ errorMessage() | translate }}
+      </p>
+    }
     @if (formValues()) {
+      <p class="success-info">
+        <ng-icon name="tablerCheck" size="1.2rem" />
+        {{ 'cards.importSuccess' | translate }}
+      </p>
       <pk-new-cards-form
         [cardCount]="deck().cardCount"
         [hasTargetAlt]="deck().hasTargetAlt"
@@ -88,7 +115,7 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
 export class ImportCardsComponent {
   public deck = input.required<DeckWithCards>();
   public saveNewCards = output<BulkCardsRequest>();
-  public readonly MAX_CARD_COUNT = MAX_CARD_COUNT; // TODO CHECK!
+  public readonly MAX_CARD_COUNT = MAX_CARD_COUNT;
   public formValues: WritableSignal<CardFormValues[] | null> = signal(null);
   public remainingCount = computed(
     () => this.MAX_CARD_COUNT - (this.deck().cardCount + (this.formValues()?.length ?? 0))
@@ -96,56 +123,82 @@ export class ImportCardsComponent {
   public isFull = computed(
     () => this.deck().cardCount + (this.formValues()?.length ?? 0) >= this.MAX_CARD_COUNT
   );
+  public errorMessage = signal<string>('');
   public fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
   public onPaste($event: Event): void {
-    const text = ($event.target as HTMLTextAreaElement).value;
-    if (text) {
-      const cards = text.split('\n').map(line => line.split('\t'));
-      const pasteResult: CardFormValues[] = cards.map(card => ({
-        source: card[0],
-        target: card[1],
-        targetAlt: this.deck().hasTargetAlt ? (card[2]?.length ? card[2] : null) : null,
-      }));
-      let formValues = pasteResult;
-      if (pasteResult.length > this.remainingCount()) {
-        formValues = pasteResult.slice(0, this.remainingCount());
+    try {
+      const text = ($event.target as HTMLTextAreaElement).value;
+      if (text) {
+        const cards = text.split('\n').map(line => line.split('\t'));
+        const pasteResult: CardFormValues[] = cards.map(card => ({
+          source: card[0],
+          target: card[1],
+          targetAlt: this.deck().hasTargetAlt ? (card[2]?.length ? card[2] : null) : null,
+        }));
+        let formValues = pasteResult;
+        if (pasteResult.length > this.remainingCount()) {
+          formValues = pasteResult.slice(0, this.remainingCount());
+        }
+        this.formValues.set(formValues);
+        this.errorMessage.set('');
       }
-      this.formValues.set(formValues);
+    } catch (e) {
+      console.error(e);
+      this.errorMessage.set('cards.unableToImport');
     }
   }
 
   public onImportClick(): void {
     const fileInput = this.fileInput()?.nativeElement;
+    this.errorMessage.set('');
     if (fileInput) {
       fileInput.click();
     }
   }
 
   public onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
+    try {
+      const input = event.target as HTMLInputElement;
+      if (!input.files || input.files.length === 0) return;
       const file = input.files[0];
-      console.log(file);
-      // TODO check file type
+      if (file.type !== 'application/json') {
+        this.errorMessage.set('cards.unableToImport');
+        return;
+      }
       const reader = new FileReader();
       reader.onload = e => {
-        const text = (e.target?.result as string) || '';
-        console.log(JSON.parse(text));
-        // TODO validate content
-        // const cards = text.split('\n').map(line => line.split('\t'));
-        // const pasteResult: CardFormValues[] = cards.map(card => ({
-        //   source: card[0],
-        //   target: card[1],
-        //   targetAlt: this.deck().hasTargetAlt ? (card[2]?.length ? card[2] : null) : null,
-        // }));
-        // let formValues = pasteResult;
-        // if (pasteResult.length > this.remainingCount()) {
-        //   formValues = pasteResult.slice(0, this.remainingCount());
-        // }
-        // this.formValues.set(formValues);
+        try {
+          const text = (e.target?.result as string) || '';
+          const parsed = JSON.parse(text);
+          if (!Array.isArray(parsed) || parsed.some(card => !card.source || !card.target)) {
+            this.errorMessage.set('cards.unableToImport');
+            return;
+          }
+          const result = parsed.map(card => ({
+            source: card.source,
+            target: card.target,
+            targetAlt: this.deck().hasTargetAlt
+              ? card.targetAlt.length
+                ? card.targetAlt
+                : null
+              : null,
+          }));
+          let formValues = result;
+          if (result.length > this.remainingCount()) {
+            formValues = result.slice(0, this.remainingCount());
+          }
+          this.formValues.set(formValues);
+          this.errorMessage.set('');
+        } catch (e) {
+          console.error(e);
+          this.errorMessage.set('cards.unableToImport');
+        }
       };
       reader.readAsText(file);
+    } catch (e) {
+      console.error(e);
+      this.errorMessage.set('cards.unableToImport');
     }
   }
 

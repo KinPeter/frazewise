@@ -73,10 +73,13 @@
     "importExportedDeck": "Or import from file",
     "importExportedDeckInfo": "Import cards from a file that was previously exported from FrazeWise.",
     "importFromFile": "Import from file",
+    "importSuccess": "Cards imported successfully, please scroll down, check the cards and click Save.",
+    "unableToImport": "Unable to import cards. Please check the format of the file.",
     "remainingCount": "You can add {{count}} more cards to this deck",
     "deckIsFull": "This deck is full, you cannot add more cards",
     "exportDeck": "Export deck",
-    "exportDeckInfo": "Export all the cards from this deck to a file that can be imported back into FrazeWise. You can also share this file with others."
+    "exportDeckInfo": "Export all the cards from this deck to a file that can be imported back into FrazeWise. You can also share this file with others.",
+    "exportNCards": "Export {{count}} cards"
   },
   "successNotifications": {
     "deckCreated": "Deck created",

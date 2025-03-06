@@ -8,13 +8,21 @@ import { DeckWithCards } from '../../../../../common/types/decks';
   selector: 'pk-export-cards',
   imports: [TranslatePipe, NgIcon, PkButtonComponent],
   providers: [],
-  styles: ``,
+  styles: `
+    p {
+      margin-bottom: 1rem;
+    }
+  `,
   template: `
     <h2>{{ 'cards.exportDeck' | translate }}</h2>
     <p>{{ 'cards.exportDeckInfo' | translate }}</p>
-    <pk-button variant="outline" [iconPrefix]="true" (clicked)="onExportClick()">
+    <pk-button
+      variant="outline"
+      [iconPrefix]="true"
+      [disabled]="deck().cards.length === 0"
+      (clicked)="onExportClick()">
       <ng-icon name="tablerFileDownload" size="1.2rem" />
-      {{ 'cards.exportDeck' | translate }}
+      {{ 'cards.exportNCards' | translate: { count: deck().cards.length } }}
     </pk-button>
   `,
 })
@@ -22,13 +30,15 @@ export class ExportCardsComponent {
   public deck = input.required<DeckWithCards>();
 
   public onExportClick(): void {
-    const text = JSON.stringify(this.deck().cards, null, 2);
-    // TODO check if there are cards
-    // TODO map cards to export format
-    const now = new Date();
-    const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-    // TODO normalize and generate filename
-    const filename = `frazewise-export-${date}.json`;
+    if (this.deck().cards.length === 0) return;
+    const toExport = this.deck().cards.map(card => ({
+      source: card.source,
+      target: card.target,
+      targetAlt: this.deck().hasTargetAlt ? card.targetAlt : null,
+    }));
+    const text = JSON.stringify(toExport, null, 2);
+    const deckName = this.toFilename(this.deck().name);
+    const filename = `${deckName}-frazewise-export.json`;
     const type = 'text/plain';
 
     const blob = new Blob([text], { type });
@@ -45,5 +55,13 @@ export class ExportCardsComponent {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }, 0);
+  }
+
+  private toFilename(filename: string) {
+    // Replace spaces with hyphens
+    filename = filename.replace(/\s+/g, '-');
+    // Remove special characters
+    filename = filename.replace(/[^a-zA-Z0-9-]/g, '');
+    return filename;
   }
 }
