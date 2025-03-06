@@ -9,7 +9,7 @@ export async function getDecks(req: Request, db: Db, user: User): Promise<Respon
   try {
     if (req.method !== 'GET') return new MethodNotAllowedResponse(req.method);
     const collection = db.collection<Deck>(DbCollection.DECKS);
-    const cursor = collection.find({ userId: user.id });
+    const cursor = collection.find({ userId: user.id }).sort({ lastModified: -1 });
     const results = await cursor.toArray();
 
     return new OkResponse(omitIds(results));

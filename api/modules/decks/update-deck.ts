@@ -44,7 +44,7 @@ export async function updateDeck(req: Request, db: Db, user: User, id: UUID): Pr
 
     const result = await collection.findOneAndUpdate(
       { id, userId: user.id },
-      { $set: { ...values } },
+      { $set: { ...values, lastModified: new Date() } },
       { returnDocument: 'after' }
     );
     if (!result) return new NotFoundErrorResponse('Deck');

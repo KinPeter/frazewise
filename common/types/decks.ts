@@ -9,6 +9,7 @@ export interface Deck extends BaseEntity {
   hasTargetAlt: boolean;
   cardCount: number;
   lastPracticed: string | Date | null;
+  lastModified: string | Date;
   // TODO add stats, score, gamification?
 }
 

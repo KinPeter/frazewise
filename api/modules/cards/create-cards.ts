@@ -66,7 +66,7 @@ export async function createCards(req: Request, db: Db, user: User): Promise<Res
 
     await deckCollection.findOneAndUpdate(
       { id: deckId, userId: user.id },
-      { $set: { cardCount: deck.cardCount + cards.length } }
+      { $set: { cardCount: deck.cardCount + cards.length, lastModified: new Date() } }
     );
 
     return new OkResponse({ created: result.insertedCount }, 201);

@@ -35,6 +35,7 @@ export async function createDeck(req: Request, db: Db, user: User): Promise<Resp
       ...toDeckRequest(requestBody as Deck),
       cardCount: 0,
       lastPracticed: null,
+      lastModified: new Date(),
     };
 
     await collection.insertOne(newItem);

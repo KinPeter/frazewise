@@ -15,6 +15,7 @@ import { DbCollection } from '../../utils/db-collections';
 import { ApiError, ValidationError } from '../../../common/enums/api-errors';
 import { toUpdateCardRequest } from '../../utils/request-mappers';
 import { omitIdsForOne } from '../../utils/omit-ids';
+import { Deck } from '../../../common/types/decks';
 
 export async function updateCard(req: Request, db: Db, user: User, id: UUID): Promise<Response> {
   try {
@@ -45,6 +46,15 @@ export async function updateCard(req: Request, db: Db, user: User, id: UUID): Pr
       { returnDocument: 'after' }
     );
     if (!result) return new NotFoundErrorResponse('Card');
+
+    const deckCollection = db.collection<Deck>(DbCollection.DECKS);
+    const deck = await deckCollection.findOne({ id: card.deckId, userId: user.id });
+    if (!deck) return new NotFoundErrorResponse('Deck');
+
+    await deckCollection.findOneAndUpdate(
+      { id: deck.id, userId: user.id },
+      { $set: { lastModified: new Date() } }
+    );
 
     return new OkResponse(omitIdsForOne(result));
   } catch (e) {

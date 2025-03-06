@@ -28,7 +28,7 @@ export async function deleteCard(req: Request, db: Db, user: User, id: UUID): Pr
 
     await deckCollection.findOneAndUpdate(
       { id: deck.id, userId: user.id },
-      { $set: { cardCount: deck.cardCount - 1 } }
+      { $set: { cardCount: deck.cardCount - 1, lastModified: new Date() } }
     );
 
     return new OkResponse({ id });
