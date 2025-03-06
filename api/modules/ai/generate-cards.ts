@@ -6,7 +6,11 @@ import {
   ValidationErrorResponse,
 } from '../../utils/response';
 import { generateCardsSchema } from '../../../common/validators/ai';
-import { GenerateCardsRequest, GeneratedCard } from '../../../common/types/ai';
+import {
+  GenerateCardsRequest,
+  GenerateCardsResponse,
+  GeneratedCard,
+} from '../../../common/types/ai';
 import { getPromptForCards } from '../../utils/ai-prompts';
 
 export async function generateCards(req: Request, ai: AiManager): Promise<Response> {
@@ -38,14 +42,18 @@ export async function generateCards(req: Request, ai: AiManager): Promise<Respon
     if (!candidates?.length || !candidates[0].content.parts?.[0]?.text?.length)
       return new AIGenerationFailedErrorResponse({});
 
-    const response = JSON.parse(candidates[0].content.parts[0].text).map(
+    const cards = JSON.parse(candidates[0].content.parts[0].text).map(
       (card: Partial<GeneratedCard>) => ({
         ...card,
         targetAlt: card.targetAlt ?? null,
       })
     );
 
-    return new OkResponse(response);
+    const response = {
+      cards,
+    };
+
+    return new OkResponse<GenerateCardsResponse>(response);
   } catch (e) {
     return new AIGenerationFailedErrorResponse(e);
   }

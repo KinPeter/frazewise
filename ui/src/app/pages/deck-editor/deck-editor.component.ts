@@ -16,6 +16,7 @@ import { CardsTab, CardsToolbarComponent } from './cards-toolbar.component';
 import { AddNewCardsComponent } from './add-new-cards.component';
 import { ImportCardsComponent } from './import-cards.component';
 import { ExportCardsComponent } from './export-cards.component';
+import { GenerateCardsComponent } from './generate-cards.component';
 
 @Component({
   selector: 'pk-deck-editor',
@@ -28,6 +29,7 @@ import { ExportCardsComponent } from './export-cards.component';
     AddNewCardsComponent,
     ImportCardsComponent,
     ExportCardsComponent,
+    GenerateCardsComponent,
   ],
   providers: [],
   styles: `
@@ -72,6 +74,9 @@ import { ExportCardsComponent } from './export-cards.component';
               }
               @case ('export') {
                 <pk-export-cards [deck]="deckToEdit()!" />
+              }
+              @case ('generate') {
+                <pk-generate-cards [deck]="deckToEdit()!" (saveNewCards)="saveNewCards($event)" />
               }
             }
           </div>

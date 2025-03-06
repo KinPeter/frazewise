@@ -1,6 +1,6 @@
 {
   "name": "frazewise",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Peter Kin",
   "scripts": {
     "start:api": "tsx ./api/server.ts"

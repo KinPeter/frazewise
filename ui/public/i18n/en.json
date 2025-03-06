@@ -79,7 +79,22 @@
     "deckIsFull": "This deck is full, you cannot add more cards",
     "exportDeck": "Export deck",
     "exportDeckInfo": "Export all the cards from this deck to a file that can be imported back into FrazeWise. You can also share this file with others.",
-    "exportNCards": "Export {{count}} cards"
+    "exportNCards": "Export {{count}} cards",
+    "generateCards": "Generate cards",
+    "generateCardsInfo1": "Generate cards using AI. Please note that this is an experimental feature and may not work perfectly.",
+    "generateCardsInfo2": "You can generate up to 100 cards at a time, also depending on the size of your deck. The generated cards can be added to the end of the deck.",
+    "generateCardsInfo3": "Please choose the topic in English, the level of difficulty and the number of cards you want to generate.",
+    "topic": "Topic",
+    "topicInEnglish": "Topic in English",
+    "level": "Level",
+    "basic": "Basic",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "numberOfCards": "Number of cards",
+    "tooFewRemaining": "Your deck is almost full, please choose another deck to generate cards to.",
+    "generateSuccess": "Cards generated successfully, please scroll down, check the cards and click Save.",
+    "generateError": "Couldn't generate cards. Please try again later or with different parameters.",
+    "generateLoading": "The AI is working its magic, please wait..."
   },
   "successNotifications": {
     "deckCreated": "Deck created",

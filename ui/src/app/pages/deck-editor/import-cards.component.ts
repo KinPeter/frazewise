@@ -30,22 +30,6 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
   ],
   providers: [],
   styles: `
-    .full-warning {
-      color: var(--color-warning);
-    }
-
-    .remaining-count-info {
-      color: var(--color-info);
-    }
-
-    .error-message {
-      color: var(--color-error);
-    }
-
-    .success-info {
-      color: var(--color-success);
-    }
-
     p {
       margin-bottom: 1rem;
     }
@@ -83,24 +67,24 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
       #fileInput />
     <hr />
     @if (isFull()) {
-      <p class="full-warning">
+      <p class="warning">
         <ng-icon name="tablerAlertTriangle" size="1.2rem" />
         {{ 'cards.deckIsFull' | translate }}
       </p>
     } @else {
-      <p class="remaining-count-info">
+      <p class="info">
         <ng-icon name="tablerInfoCircle" size="1.2rem" />
         {{ 'cards.remainingCount' | translate: { count: remainingCount() } }}
       </p>
     }
     @if (errorMessage()) {
-      <p class="error-message">
+      <p class="error">
         <ng-icon name="tablerAlertTriangle" size="1.2rem" />
         {{ errorMessage() | translate }}
       </p>
     }
     @if (formValues()) {
-      <p class="success-info">
+      <p class="success">
         <ng-icon name="tablerCheck" size="1.2rem" />
         {{ 'cards.importSuccess' | translate }}
       </p>

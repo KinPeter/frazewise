@@ -1,0 +1,265 @@
+import { Component, computed, input, output, signal, Signal, WritableSignal } from '@angular/core';
+import { AiService } from '../../common/services/ai.service';
+import { DeckWithCards } from '../../../../../common/types/decks';
+import { BulkCardsRequest } from '../../../../../common/types/cards';
+import { CardFormValues, NewCardsFormComponent } from './new-cards-form.component';
+import { MAX_CARD_COUNT } from '../../../../../common/utils/constants';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { GenerateCardsRequest, LanguageLevel } from '../../../../../common/types/ai';
+import { PkLoaderComponent } from '../../common/components/pk-loader.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { PkInputComponent } from '../../common/components/pk-input.component';
+import { PkInputDirective } from '../../common/directives/pk-input.directive';
+import { NgIcon } from '@ng-icons/core';
+import { PkButtonComponent } from '../../common/components/pk-button.component';
+import { SupportedLanguage } from '../../../../../common/types/languages';
+
+@Component({
+  selector: 'pk-generate-cards',
+  imports: [
+    PkLoaderComponent,
+    TranslatePipe,
+    ReactiveFormsModule,
+    PkInputComponent,
+    PkInputDirective,
+    NewCardsFormComponent,
+    NgIcon,
+    PkButtonComponent,
+  ],
+  providers: [],
+  styles: `
+    p {
+      margin-bottom: 1rem;
+    }
+
+    p ng-icon {
+      position: relative;
+      top: 3px;
+    }
+
+    .inputs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      pk-input:first-of-type {
+        flex-grow: 1;
+      }
+
+      pk-button {
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .loading {
+      display: flex;
+      margin-top: 3rem;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: var(--color-primary);
+
+      p {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+        text-align: center;
+
+        ng-icon {
+          position: relative;
+          top: 6px;
+        }
+      }
+    }
+  `,
+  template: `
+    <h2>{{ 'cards.generateCards' | translate }}</h2>
+    <p>{{ 'cards.generateCardsInfo1' | translate }}</p>
+    <p>{{ 'cards.generateCardsInfo2' | translate }}</p>
+    <p>{{ 'cards.generateCardsInfo3' | translate }}</p>
+    <form [formGroup]="form" (ngSubmit)="onGenerate()">
+      <div class="inputs">
+        <pk-input
+          [label]="'cards.topic' | translate"
+          width="100%"
+          type="text"
+          [disabled]="loading() || isLessThan10Remaining() || isFull()"
+          [withAsterisk]="true"
+          [error]="getError('topic') | translate">
+          <input
+            pkInput
+            type="text"
+            formControlName="topic"
+            [placeholder]="'cards.topicInEnglish' | translate" />
+        </pk-input>
+        <pk-input
+          [label]="'cards.level' | translate"
+          [withAsterisk]="true"
+          [disabled]="loading() || isLessThan10Remaining() || isFull()"
+          [error]="getError('level') | translate"
+          width="150px"
+          type="select">
+          <select pkInput name="level" formControlName="level">
+            @for (item of levelOptions; track item) {
+              <option [value]="item">{{ 'cards.' + item | translate }}</option>
+            }
+          </select>
+        </pk-input>
+        <pk-input
+          [label]="'cards.numberOfCards' | translate"
+          [withAsterisk]="true"
+          [disabled]="loading() || isLessThan10Remaining() || isFull()"
+          [error]="getError('cardCount') | translate"
+          width="150px"
+          type="select">
+          <select pkInput name="cardCount" formControlName="cardCount">
+            @for (item of countOptions(); track item) {
+              <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </pk-input>
+        <pk-button
+          variant="outline"
+          type="submit"
+          [iconPrefix]="true"
+          [disabled]="form.invalid || loading() || isLessThan10Remaining() || isFull()">
+          <ng-icon name="tablerSparkles" size="1.2rem" />
+          {{ 'cards.generateCards' | translate }}
+        </pk-button>
+      </div>
+    </form>
+    @if (loading()) {
+      <div class="loading">
+        <pk-loader />
+        <p>
+          <ng-icon name="tablerSparkles" size="2rem" />
+          {{ 'cards.generateLoading' | translate }}
+        </p>
+      </div>
+    } @else {
+      <hr />
+      @if (isFull()) {
+        <p class="warning">
+          <ng-icon name="tablerAlertTriangle" size="1.2rem" />
+          {{ 'cards.deckIsFull' | translate }}
+        </p>
+      } @else if (isLessThan10Remaining()) {
+        <p class="warning">
+          <ng-icon name="tablerAlertTriangle" size="1.2rem" />
+          {{ 'cards.tooFewRemaining' | translate }}
+        </p>
+      } @else {
+        <p class="info">
+          <ng-icon name="tablerInfoCircle" size="1.2rem" />
+          {{ 'cards.remainingCount' | translate: { count: remainingCount() } }}
+        </p>
+      }
+      @if (errorMessage()) {
+        <p class="error">
+          <ng-icon name="tablerAlertTriangle" size="1.2rem" />
+          {{ errorMessage() | translate }}
+        </p>
+      }
+      @if (formValues()) {
+        <p class="success">
+          <ng-icon name="tablerCheck" size="1.2rem" />
+          {{ 'cards.importSuccess' | translate }}
+        </p>
+        <pk-new-cards-form
+          [cardCount]="deck().cardCount"
+          [hasTargetAlt]="deck().hasTargetAlt"
+          [importedValues]="formValues()"
+          (saveCards)="onSaveCards($event)" />
+      }
+    }
+  `,
+})
+export class GenerateCardsComponent {
+  public deck = input.required<DeckWithCards>();
+  public loading: Signal<boolean>;
+  public saveNewCards = output<BulkCardsRequest>();
+  public readonly MAX_CARD_COUNT = MAX_CARD_COUNT;
+  public formValues: WritableSignal<CardFormValues[] | null> = signal(null);
+  public remainingCount = computed(
+    () => this.MAX_CARD_COUNT - (this.deck().cardCount + (this.formValues()?.length ?? 0))
+  );
+  public isFull = computed(
+    () => this.deck().cardCount + (this.formValues()?.length ?? 0) >= this.MAX_CARD_COUNT
+  );
+  public isLessThan10Remaining = computed(() => this.remainingCount() < 10);
+  public errorMessage = signal<string>('');
+  public form: FormGroup;
+  public countOptions = computed(() =>
+    [10, 25, 50, 100].filter(num => num < this.remainingCount())
+  );
+  public levelOptions: LanguageLevel[] = ['basic', 'intermediate', 'advanced'];
+
+  constructor(
+    private aiService: AiService,
+    private formBuilder: FormBuilder
+  ) {
+    this.loading = this.aiService.loading;
+    this.form = this.formBuilder.group({
+      topic: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      level: ['basic', Validators.required],
+      cardCount: [10, [Validators.required, Validators.min(10), Validators.max(100)]],
+    });
+  }
+
+  public onGenerate(): void {
+    this.errorMessage.set('');
+    const { topic, level, cardCount } = this.form.value;
+    const deck = this.deck();
+    const request: GenerateCardsRequest = {
+      sourceLang: deck.sourceLang as SupportedLanguage,
+      targetLang: deck.targetLang as SupportedLanguage,
+      cardCount: Number(cardCount),
+      topic,
+      level,
+    };
+    this.aiService.generateCards(request).subscribe({
+      next: response => {
+        if (response.cards) {
+          this.formValues.set(response.cards);
+        }
+      },
+      error: error => {
+        this.errorMessage.set(error.message);
+      },
+    });
+  }
+
+  public onSaveCards(cards: CardFormValues[]): void {
+    const request: BulkCardsRequest = {
+      deckId: this.deck().id,
+      cards: cards.map(card => ({
+        source: card.source,
+        sourceLang: this.deck().sourceLang,
+        target: card.target,
+        targetLang: this.deck().targetLang,
+        targetAlt: this.deck().hasTargetAlt
+          ? card.targetAlt?.length
+            ? card.targetAlt
+            : null
+          : null,
+      })),
+    };
+    this.saveNewCards.emit(request);
+  }
+
+  public getError(formControlName: string): string {
+    const control = this.form?.get(formControlName);
+    if (control?.untouched) {
+      return '';
+    }
+    if (control?.errors?.['required']) {
+      return 'validationErrors.REQUIRED_FIELD';
+    } else if (control?.errors?.['maxlength']) {
+      return 'validationErrors.MAX_LENGTH';
+    } else if (control?.errors?.['minlength']) {
+      return 'validationErrors.MIN_LENGTH';
+    }
+    return '';
+  }
+}

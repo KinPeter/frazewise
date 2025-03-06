@@ -29,4 +29,24 @@ body {
     font-size: 1rem;
     margin: 0;
   }
+
+  p.warning,
+  span.warning {
+    color: var(--color-warning);
+  }
+
+  p.info,
+  span.info {
+    color: var(--color-info);
+  }
+
+  p.error,
+  span.error {
+    color: var(--color-error);
+  }
+
+  p.success,
+  span.success {
+    color: var(--color-success);
+  }
 }

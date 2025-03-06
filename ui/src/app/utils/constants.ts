@@ -15,5 +15,6 @@ export enum ApiRoutes {
   DATA_BACKUP = '/data-backup/data',
   DECKS = '/decks',
   CARDS = '/cards',
+  AI_GENERATE = '/ai/generate-cards',
   PRACTICE = '/practice',
 }

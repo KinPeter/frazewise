@@ -38,7 +38,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"loginCode\": \"985565\"\r\n}",
+              "raw": "{\r\n    \"email\": \"kinpeter85@gmail.com\",\r\n    \"loginCode\": \"000000\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -209,7 +209,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Peti\",\r\n    \"profilePicUrl\": \"https://lh3.googleusercontent.com/a/ACg8ocI_3apHpEDF5lOpLr8M7DGJ7_bXpXh-0BNdtdyBsn7VLQ4YT6Hn1w=s83-c-mo\",\r\n    \"language\": \"hu\"\r\n}",
+              "raw": "{\r\n    \"name\": \"Peti\",\r\n    \"profilePicUrl\": \"https://lh3.googleusercontent.com/a/ACg8ocI_3apHpEDF5lOpLr8M7DGJ7_bXpXh-0BNdtdyBsn7VLQ4YT6Hn1w=s83-c-mo\",\r\n    \"language\": \"en\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
