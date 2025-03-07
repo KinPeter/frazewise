@@ -13,6 +13,7 @@ import { PkInputDirective } from '../../common/directives/pk-input.directive';
 import { NgIcon } from '@ng-icons/core';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { SupportedLanguage } from '../../../../../common/types/languages';
+import { InfoMessageComponent } from '../../common/components/info-message.component';
 
 @Component({
   selector: 'pk-generate-cards',
@@ -25,18 +26,10 @@ import { SupportedLanguage } from '../../../../../common/types/languages';
     NewCardsFormComponent,
     NgIcon,
     PkButtonComponent,
+    InfoMessageComponent,
   ],
   providers: [],
   styles: `
-    p {
-      margin-bottom: 1rem;
-    }
-
-    p ng-icon {
-      position: relative;
-      top: 3px;
-    }
-
     .inputs {
       display: flex;
       align-items: center;
@@ -140,32 +133,19 @@ import { SupportedLanguage } from '../../../../../common/types/languages';
     } @else {
       <hr />
       @if (isFull()) {
-        <p class="warning">
-          <ng-icon name="tablerAlertTriangle" size="1.2rem" />
-          {{ 'cards.deckIsFull' | translate }}
-        </p>
+        <pk-info-message type="warning" [message]="'cards.deckIsFull' | translate" />
       } @else if (isLessThan10Remaining()) {
-        <p class="warning">
-          <ng-icon name="tablerAlertTriangle" size="1.2rem" />
-          {{ 'cards.tooFewRemaining' | translate }}
-        </p>
+        <pk-info-message type="warning" [message]="'cards.tooFewRemaining' | translate" />
       } @else {
-        <p class="info">
-          <ng-icon name="tablerInfoCircle" size="1.2rem" />
-          {{ 'cards.remainingCount' | translate: { count: remainingCount() } }}
-        </p>
+        <pk-info-message
+          type="info"
+          [message]="'cards.remainingCount' | translate: { count: remainingCount() }" />
       }
       @if (errorMessage()) {
-        <p class="error">
-          <ng-icon name="tablerAlertTriangle" size="1.2rem" />
-          {{ errorMessage() | translate }}
-        </p>
+        <pk-info-message type="error" [message]="errorMessage() | translate" />
       }
       @if (formValues()) {
-        <p class="success">
-          <ng-icon name="tablerCheck" size="1.2rem" />
-          {{ 'cards.importSuccess' | translate }}
-        </p>
+        <pk-info-message type="success" [message]="'cards.generateSuccess' | translate" />
         <pk-new-cards-form
           [cardCount]="deck().cardCount"
           [hasTargetAlt]="deck().hasTargetAlt"

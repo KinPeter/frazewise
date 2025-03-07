@@ -49,7 +49,7 @@
     "sourceLang": "Source language",
     "targetLang": "Target language",
     "alternative": "Alternative phrasing",
-    "noCards": "No cards yet in this deck",
+    "noCards": "There are no cards yet in this deck. Add, import or generate cards to start practicing.",
     "numberOfCards": "{{count}} cards",
     "lastPracticed": "Last practiced"
   },
@@ -94,7 +94,8 @@
     "tooFewRemaining": "Your deck is almost full, please choose another deck to generate cards to.",
     "generateSuccess": "Cards generated successfully, please scroll down, check the cards and click Save.",
     "generateError": "Couldn't generate cards. Please try again later or with different parameters.",
-    "generateLoading": "The AI is working its magic, please wait..."
+    "generateLoading": "The AI is working its magic, please wait...",
+    "nCardsInThisDeck": "{{count}}/{{total}} cards in this deck"
   },
   "successNotifications": {
     "deckCreated": "Deck created",

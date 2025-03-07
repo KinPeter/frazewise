@@ -1,17 +1,21 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { DeckWithCards } from '../../../../../common/types/decks';
 import { CardFormValues, NewCardsFormComponent } from './new-cards-form.component';
 import { MAX_CARD_COUNT } from '../../../../../common/utils/constants';
 import { BulkCardsRequest } from '../../../../../common/types/cards';
 import { TranslatePipe } from '@ngx-translate/core';
+import { InfoMessageComponent } from '../../common/components/info-message.component';
 
 @Component({
   selector: 'pk-add-new-cards',
-  imports: [NewCardsFormComponent, TranslatePipe],
+  imports: [NewCardsFormComponent, TranslatePipe, InfoMessageComponent],
   providers: [],
   styles: ``,
   template: `
     @if (deck().cards.length < MAX_CARD_COUNT) {
+      <pk-info-message
+        type="info"
+        [message]="'cards.remainingCount' | translate: { count: remainingCount() }" />
       <pk-new-cards-form
         [hasTargetAlt]="deck().hasTargetAlt"
         [cardCount]="deck().cardCount"
@@ -25,6 +29,7 @@ export class AddNewCardsComponent {
   public deck = input.required<DeckWithCards>();
   public saveNewCards = output<BulkCardsRequest>();
   public readonly MAX_CARD_COUNT = MAX_CARD_COUNT;
+  public remainingCount = computed(() => this.MAX_CARD_COUNT - this.deck().cardCount);
 
   public onBulkSave(cards: CardFormValues[]): void {
     const request: BulkCardsRequest = {

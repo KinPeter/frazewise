@@ -48,7 +48,7 @@
     "sourceLang": "Forrás nyelv",
     "targetLang": "Cél nyelv",
     "alternative": "Alternatív szöveg",
-    "noCards": "Nincsenek még kártyák a pakliban"
+    "noCards": "Nincsenek még kártyák a pakliban. Adj hozzá, importálj vagy generálj kártyákat a gyakorláshoz."
   },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Nem sikerült bejelentkezési kódot kérni",

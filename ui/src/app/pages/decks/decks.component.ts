@@ -106,6 +106,7 @@ export class DecksComponent {
   public allDecks: Signal<Deck[]>;
   public decks: WritableSignal<Deck[]> = signal([]);
   public loading: Signal<boolean>;
+  private debounceTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private decksService: DecksService,
@@ -144,14 +145,19 @@ export class DecksComponent {
   }
 
   public search(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value = target.value;
-    if (value) {
-      this.decks.set(
-        this.allDecks().filter(deck => deck.name.toLowerCase().includes(value.toLowerCase()))
-      );
-    } else {
-      this.decks.set(this.allDecks());
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
     }
+    this.debounceTimeout = setTimeout(() => {
+      const target = event.target as HTMLInputElement;
+      const value = target.value;
+      if (value) {
+        this.decks.set(
+          this.allDecks().filter(deck => deck.name.toLowerCase().includes(value.toLowerCase()))
+        );
+      } else {
+        this.decks.set(this.allDecks());
+      }
+    }, 300);
   }
 }
