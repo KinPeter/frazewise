@@ -1,11 +1,18 @@
 {
   "hello": "Hello!",
+  "supportedLanguages": {
+    "en": "English",
+    "hu": "Hungarian",
+    "ko": "Korean",
+    "de": "German",
+    "zh": "Chinese"
+  },
   "common": {
     "close": "Close",
     "name": "Name",
     "save": "Save",
-    "confirm": "Confirm",
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "back": "Back",
     "search": "Search"
   },

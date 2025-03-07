@@ -1,5 +1,12 @@
 {
   "hello": "안녕하세요!",
+  "supportedLanguages": {
+    "en": "영어",
+    "hu": "헝가리어",
+    "ko": "한국어",
+    "de": "독일어",
+    "zh": "중국어"
+  },
   "common": {
     "close": "닫기",
     "name": "이름",

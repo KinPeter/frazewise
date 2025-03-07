@@ -79,7 +79,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
             type="select">
             <select pkInput name="sourceLang" formControlName="sourceLang">
               @for (item of languageOptions; track item.value) {
-                <option [value]="item.value">{{ item.label }}</option>
+                <option [value]="item.value">{{ item.label | translate }}</option>
               }
             </select>
           </pk-input>
@@ -92,7 +92,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
             type="select">
             <select pkInput name="targetLang" formControlName="targetLang">
               @for (item of languageOptions; track item.value) {
-                <option [value]="item.value">{{ item.label }}</option>
+                <option [value]="item.value">{{ item.label | translate }}</option>
               }
             </select>
           </pk-input>
@@ -122,10 +122,12 @@ export class DeckFormComponent {
   public save = output<DeckRequest>();
   public form: FormGroup;
   public supportedLanguageCodes = Array.from(supportedLanguages.keys());
-  public languageOptions = Array.from(supportedLanguages.entries()).map(([code, { name }]) => ({
-    value: code,
-    label: name,
-  }));
+  public languageOptions = Array.from(supportedLanguages.entries()).map(
+    ([code, { translation }]) => ({
+      value: code,
+      label: translation,
+    })
+  );
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({

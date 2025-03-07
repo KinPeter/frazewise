@@ -114,7 +114,6 @@ npm run build:ui
 
 - [ ] Light theme
 - [ ] Language flags
-- [ ] Translate language names
 - [ ] Settings form
 - [ ] Tooltip component
 - [ ] Explanations using tooltips

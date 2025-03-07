@@ -30,6 +30,14 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
   ],
   providers: [],
   styles: `
+    p {
+      margin-bottom: 0.5rem;
+
+      &:last-of-type {
+        margin-bottom: 1rem;
+      }
+    }
+
     .inputs {
       display: flex;
       align-items: center;

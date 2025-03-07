@@ -1,12 +1,20 @@
 {
   "hello": "Szia!",
+  "supportedLanguages": {
+    "en": "Angol",
+    "hu": "Magyar",
+    "ko": "Koreai",
+    "de": "Német",
+    "zh": "Kínai"
+  },
   "common": {
     "close": "Bezárás",
     "name": "Név",
     "save": "Mentés",
     "cancel": "Mégsem",
     "confirm": "Megerősítés",
-    "back": "Vissza"
+    "back": "Vissza",
+    "search": "Keresés"
   },
   "menu": {
     "menu": "Menü",
@@ -48,14 +56,74 @@
     "sourceLang": "Forrás nyelv",
     "targetLang": "Cél nyelv",
     "alternative": "Alternatív szöveg",
-    "noCards": "Nincsenek még kártyák a pakliban. Adj hozzá, importálj vagy generálj kártyákat a gyakorláshoz."
+    "noCards": "Nincsenek még kártyák a pakliban. Adj hozzá, importálj vagy generálj kártyákat a gyakorláshoz.",
+    "numberOfCards": "{{count}} kártya",
+    "lastPracticed": "Utoljára gyakorolva"
+  },
+  "cards": {
+    "source": "Forrás",
+    "target": "Cél",
+    "alternative": "Alternatív",
+    "addCard": "Kártya hozzáadása",
+    "editCard": "Kártya szerkesztése",
+    "deleteCard": "Kártya törlése",
+    "saveCard": "Kártya mentése",
+    "saveNewCards": "Új kártyák mentése",
+    "cards": "Kártyák",
+    "addNew": "Új hozzáadása",
+    "import": "Import",
+    "export": "Export",
+    "generate": "Generálás",
+    "importFromSheets": "Kártyák importálása táblázatokból",
+    "importFromSheetsInfo": "Másold be a kártyákat Excel vagy Google táblázatokból. Az első oszlop lesz a forrás nyelv, a második oszlop a cél nyelv. Ha a paklihoz be van állítva, a harmadik oszlop az alternatív megfogalmazás.",
+    "pasteHere": "Illeszd be ide",
+    "importExportedDeck": "Vagy importálj fájlból",
+    "importExportedDeckInfo": "Kártyák importálása egy korábban FrazeWise-ból exportált fájlból.",
+    "importFromFile": "Importálás fájlból",
+    "importSuccess": "A kártyák sikeresen importálva, kérlek görgess le, ellenőrizd a kártyákat és kattints a Mentésre.",
+    "unableToImport": "Nem sikerült importálni a kártyákat. Kérlek, ellenőrizd a fájl formátumát.",
+    "remainingCount": "Még {{count}} kártyát adhatsz hozzá ehhez a paklihoz",
+    "deckIsFull": "Ez a pakli tele van, nem adhatsz hozzá több kártyát",
+    "exportDeck": "Pakli exportálása",
+    "exportDeckInfo": "Exportáld az összes kártyát ebből a pakliból egy fájlba, ami visszaimportálható a FrazeWise-ba. Ezt a fájlt másokkal is megoszthatod.",
+    "exportNCards": "{{count}} kártya exportálása",
+    "generateCards": "Kártyák generálása",
+    "generateCardsInfo1": "Kártyák generálása AI segítségével. Kérlek, vedd figyelembe, hogy ez egy kísérleti funkció és nem biztos, hogy tökéletesen működik.",
+    "generateCardsInfo2": "Egyszerre maximum 100 kártyát generálhatsz, a pakli méretétől is függően. A generált kártyákat hozzáadhatod a paklihoz.",
+    "generateCardsInfo3": "Kérlek add meg a témát, lehetőleg angolul, a nehézségi szintet és a generálandó kártyák számát.",
+    "topic": "Téma",
+    "topicInEnglish": "Téma angolul",
+    "level": "Szint",
+    "basic": "Kezdő",
+    "intermediate": "Középhaladó",
+    "advanced": "Haladó",
+    "numberOfCards": "Kártyák száma",
+    "tooFewRemaining": "A paklid majdnem tele van, kérlek válassz egy másik paklit a kártyák generálásához.",
+    "generateSuccess": "A kártyák generálása sikeres, kérlek görgess le, ellenőrizd a kártyákat és kattints a Mentésre.",
+    "generateError": "Nem sikerült kártyákat generálni. Próbáld meg később vagy más paraméterekkel.",
+    "generateLoading": "Az AI varázsol, kérlek várj...",
+    "nCardsInThisDeck": "{{count}}/{{total}} kártya ebben a pakliban"
+  },
+  "successNotifications": {
+    "deckCreated": "Pakli létrehozva",
+    "deckUpdated": "Pakli frissítve",
+    "deckDeleted": "Pakli törölve",
+    "cardsCreated": "Kártyák létrehozva",
+    "cardUpdated": "Kártya frissítve",
+    "cardDeleted": "Kártya törölve"
   },
   "errorNotifications": {
     "couldNotRequestLoginCode": "Nem sikerült bejelentkezési kódot kérni",
     "loginFailed": "Bejelentkezés sikertelen",
     "tokenRefreshError": "Nem sikerült a hitelesítési token frissítése",
     "couldNotFetchDecks": "Nem sikerült a paklikat lekérni",
-    "couldNotFetchDeck": "Nem sikerült a paklit lekérni"
+    "couldNotFetchDeck": "Nem sikerült a paklit lekérni",
+    "couldNotCreateDeck": "Nem sikerült a paklit létrehozni",
+    "couldNotUpdateDeck": "Nem sikerült a paklit frissíteni",
+    "couldNotDeleteDeck": "Nem sikerült a paklit törölni",
+    "couldNotCreateCards": "Nem sikerült a kártyákat létrehozni",
+    "couldNotUpdateCard": "Nem sikerült a kártyát frissíteni",
+    "couldNotDeleteCard": "Nem sikerült a kártyát törölni"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "Email már regisztrálva",
