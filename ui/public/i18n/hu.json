@@ -104,6 +104,9 @@
     "generateLoading": "Az AI varázsol, kérlek várj...",
     "nCardsInThisDeck": "{{count}}/{{total}} kártya ebben a pakliban"
   },
+  "practice": {
+    "finished": "Gratulálok, az összes kártyát gyakoroltad ebben a pakliban!"
+  },
   "successNotifications": {
     "deckCreated": "Pakli létrehozva",
     "deckUpdated": "Pakli frissítve",
@@ -123,7 +126,8 @@
     "couldNotDeleteDeck": "Nem sikerült a paklit törölni",
     "couldNotCreateCards": "Nem sikerült a kártyákat létrehozni",
     "couldNotUpdateCard": "Nem sikerült a kártyát frissíteni",
-    "couldNotDeleteCard": "Nem sikerült a kártyát törölni"
+    "couldNotDeleteCard": "Nem sikerült a kártyát törölni",
+    "couldNotSavePractice": "Nem sikerült a gyakorlás eredményét menteni"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "Email már regisztrálva",

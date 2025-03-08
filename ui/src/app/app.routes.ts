@@ -16,7 +16,7 @@ export const routes: Routes = [
   },
   { path: 'auth', component: AuthComponent },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'practice', component: PracticeComponent, canActivate: [AuthGuard] },
+  { path: 'practice/:id', component: PracticeComponent, canActivate: [AuthGuard] },
   { path: 'decks', component: DecksComponent, canActivate: [AuthGuard] },
   { path: 'deck/:id', component: DeckEditorComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/' },

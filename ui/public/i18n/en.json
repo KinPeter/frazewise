@@ -58,7 +58,8 @@
     "alternative": "Alternative phrasing",
     "noCards": "There are no cards yet in this deck. Add, import or generate cards to start practicing.",
     "numberOfCards": "{{count}} cards",
-    "lastPracticed": "Last practiced"
+    "lastPracticed": "Last practiced",
+    "needTenCardsToPractice": "You need at least 10 cards in this deck to practice."
   },
   "cards": {
     "source": "Source",
@@ -104,6 +105,9 @@
     "generateLoading": "The AI is working its magic, please wait...",
     "nCardsInThisDeck": "{{count}}/{{total}} cards in this deck"
   },
+  "practice": {
+    "finished": "Congrats, you practiced all the cards in this deck!"
+  },
   "successNotifications": {
     "deckCreated": "Deck created",
     "deckUpdated": "Deck updated",
@@ -123,7 +127,8 @@
     "couldNotDeleteDeck": "Could not delete deck",
     "couldNotCreateCards": "Could not create cards",
     "couldNotUpdateCard": "Could not update card",
-    "couldNotDeleteCard": "Could not delete card"
+    "couldNotDeleteCard": "Could not delete card",
+    "couldNotSavePractice": "Could not save practice result"
   },
   "apiErrors": {
     "EMAIL_REGISTERED": "Email Registered",
