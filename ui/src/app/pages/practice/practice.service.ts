@@ -13,7 +13,7 @@ export class PracticeService {
   ) {}
 
   public savePractice(request: PracticeRequest): void {
-    this.apiService.post(ApiRoutes.PRACTICE, request).subscribe({
+    this.apiService.patch(ApiRoutes.PRACTICE, request).subscribe({
       error: e => {
         this.notificationService.showError('', parseError(e));
       },

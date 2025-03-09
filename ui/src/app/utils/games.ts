@@ -93,6 +93,38 @@ export function getAlternativesFor(base: Card, array: Card[]): Card[] {
   return shuffledArray.slice(0, 3);
 }
 
+export function getExtraWordsForSentence(base: Card, otherCards: Card[]): string[] {
+  const others = shuffleArray(otherCards);
+  const baseWords = stripParts(base.target);
+  const result: string[] = [];
+
+  // Iterate through the shuffled otherCards
+  for (const card of others) {
+    const otherWords = stripParts(card.target);
+    for (const word of otherWords) {
+      // If the word is not already in the base sentence and not yet in the result, add it
+      if (!baseWords.includes(word) && !result.includes(word)) {
+        result.push(word);
+
+        // Stop if we have enough extra words (e.g., 3 words)
+        if (result.length >= 3) {
+          return result;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+export function stripParts(target: string): string[] {
+  return target
+    .trim()
+    .replace(/[!¡?¿.:;,()"'-]/g, '')
+    .replace(/\s+/g, ' ')
+    .split(' ');
+}
+
 export function shuffleArray<T>(array: T[]): T[] {
   return [...array].sort(() => Math.random() - 0.5);
 }

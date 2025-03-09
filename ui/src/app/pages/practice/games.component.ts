@@ -75,18 +75,18 @@ export class GamesComponent implements OnInit {
   }
 
   public onResult(result: PracticeRequest): void {
-    // this.gamesService.pickNextGame();
+    this.gamesService.pickNextGame();
     console.log({ result });
     // FIXME
-    // this.result.emit(result);
+    this.result.emit(result);
   }
 
   public onResults(results: PracticeRequest[]): void {
-    // this.gamesService.pickNextGame();
+    this.gamesService.pickNextGame();
     console.log({ results });
     // FIXME
-    // results.forEach(result => {
-    //   this.result.emit(result);
-    // });
+    results.forEach(result => {
+      this.result.emit(result);
+    });
   }
 }

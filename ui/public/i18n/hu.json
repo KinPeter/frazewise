@@ -105,7 +105,11 @@
     "nCardsInThisDeck": "{{count}}/{{total}} kártya ebben a pakliban"
   },
   "practice": {
-    "finished": "Gratulálok, az összes kártyát gyakoroltad ebben a pakliban!"
+    "finished": "Gratulálok, az összes kártyát gyakoroltad ebben a pakliban!",
+    "check": "Ellenőrzés",
+    "correct": "Helyes!",
+    "incorrect": "Helytelen.",
+    "continue": "Folytatás"
   },
   "successNotifications": {
     "deckCreated": "Pakli létrehozva",

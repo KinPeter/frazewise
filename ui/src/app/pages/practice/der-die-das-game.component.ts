@@ -56,7 +56,9 @@ export class DerDieDasGameComponent {
           info: false,
         }))
       );
-      this.result.emit({ cardId: this.data().card.id, isSuccess: true });
+      setTimeout(() => {
+        this.result.emit({ cardId: this.data().card.id, isSuccess: true });
+      }, 500);
     } else {
       this.options.update(options =>
         options.map(option => ({
@@ -66,7 +68,9 @@ export class DerDieDasGameComponent {
           info: option.value === this.correct(),
         }))
       );
-      this.result.emit({ cardId: this.data().card.id, isSuccess: false });
+      setTimeout(() => {
+        this.result.emit({ cardId: this.data().card.id, isSuccess: false });
+      }, 2000);
     }
   }
 }

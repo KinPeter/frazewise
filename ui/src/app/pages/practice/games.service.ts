@@ -5,6 +5,7 @@ import { Game, GameType } from './games.types';
 import {
   getAlternativesFor,
   getByChance,
+  getExtraWordsForSentence,
   isGermanNoun,
   isSentence,
   sortCards,
@@ -97,6 +98,20 @@ const matchPairs: Game = {
   },
 };
 
+const sentence: Game = {
+  type: GameType.SENTENCE,
+  data: {
+    card: {
+      target: 'Wo ist der Hund?',
+      targetLang: 'de',
+      source: 'Where is the dog?',
+      sourceLang: 'en',
+      id: '1',
+    } as Card,
+    extraWords: ['die', 'wirklich', 'Elefant'],
+  },
+};
+
 interface GamesState {
   loading: boolean;
   games: Game[];
@@ -128,11 +143,11 @@ export class GamesService extends Store<GamesState> {
     this.setState({ loading: true });
     const { cards } = deck;
     const sortedCards = sortCards([...cards]);
-    const games: Game[] = [matchPairs]; // FIXME TESTING TESTING
+    const games: Game[] = []; // FIXME TESTING TESTING
     const { words } = splitCardsByTargetLength(sortedCards);
     sortedCards.forEach(card => {
       if (isSentence(card)) {
-        this.addSentenceGame(card, games);
+        this.addSentenceGame(card, games, words);
         return;
       }
       if (isGermanNoun(card)) {
@@ -141,7 +156,6 @@ export class GamesService extends Store<GamesState> {
       }
       this.addGameForWord(card, games, words);
     });
-    console.log(games);
     this.setState({ loading: false, games, gameIndex: 0, isFinished: false });
   }
 
@@ -179,11 +193,12 @@ export class GamesService extends Store<GamesState> {
     }
   }
 
-  private addSentenceGame(card: Card, games: Game[]): void {
+  private addSentenceGame(card: Card, games: Game[], otherCards: Card[]): void {
     games.push({
       type: GameType.SENTENCE,
       data: {
         card,
+        extraWords: getExtraWordsForSentence(card, otherCards),
       },
     });
   }

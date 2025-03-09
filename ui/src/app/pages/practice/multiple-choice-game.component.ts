@@ -71,7 +71,9 @@ export class MultipleChoiceGameComponent implements OnInit {
           info: false,
         }))
       );
-      this.result.emit({ cardId: this.data().card.id, isSuccess: true });
+      setTimeout(() => {
+        this.result.emit({ cardId: this.data().card.id, isSuccess: true });
+      }, 500);
     } else {
       this.alternatives.update(options =>
         options.map(option => ({
@@ -81,7 +83,9 @@ export class MultipleChoiceGameComponent implements OnInit {
           info: option.value === this.correct(),
         }))
       );
-      this.result.emit({ cardId: this.data().card.id, isSuccess: false });
+      setTimeout(() => {
+        this.result.emit({ cardId: this.data().card.id, isSuccess: false });
+      }, 2000);
     }
   }
 }
