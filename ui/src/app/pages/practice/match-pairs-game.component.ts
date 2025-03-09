@@ -11,6 +11,7 @@ import { GameCardComponent } from './game-card.component';
   styles: `
     .container {
       display: flex;
+      align-items: center;
       gap: 0.5rem;
       padding: 5rem 2px 0;
     }
@@ -34,6 +35,7 @@ import { GameCardComponent } from './game-card.component';
             [miss]="option.miss"
             [info]="option.info"
             [selected]="option.selected"
+            [narrow]="true"
             (clicked)="onClickSource(option.value)" />
         }
       </div>
@@ -41,11 +43,13 @@ import { GameCardComponent } from './game-card.component';
         @for (option of targetCards(); track option.value) {
           <pk-game-card
             [text]="option.text"
+            [altText]="option.textAlt"
             [lang]="option.lang"
             [success]="option.success"
             [miss]="option.miss"
             [info]="option.info"
             [selected]="option.selected"
+            [narrow]="true"
             (clicked)="onClickTarget(option.value)" />
         }
       </div>
@@ -86,6 +90,7 @@ export class MatchPairsGameComponent implements OnChanges {
           value: card.id,
           lang: card.targetLang,
           text: card.target,
+          textAlt: card.targetAlt,
           success: false,
           miss: false,
           info: false,

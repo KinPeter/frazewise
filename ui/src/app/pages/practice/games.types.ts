@@ -37,6 +37,6 @@ export interface GameCardProps {
   success: boolean;
   miss: boolean;
   info: boolean;
-  textAlt?: string;
+  textAlt?: string | null;
   selected?: boolean;
 }
