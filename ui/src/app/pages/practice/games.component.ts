@@ -16,6 +16,7 @@ import { MatchPairsGameComponent } from './match-pairs-game.component';
 import { MultipleChoiceGameComponent } from './multiple-choice-game.component';
 import { DerDieDasGameComponent } from './der-die-das-game.component';
 import { TtsService } from '../../common/services/tts.service';
+import { GamesHeaderComponent } from './games-header.component';
 
 @Component({
   selector: 'pk-games',
@@ -25,15 +26,27 @@ import { TtsService } from '../../common/services/tts.service';
     MatchPairsGameComponent,
     MultipleChoiceGameComponent,
     DerDieDasGameComponent,
+    GamesHeaderComponent,
   ],
   providers: [],
-  styles: ``,
+  styles: `
+    .finished {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 2rem;
+      color: var(--color-success);
+      padding-top: 8rem;
+    }
+  `,
   template: `
     @if (isFinished()) {
       <div class="finished">
         <p>{{ 'practice.finished' | translate }}</p>
       </div>
     } @else if (currentGame()) {
+      <pk-games-header />
       @switch (currentGame()!.type) {
         @case (GameType.SENTENCE) {
           <pk-sentence-game [data]="sentenceData()" (result)="onResult($event)" />

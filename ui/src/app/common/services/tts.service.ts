@@ -17,9 +17,16 @@ export class TtsService {
   public isEnabled = computed(() => this.isBrowserEnabled() && this.isUserEnabled());
 
   private voicesForLang = computed(() =>
-    this.supportedVoices().filter(voice =>
-      voice.lang.toLowerCase().startsWith(this.currentLang().toLowerCase())
-    )
+    this.supportedVoices().filter(voice => {
+      const lang = this.currentLang();
+      if (lang === 'en') {
+        return voice.lang === 'en-US' || voice.lang === 'en-GB';
+      } else if (lang === 'de') {
+        return voice.lang === 'de-DE' || voice.lang === 'de-AT';
+      } else {
+        return voice.lang.toLowerCase().startsWith(lang.toLowerCase());
+      }
+    })
   );
 
   public initForLang(lang: string): void {

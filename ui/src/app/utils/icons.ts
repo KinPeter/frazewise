@@ -33,6 +33,7 @@ import {
   tablerTrash,
   tablerVersions,
   tablerVolume,
+  tablerVolumeOff,
   tablerX,
 } from '@ng-icons/tabler-icons';
 
@@ -76,5 +77,6 @@ export const icons = {
   tablerTrash,
   tablerVersions,
   tablerVolume,
+  tablerVolumeOff,
   tablerX,
 };

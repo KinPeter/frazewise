@@ -110,7 +110,8 @@
     "check": "Check",
     "correct": "Correct!",
     "incorrect": "Incorrect.",
-    "continue": "Continue"
+    "continue": "Continue",
+    "toggleVoice": "Toggle voice"
   },
   "successNotifications": {
     "deckCreated": "Deck created",
