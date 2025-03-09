@@ -10,12 +10,72 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [PkButtonComponent, TranslatePipe],
   providers: [],
   styles: `
+    .container {
+      padding: 0 0.5rem;
+    }
+
     .parts button,
     .input button {
       border: 1px solid var(--color-border);
       border-radius: var(--radius-default);
       padding: 1rem;
       background: none;
+      font-size: 1rem;
+    }
+
+    .source {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding: 3rem 0;
+    }
+
+    .input,
+    .parts {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .input-wrapper,
+    .parts-wrapper {
+      min-height: 177px;
+      padding: 1.5rem 0.5rem;
+    }
+
+    .input {
+      min-height: 52px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .success {
+      border: 2px solid var(--color-success);
+      border-radius: var(--radius-default);
+      color: var(--color-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 1rem 0;
+    }
+
+    .incorrect {
+      border: 2px solid var(--color-error);
+      border-radius: var(--radius-default);
+      color: var(--color-error);
+      padding: 1rem;
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+
+        &:first-child {
+          font-weight: bold;
+        }
+      }
     }
   `,
   template: `
@@ -23,24 +83,28 @@ import { TranslatePipe } from '@ngx-translate/core';
       <div class="source">
         {{ data().card.source }}
       </div>
-      <div class="input">
-        @for (part of input(); track part) {
-          <button (click)="onClickInputPart(part)">
-            {{ part }}
-          </button>
-        }
+      <div class="input-wrapper">
+        <div class="input">
+          @for (part of input(); track part) {
+            <button (click)="onClickInputPart(part)">
+              {{ part }}
+            </button>
+          }
+        </div>
       </div>
-      <div class="parts">
-        @for (part of parts(); track part) {
-          <button (click)="onClickPart(part)">
-            {{ part }}
-          </button>
-        }
+      <div class="parts-wrapper">
+        <div class="parts">
+          @for (part of parts(); track part) {
+            <button (click)="onClickPart(part)">
+              {{ part }}
+            </button>
+          }
+        </div>
       </div>
       <div class="check-result">
         @switch (isSuccess()) {
           @case (null) {
-            <pk-button variant="outline" (clicked)="onCheck()">
+            <pk-button variant="outline" size="100%" (clicked)="onCheck()">
               {{ 'practice.check' | translate }}
             </pk-button>
           }
@@ -53,7 +117,7 @@ import { TranslatePipe } from '@ngx-translate/core';
             <div class="incorrect">
               <p>{{ 'practice.incorrect' | translate }}</p>
               <p>{{ data().card.target }}</p>
-              <pk-button variant="outline" (clicked)="onContinue()">
+              <pk-button variant="subtle" size="100%" (clicked)="onContinue()">
                 {{ 'practice.continue' | translate }}
               </pk-button>
             </div>

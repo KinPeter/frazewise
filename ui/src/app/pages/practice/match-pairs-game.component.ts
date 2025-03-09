@@ -8,7 +8,21 @@ import { GameCardComponent } from './game-card.component';
   selector: 'pk-match-pairs-game',
   imports: [GameCardComponent],
   providers: [],
-  styles: ``,
+  styles: `
+    .container {
+      display: flex;
+      gap: 0.5rem;
+      padding: 5rem 2px 0;
+    }
+
+    .source,
+    .target {
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  `,
   template: `
     <div class="container">
       <div class="source">
@@ -82,6 +96,7 @@ export class MatchPairsGameComponent implements OnChanges {
   }
 
   public onClickSource(clickedId: string): void {
+    if (this.sourceCards().find(card => card.value === clickedId)?.success) return;
     this.selectedSource.set(clickedId);
     if (!this.selectedTarget()) {
       this.sourceCards.update(options =>
@@ -95,6 +110,7 @@ export class MatchPairsGameComponent implements OnChanges {
   }
 
   public onClickTarget(clickedId: string): void {
+    if (this.targetCards().find(card => card.value === clickedId)?.success) return;
     this.selectedTarget.set(clickedId);
     if (!this.selectedSource()) {
       this.targetCards.update(options =>

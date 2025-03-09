@@ -13,7 +13,7 @@ import {
 } from '../../utils/games';
 import { Card } from '../../../../../common/types/cards';
 
-const derDieDas: Game = {
+export const derDieDas: Game = {
   type: GameType.DER_DIE_DAS,
   data: {
     card: {
@@ -26,7 +26,7 @@ const derDieDas: Game = {
   },
 };
 
-const multipleChoice: Game = {
+export const multipleChoice: Game = {
   type: GameType.MULTIPLE_CHOICE,
   data: {
     card: {
@@ -62,7 +62,7 @@ const multipleChoice: Game = {
   },
 };
 
-const matchPairs: Game = {
+export const matchPairs: Game = {
   type: GameType.MATCH_PAIRS,
   data: {
     cards: [
@@ -98,7 +98,7 @@ const matchPairs: Game = {
   },
 };
 
-const sentence: Game = {
+export const sentence: Game = {
   type: GameType.SENTENCE,
   data: {
     card: {
@@ -143,7 +143,7 @@ export class GamesService extends Store<GamesState> {
     this.setState({ loading: true });
     const { cards } = deck;
     const sortedCards = sortCards([...cards]);
-    const games: Game[] = []; // FIXME TESTING TESTING
+    const games: Game[] = [];
     const { words } = splitCardsByTargetLength(sortedCards);
     sortedCards.forEach(card => {
       if (isSentence(card)) {

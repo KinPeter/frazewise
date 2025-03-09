@@ -16,7 +16,22 @@ import { getByChance, shuffleArray } from '../../utils/games';
   selector: 'pk-multiple-choice-game',
   imports: [GameCardComponent],
   providers: [],
-  styles: ``,
+  styles: `
+    .source {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding: 3rem 0;
+    }
+
+    .alternatives {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  `,
   template: `
     <div class="container">
       <div class="source">

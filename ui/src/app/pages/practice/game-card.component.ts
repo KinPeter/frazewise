@@ -9,8 +9,10 @@ import { NgClass } from '@angular/common';
     button {
       border: 1px solid var(--color-border);
       border-radius: var(--radius-default);
-      padding: 1rem;
+      padding: 1.5rem 1rem;
       background: none;
+      width: 100%;
+      font-size: 1.2rem;
 
       &.success {
         border-color: var(--color-success);

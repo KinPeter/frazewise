@@ -16,7 +16,33 @@ import { DER_DIE_DAS_REGEX } from '../../utils/games';
   selector: 'pk-der-die-das-game',
   imports: [GameCardComponent],
   providers: [],
-  styles: ``,
+  styles: `
+    .source,
+    .target {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      padding: 3rem 0;
+    }
+
+    .options {
+      display: flex;
+      gap: 0.5rem;
+
+      > div {
+        flex-grow: 1;
+      }
+      margin-bottom: 1rem;
+    }
+
+    .target {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-default);
+      padding: 1rem;
+    }
+  `,
   template: `
     <div class="container">
       <div class="source">
@@ -24,16 +50,20 @@ import { DER_DIE_DAS_REGEX } from '../../utils/games';
       </div>
       <div class="options">
         @for (option of options(); track option.value) {
-          <pk-game-card
-            [text]="option.value"
-            lang="de"
-            [success]="option.success"
-            [miss]="option.miss"
-            [info]="option.info"
-            (clicked)="onClick(option.value)" />
+          <div>
+            <pk-game-card
+              [text]="option.value"
+              lang="de"
+              [success]="option.success"
+              [miss]="option.miss"
+              [info]="option.info"
+              (clicked)="onClick(option.value)" />
+          </div>
         }
       </div>
-      {{ target() }}
+      <div class="target">
+        {{ target() }}
+      </div>
     </div>
   `,
 })
