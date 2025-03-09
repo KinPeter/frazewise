@@ -19,6 +19,18 @@ export function sortCards(cards: Card[]): Card[] {
       }
     }
 
+    // Randomize those with 0 missCount, 0 successCount, and null lastPracticed
+    if (
+      a.missCount === 0 &&
+      b.missCount === 0 &&
+      a.successCount === 0 &&
+      b.successCount === 0 &&
+      a.lastPracticed === null &&
+      b.lastPracticed === null
+    ) {
+      return Math.random() - 0.5; // Randomized sorting
+    }
+
     // Sort by successCount, ascending
     if (a.successCount !== b.successCount) {
       return a.successCount - b.successCount;
@@ -32,18 +44,6 @@ export function sortCards(cards: Card[]): Card[] {
       if (dateA !== dateB) {
         return dateA - dateB; // Earlier dates come first
       }
-    }
-
-    // Randomize those with 0 missCount, 0 successCount, and null lastPracticed
-    if (
-      a.missCount === 0 &&
-      b.missCount === 0 &&
-      a.successCount === 0 &&
-      b.successCount === 0 &&
-      a.lastPracticed === null &&
-      b.lastPracticed === null
-    ) {
-      return Math.random() - 0.5; // Randomized sorting
     }
 
     return 0; // If all conditions are the same, maintain original order
@@ -87,8 +87,12 @@ export function getAlternativesFor(base: Card, array: Card[]): Card[] {
   const filteredArray = array.filter(card => card.target !== base.target);
 
   // Shuffle the filtered array to randomize the order
-  const shuffledArray = filteredArray.sort(() => Math.random() - 0.5);
+  const shuffledArray = shuffleArray(filteredArray);
 
   // Pick the first 3 cards, or fewer if there are less than 3 cards available
   return shuffledArray.slice(0, 3);
+}
+
+export function shuffleArray<T>(array: T[]): T[] {
+  return [...array].sort(() => Math.random() - 0.5);
 }

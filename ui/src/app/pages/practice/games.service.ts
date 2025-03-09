@@ -12,6 +12,91 @@ import {
 } from '../../utils/games';
 import { Card } from '../../../../../common/types/cards';
 
+const derDieDas: Game = {
+  type: GameType.DER_DIE_DAS,
+  data: {
+    card: {
+      target: 'der Hund',
+      targetLang: 'de',
+      source: 'dog',
+      sourceLang: 'en',
+      id: '1',
+    } as Card,
+  },
+};
+
+const multipleChoice: Game = {
+  type: GameType.MULTIPLE_CHOICE,
+  data: {
+    card: {
+      target: 'der Hund',
+      targetLang: 'de',
+      source: 'dog',
+      sourceLang: 'en',
+      id: '1',
+    } as Card,
+    options: [
+      {
+        target: 'die Eule',
+        targetLang: 'de',
+        source: 'owl',
+        sourceLang: 'en',
+        id: '2',
+      } as Card,
+      {
+        target: 'die Katze',
+        targetLang: 'de',
+        source: 'cat',
+        sourceLang: 'en',
+        id: '3',
+      } as Card,
+      {
+        target: 'der Elefant',
+        targetLang: 'de',
+        source: 'elephant',
+        sourceLang: 'en',
+        id: '4',
+      } as Card,
+    ],
+  },
+};
+
+const matchPairs: Game = {
+  type: GameType.MATCH_PAIRS,
+  data: {
+    cards: [
+      {
+        target: 'der Hund',
+        targetLang: 'de',
+        source: 'dog',
+        sourceLang: 'en',
+        id: '1',
+      } as Card,
+      {
+        target: 'die Eule',
+        targetLang: 'de',
+        source: 'owl',
+        sourceLang: 'en',
+        id: '2',
+      } as Card,
+      {
+        target: 'die Katze',
+        targetLang: 'de',
+        source: 'cat',
+        sourceLang: 'en',
+        id: '3',
+      } as Card,
+      {
+        target: 'der Elefant',
+        targetLang: 'de',
+        source: 'elephant',
+        sourceLang: 'en',
+        id: '4',
+      } as Card,
+    ],
+  },
+};
+
 interface GamesState {
   loading: boolean;
   games: Game[];
@@ -43,20 +128,7 @@ export class GamesService extends Store<GamesState> {
     this.setState({ loading: true });
     const { cards } = deck;
     const sortedCards = sortCards([...cards]);
-    // FIXME TESTING TESTING
-    const first: Game = {
-      type: GameType.DER_DIE_DAS,
-      data: {
-        card: {
-          target: 'der Hund',
-          targetLang: 'de',
-          source: 'dog',
-          sourceLang: 'en',
-          id: '1',
-        } as Card,
-      },
-    };
-    const games: Game[] = [first];
+    const games: Game[] = [matchPairs]; // FIXME TESTING TESTING
     const { words } = splitCardsByTargetLength(sortedCards);
     sortedCards.forEach(card => {
       if (isSentence(card)) {

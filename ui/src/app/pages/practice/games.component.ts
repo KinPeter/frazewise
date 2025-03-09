@@ -38,7 +38,7 @@ import { DerDieDasGameComponent } from './der-die-das-game.component';
           <pk-sentence-game [data]="sentenceData()" (result)="onResult($event)" />
         }
         @case (GameType.MATCH_PAIRS) {
-          <pk-match-pairs-game [data]="matchPairsData()" (result)="onResult($event)" />
+          <pk-match-pairs-game [data]="matchPairsData()" (results)="onResults($event)" />
         }
         @case (GameType.MULTIPLE_CHOICE) {
           <pk-multiple-choice-game [data]="multipleChoiceData()" (result)="onResult($event)" />
@@ -79,5 +79,14 @@ export class GamesComponent implements OnInit {
     console.log({ result });
     // FIXME
     // this.result.emit(result);
+  }
+
+  public onResults(results: PracticeRequest[]): void {
+    // this.gamesService.pickNextGame();
+    console.log({ results });
+    // FIXME
+    // results.forEach(result => {
+    //   this.result.emit(result);
+    // });
   }
 }

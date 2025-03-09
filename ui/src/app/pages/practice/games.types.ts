@@ -18,6 +18,7 @@ export interface MultipleChoiceData {
 
 export interface SentenceData {
   card: Card;
+  extraWords: string[];
 }
 
 export interface DerDieDasData {
@@ -27,4 +28,15 @@ export interface DerDieDasData {
 export interface Game {
   type: GameType;
   data: MatchPairsData | MultipleChoiceData | SentenceData | DerDieDasData;
+}
+
+export interface GameCardProps {
+  value: string;
+  text: string;
+  lang: string;
+  success: boolean;
+  miss: boolean;
+  info: boolean;
+  textAlt?: string;
+  selected?: boolean;
 }

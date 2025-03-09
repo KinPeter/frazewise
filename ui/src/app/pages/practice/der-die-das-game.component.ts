@@ -47,7 +47,6 @@ export class DerDieDasGameComponent {
   });
 
   public onClick(value: string) {
-    console.log('Clicked:', value);
     if (value === this.correct()) {
       this.options.update(options =>
         options.map(option => ({

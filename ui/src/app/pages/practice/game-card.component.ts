@@ -29,10 +29,18 @@ import { NgClass } from '@angular/common';
         color: var(--color-info);
         box-shadow: 0 0 3px 2px var(--color-info);
       }
+
+      &.selected {
+        border-color: var(--color-border);
+        color: var(--color-text-stronger);
+        box-shadow: 0 0 3px 2px var(--color-border);
+      }
     }
   `,
   template: `
-    <button [ngClass]="{ success: success(), miss: miss(), info: info() }" (click)="clicked.emit()">
+    <button
+      [ngClass]="{ success: success(), miss: miss(), info: info(), selected: selected() }"
+      (click)="clicked.emit()">
       {{ text() }}
     </button>
   `,
@@ -44,5 +52,6 @@ export class GameCardComponent {
   public success = input.required<boolean>();
   public miss = input.required<boolean>();
   public info = input.required<boolean>();
+  public selected = input<boolean>();
   public clicked = output<void>();
 }
