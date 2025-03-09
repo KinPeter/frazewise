@@ -1,4 +1,4 @@
-import { Component, input, OnInit, output, signal } from '@angular/core';
+import { Component, input, OnChanges, output, signal, SimpleChanges } from '@angular/core';
 import { PracticeRequest } from '../../../../../common/types/practice';
 import { SentenceData } from './games.types';
 import { shuffleArray, stripParts } from '../../utils/games';
@@ -63,7 +63,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     </div>
   `,
 })
-export class SentenceGameComponent implements OnInit {
+export class SentenceGameComponent implements OnChanges {
   public data = input.required<SentenceData>();
   public result = output<PracticeRequest>();
   public correct = signal<string[]>([]);
@@ -71,9 +71,12 @@ export class SentenceGameComponent implements OnInit {
   public parts = signal<string[]>([]);
   public isSuccess = signal<boolean | null>(null);
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['data']) return;
     const target = stripParts(this.data().card.target);
     this.correct.set([...target]);
+    this.input.set([]);
+    this.isSuccess.set(null);
     this.parts.set(shuffleArray([...target, ...this.data().extraWords]));
   }
 

@@ -1,4 +1,4 @@
-import { Component, input, OnInit, output, signal } from '@angular/core';
+import { Component, input, OnChanges, output, signal, SimpleChanges } from '@angular/core';
 import { PracticeRequest } from '../../../../../common/types/practice';
 import { GameCardProps, MatchPairsData } from './games.types';
 import { shuffleArray } from '../../utils/games';
@@ -38,7 +38,7 @@ import { GameCardComponent } from './game-card.component';
     </div>
   `,
 })
-export class MatchPairsGameComponent implements OnInit {
+export class MatchPairsGameComponent implements OnChanges {
   public data = input.required<MatchPairsData>();
   public results = output<PracticeRequest[]>();
   public sourceCards = signal<GameCardProps[]>([]);
@@ -47,8 +47,12 @@ export class MatchPairsGameComponent implements OnInit {
   public selectedTarget = signal<string | null>(null);
   public matchResults = signal<PracticeRequest[]>([]);
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['data']) return;
     const cards = this.data().cards;
+    this.selectedSource.set(null);
+    this.selectedTarget.set(null);
+    this.matchResults.set([]);
     this.sourceCards.set(
       shuffleArray(
         cards.map(card => ({

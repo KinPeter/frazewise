@@ -1,5 +1,13 @@
-import { Component, computed, input, output, signal } from '@angular/core';
-import { DerDieDasData } from './games.types';
+import {
+  Component,
+  computed,
+  input,
+  OnChanges,
+  output,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
+import { DerDieDasData, GameCardProps } from './games.types';
 import { PracticeRequest } from '../../../../../common/types/practice';
 import { GameCardComponent } from './game-card.component';
 import { DER_DIE_DAS_REGEX } from '../../utils/games';
@@ -29,15 +37,11 @@ import { DER_DIE_DAS_REGEX } from '../../utils/games';
     </div>
   `,
 })
-export class DerDieDasGameComponent {
+export class DerDieDasGameComponent implements OnChanges {
   public data = input.required<DerDieDasData>();
   public result = output<PracticeRequest>();
 
-  public options = signal([
-    { value: 'der', success: false, miss: false, info: false },
-    { value: 'die', success: false, miss: false, info: false },
-    { value: 'das', success: false, miss: false, info: false },
-  ]);
+  public options = signal<GameCardProps[]>([]);
 
   public target = computed(() => this.data().card.target.replace(DER_DIE_DAS_REGEX, ''));
   public correct = computed(() => {
@@ -45,6 +49,15 @@ export class DerDieDasGameComponent {
     if (!match) throw new Error("Couldn't find der/die/das in target");
     return match[0].toLowerCase();
   });
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['data']) return;
+    this.options.set([
+      { value: 'der', success: false, miss: false, info: false },
+      { value: 'die', success: false, miss: false, info: false },
+      { value: 'das', success: false, miss: false, info: false },
+    ] as GameCardProps[]);
+  }
 
   public onClick(value: string) {
     if (value === this.correct()) {

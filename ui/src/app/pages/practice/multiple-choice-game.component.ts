@@ -1,4 +1,12 @@
-import { Component, computed, input, OnInit, output, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  OnChanges,
+  output,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
 import { PracticeRequest } from '../../../../../common/types/practice';
 import { GameCardProps, MultipleChoiceData } from './games.types';
 import { GameCardComponent } from './game-card.component';
@@ -28,14 +36,15 @@ import { getByChance, shuffleArray } from '../../utils/games';
     </div>
   `,
 })
-export class MultipleChoiceGameComponent implements OnInit {
+export class MultipleChoiceGameComponent implements OnChanges {
   public data = input.required<MultipleChoiceData>();
   public result = output<PracticeRequest>();
   public source = signal<string>('');
   public alternatives = signal<GameCardProps[]>([]);
   public correct = computed(() => this.data().card.id);
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['data']) return;
     const isTargetFirst = getByChance(50);
     const card = this.data().card;
     this.source.set(isTargetFirst ? this.data().card.target : this.data().card.source);
