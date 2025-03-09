@@ -15,6 +15,7 @@ import { SentenceGameComponent } from './sentence-game.component';
 import { MatchPairsGameComponent } from './match-pairs-game.component';
 import { MultipleChoiceGameComponent } from './multiple-choice-game.component';
 import { DerDieDasGameComponent } from './der-die-das-game.component';
+import { TtsService } from '../../common/services/tts.service';
 
 @Component({
   selector: 'pk-games',
@@ -58,7 +59,10 @@ export class GamesComponent implements OnInit {
   public isFinished: Signal<boolean>;
   public readonly GameType = GameType;
 
-  constructor(private gamesService: GamesService) {
+  constructor(
+    private gamesService: GamesService,
+    private ttsService: TtsService
+  ) {
     this.currentGame = this.gamesService.currentGame;
     this.gameIndex = this.gamesService.gameIndex;
     this.isFinished = this.gamesService.isFinished;
@@ -72,6 +76,7 @@ export class GamesComponent implements OnInit {
 
   ngOnInit() {
     this.gamesService.setupGames(this.deck());
+    this.ttsService.initForLang(this.deck().targetLang);
   }
 
   public onResult(result: PracticeRequest): void {

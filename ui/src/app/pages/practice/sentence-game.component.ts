@@ -4,6 +4,7 @@ import { SentenceData } from './games.types';
 import { shuffleArray, stripParts } from '../../utils/games';
 import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { TtsService } from '../../common/services/tts.service';
 
 @Component({
   selector: 'pk-sentence-game',
@@ -135,6 +136,8 @@ export class SentenceGameComponent implements OnChanges {
   public parts = signal<string[]>([]);
   public isSuccess = signal<boolean | null>(null);
 
+  constructor(private ttsService: TtsService) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes['data']) return;
     const target = stripParts(this.data().card.target);
@@ -145,16 +148,19 @@ export class SentenceGameComponent implements OnChanges {
   }
 
   public onClickPart(part: string): void {
+    this.ttsService.readOut(part);
     this.input.update(input => [...input, part]);
     this.parts.update(parts => parts.filter(p => p !== part));
   }
 
   public onClickInputPart(part: string): void {
+    this.ttsService.readOut(part);
     this.input.update(input => input.filter(p => p !== part));
     this.parts.update(parts => [...parts, part]);
   }
 
   public onCheck(): void {
+    this.ttsService.readOut(this.data().card.target);
     const isCorrect =
       this.input().length === this.correct().length &&
       this.input().every((part, index) => part === this.correct()[index]);

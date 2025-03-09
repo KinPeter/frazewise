@@ -3,6 +3,7 @@ import { PracticeRequest } from '../../../../../common/types/practice';
 import { GameCardProps, MatchPairsData } from './games.types';
 import { shuffleArray } from '../../utils/games';
 import { GameCardComponent } from './game-card.component';
+import { TtsService } from '../../common/services/tts.service';
 
 @Component({
   selector: 'pk-match-pairs-game',
@@ -65,6 +66,8 @@ export class MatchPairsGameComponent implements OnChanges {
   public selectedTarget = signal<string | null>(null);
   public matchResults = signal<PracticeRequest[]>([]);
 
+  constructor(private ttsService: TtsService) {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['data']) return;
     const cards = this.data().cards;
@@ -115,7 +118,9 @@ export class MatchPairsGameComponent implements OnChanges {
   }
 
   public onClickTarget(clickedId: string): void {
-    if (this.targetCards().find(card => card.value === clickedId)?.success) return;
+    const card = this.targetCards().find(card => card.value === clickedId);
+    this.ttsService.readOut(card?.text ?? '');
+    if (card?.success) return;
     this.selectedTarget.set(clickedId);
     if (!this.selectedSource()) {
       this.targetCards.update(options =>
@@ -196,7 +201,7 @@ export class MatchPairsGameComponent implements OnChanges {
     if (allMatched) {
       setTimeout(() => {
         this.results.emit(this.matchResults());
-      }, 500);
+      }, 1000);
     }
   }
 }

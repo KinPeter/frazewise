@@ -11,6 +11,7 @@ import { PracticeRequest } from '../../../../../common/types/practice';
 import { GameCardProps, MultipleChoiceData } from './games.types';
 import { GameCardComponent } from './game-card.component';
 import { getByChance, shuffleArray } from '../../utils/games';
+import { TtsService } from '../../common/services/tts.service';
 
 @Component({
   selector: 'pk-multiple-choice-game',
@@ -44,7 +45,7 @@ import { getByChance, shuffleArray } from '../../utils/games';
   template: `
     <div class="container">
       <div class="source" [class.hanzi]="isTargetFirst() && data().card.targetLang === 'zh'">
-        {{ source() }}
+        <span (click)="readSource()">{{ source() }}</span>
         @if (sourceAlt()) {
           <span class="source-alt">{{ sourceAlt() }}</span>
         }
@@ -73,10 +74,15 @@ export class MultipleChoiceGameComponent implements OnChanges {
   public alternatives = signal<GameCardProps[]>([]);
   public correct = computed(() => this.data().card.id);
 
+  constructor(private ttsService: TtsService) {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['data']) return;
     const isTargetFirst = getByChance(50);
     const card = this.data().card;
+    if (isTargetFirst) {
+      this.ttsService.readOut(card.target);
+    }
     this.isTargetFirst.set(isTargetFirst);
     this.source.set(isTargetFirst ? this.data().card.target : this.data().card.source);
     this.sourceAlt.set(isTargetFirst ? (this.data().card.targetAlt ?? '') : '');
@@ -105,6 +111,11 @@ export class MultipleChoiceGameComponent implements OnChanges {
   }
 
   public onClick(value: string) {
+    if (!this.isTargetFirst()) {
+      const card = this.alternatives().find(option => option.value === value);
+      this.ttsService.readOut(card?.text ?? '');
+    }
+
     if (value === this.correct()) {
       this.alternatives.update(options =>
         options.map(option => ({
@@ -116,7 +127,7 @@ export class MultipleChoiceGameComponent implements OnChanges {
       );
       setTimeout(() => {
         this.result.emit({ cardId: this.data().card.id, isSuccess: true });
-      }, 500);
+      }, 1000);
     } else {
       this.alternatives.update(options =>
         options.map(option => ({
@@ -129,6 +140,12 @@ export class MultipleChoiceGameComponent implements OnChanges {
       setTimeout(() => {
         this.result.emit({ cardId: this.data().card.id, isSuccess: false });
       }, 2000);
+    }
+  }
+
+  public readSource() {
+    if (this.isTargetFirst()) {
+      this.ttsService.readOut(this.data().card.target);
     }
   }
 }

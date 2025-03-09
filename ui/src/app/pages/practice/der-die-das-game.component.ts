@@ -11,6 +11,7 @@ import { DerDieDasData, GameCardProps } from './games.types';
 import { PracticeRequest } from '../../../../../common/types/practice';
 import { GameCardComponent } from './game-card.component';
 import { DER_DIE_DAS_REGEX } from '../../utils/games';
+import { TtsService } from '../../common/services/tts.service';
 
 @Component({
   selector: 'pk-der-die-das-game',
@@ -80,6 +81,8 @@ export class DerDieDasGameComponent implements OnChanges {
     return match[0].toLowerCase();
   });
 
+  constructor(private ttsService: TtsService) {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['data']) return;
     this.options.set([
@@ -90,6 +93,7 @@ export class DerDieDasGameComponent implements OnChanges {
   }
 
   public onClick(value: string) {
+    this.ttsService.readOut(this.data().card.target);
     if (value === this.correct()) {
       this.options.update(options =>
         options.map(option => ({
@@ -101,7 +105,7 @@ export class DerDieDasGameComponent implements OnChanges {
       );
       setTimeout(() => {
         this.result.emit({ cardId: this.data().card.id, isSuccess: true });
-      }, 500);
+      }, 1000);
     } else {
       this.options.update(options =>
         options.map(option => ({
