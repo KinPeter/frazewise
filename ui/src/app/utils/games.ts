@@ -4,18 +4,26 @@ export const DER_DIE_DAS_REGEX = /^(der|die|das)\b/i; // Matches "der", "die", o
 
 export function sortCards(cards: Card[]): Card[] {
   return cards.sort((a, b) => {
-    // Sort by missCount, descending
-    if (a.missCount !== b.missCount) {
+    // Sort by missCount, descending, if more misses than successes
+    if (
+      a.missCount > a.successCount &&
+      b.missCount > b.successCount &&
+      a.missCount !== b.missCount
+    ) {
       return b.missCount - a.missCount;
     }
 
-    // Sort by lastPracticed, ascending (older dates first)
-    if (a.missCount === b.missCount) {
+    // Sort by lastPracticed, ascending (older dates first) if both have more misses than successes
+    if (
+      a.missCount > a.successCount &&
+      b.missCount > b.successCount &&
+      a.missCount === b.missCount
+    ) {
       const dateA = a.lastPracticed ? new Date(a.lastPracticed).getTime() : 0;
       const dateB = b.lastPracticed ? new Date(b.lastPracticed).getTime() : 0;
 
       if (dateA !== dateB) {
-        return dateA - dateB; // Earlier dates come first
+        return dateA - dateB;
       }
     }
 
@@ -28,7 +36,7 @@ export function sortCards(cards: Card[]): Card[] {
       a.lastPracticed === null &&
       b.lastPracticed === null
     ) {
-      return Math.random() - 0.5; // Randomized sorting
+      return Math.random() - 0.5;
     }
 
     // Sort by successCount, ascending
@@ -42,7 +50,7 @@ export function sortCards(cards: Card[]): Card[] {
       const dateB = b.lastPracticed ? new Date(b.lastPracticed).getTime() : 0;
 
       if (dateA !== dateB) {
-        return dateA - dateB; // Earlier dates come first
+        return dateA - dateB;
       }
     }
 
