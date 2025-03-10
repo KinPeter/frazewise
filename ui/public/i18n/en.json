@@ -101,7 +101,7 @@
     "numberOfCards": "Number of cards",
     "tooFewRemaining": "Your deck is almost full, please choose another deck to generate cards to.",
     "generateSuccess": "Cards generated successfully, please scroll down, check the cards and click Save.",
-    "generateError": "Couldn't generate cards. Please try again later or with different parameters.Couldn't generate cards. Please try again later or with different parameters.",
+    "generateError": "Couldn't generate cards. Please try again later or with different parameters.",
     "generateLoading": "The AI is working its magic, please wait...",
     "nCardsInThisDeck": "{{count}}/{{total}} cards in this deck"
   },
