@@ -37,6 +37,7 @@ import { TtsService } from '../../common/services/tts.service';
             [info]="option.info"
             [selected]="option.selected"
             [narrow]="true"
+            [disabled]="isDone()"
             (clicked)="onClickSource(option.value)" />
         }
       </div>
@@ -51,6 +52,7 @@ import { TtsService } from '../../common/services/tts.service';
             [info]="option.info"
             [selected]="option.selected"
             [narrow]="true"
+            [disabled]="isDone()"
             (clicked)="onClickTarget(option.value)" />
         }
       </div>
@@ -65,6 +67,7 @@ export class MatchPairsGameComponent implements OnChanges {
   public selectedSource = signal<string | null>(null);
   public selectedTarget = signal<string | null>(null);
   public matchResults = signal<PracticeRequest[]>([]);
+  public isDone = signal<boolean>(false);
 
   constructor(private ttsService: TtsService) {}
 
@@ -73,6 +76,7 @@ export class MatchPairsGameComponent implements OnChanges {
     const cards = this.data().cards;
     this.selectedSource.set(null);
     this.selectedTarget.set(null);
+    this.isDone.set(false);
     this.matchResults.set([]);
     this.sourceCards.set(
       shuffleArray(
@@ -199,6 +203,7 @@ export class MatchPairsGameComponent implements OnChanges {
     const allIds = this.data().cards.map(card => card.id);
     const allMatched = successfulMatchedIds.length === allIds.length;
     if (allMatched) {
+      this.isDone.set(true);
       setTimeout(() => {
         this.results.emit(this.matchResults());
       }, 1000);

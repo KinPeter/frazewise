@@ -87,7 +87,7 @@ import { TtsService } from '../../common/services/tts.service';
       <div class="input-wrapper">
         <div class="input">
           @for (part of input(); track part) {
-            <button (click)="onClickInputPart(part)">
+            <button [disabled]="isDone()" (click)="onClickInputPart(part)">
               {{ part }}
             </button>
           }
@@ -96,7 +96,7 @@ import { TtsService } from '../../common/services/tts.service';
       <div class="parts-wrapper">
         <div class="parts">
           @for (part of parts(); track part) {
-            <button (click)="onClickPart(part)">
+            <button [disabled]="isDone()" (click)="onClickPart(part)">
               {{ part }}
             </button>
           }
@@ -135,6 +135,7 @@ export class SentenceGameComponent implements OnChanges {
   public input = signal<string[]>([]);
   public parts = signal<string[]>([]);
   public isSuccess = signal<boolean | null>(null);
+  public isDone = signal<boolean>(false);
 
   constructor(private ttsService: TtsService) {}
 
@@ -143,6 +144,7 @@ export class SentenceGameComponent implements OnChanges {
     const target = stripParts(this.data().card.target);
     this.correct.set([...target]);
     this.input.set([]);
+    this.isDone.set(false);
     this.isSuccess.set(null);
     this.parts.set(shuffleArray([...target, ...this.data().extraWords]));
   }
@@ -160,6 +162,7 @@ export class SentenceGameComponent implements OnChanges {
   }
 
   public onCheck(): void {
+    this.isDone.set(true);
     this.ttsService.readOut(this.data().card.target);
     const isCorrect =
       this.input().length === this.correct().length &&

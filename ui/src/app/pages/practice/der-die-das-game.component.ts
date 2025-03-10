@@ -58,6 +58,7 @@ import { TtsService } from '../../common/services/tts.service';
               [success]="option.success"
               [miss]="option.miss"
               [info]="option.info"
+              [disabled]="isDone()"
               (clicked)="onClick(option.value)" />
           </div>
         }
@@ -73,6 +74,7 @@ export class DerDieDasGameComponent implements OnChanges {
   public result = output<PracticeRequest>();
 
   public options = signal<GameCardProps[]>([]);
+  public isDone = signal<boolean>(false);
 
   public target = computed(() => this.data().card.target.replace(DER_DIE_DAS_REGEX, ''));
   public correct = computed(() => {
@@ -90,9 +92,11 @@ export class DerDieDasGameComponent implements OnChanges {
       { value: 'die', success: false, miss: false, info: false },
       { value: 'das', success: false, miss: false, info: false },
     ] as GameCardProps[]);
+    this.isDone.set(false);
   }
 
   public onClick(value: string) {
+    this.isDone.set(true);
     this.ttsService.readOut(this.data().card.target);
     if (value === this.correct()) {
       this.options.update(options =>

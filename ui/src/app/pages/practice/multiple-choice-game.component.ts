@@ -59,6 +59,7 @@ import { TtsService } from '../../common/services/tts.service';
             [success]="option.success"
             [miss]="option.miss"
             [info]="option.info"
+            [disabled]="isDone()"
             (clicked)="onClick(option.value)" />
         }
       </div>
@@ -71,6 +72,7 @@ export class MultipleChoiceGameComponent implements OnChanges {
   public source = signal<string>('');
   public sourceAlt = signal<string>('');
   public isTargetFirst = signal<boolean>(false);
+  public isDone = signal<boolean>(false);
   public alternatives = signal<GameCardProps[]>([]);
   public correct = computed(() => this.data().card.id);
 
@@ -84,6 +86,7 @@ export class MultipleChoiceGameComponent implements OnChanges {
       this.ttsService.readOut(card.target);
     }
     this.isTargetFirst.set(isTargetFirst);
+    this.isDone.set(false);
     this.source.set(isTargetFirst ? this.data().card.target : this.data().card.source);
     this.sourceAlt.set(isTargetFirst ? (this.data().card.targetAlt ?? '') : '');
     this.alternatives.set(
@@ -111,6 +114,7 @@ export class MultipleChoiceGameComponent implements OnChanges {
   }
 
   public onClick(value: string) {
+    this.isDone.set(true);
     if (!this.isTargetFirst()) {
       const card = this.alternatives().find(option => option.value === value);
       this.ttsService.readOut(card?.text ?? '');

@@ -69,6 +69,7 @@ import { NgClass } from '@angular/common';
         narrow: narrow(),
         hanzi: lang() === 'zh',
       }"
+      [disabled]="disabled()"
       (click)="clicked.emit()">
       {{ text() }}
       @if (altText()) {
@@ -86,5 +87,6 @@ export class GameCardComponent {
   public info = input.required<boolean>();
   public selected = input<boolean>();
   public narrow = input<boolean>();
+  public disabled = input<boolean>();
   public clicked = output<void>();
 }
