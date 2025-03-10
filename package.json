@@ -1,7 +1,7 @@
 {
   "name": "frazewise",
   "version": "0.0.0",
-  "uiVersion": "0.0.1",
+  "uiVersion": "0.0.2",
   "author": "Peter Kin",
   "scripts": {
     "start:api": "tsx ./api/server.ts",
