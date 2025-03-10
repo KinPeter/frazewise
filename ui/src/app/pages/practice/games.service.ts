@@ -136,6 +136,7 @@ export class GamesService extends Store<GamesState> {
   public currentGame = computed<Game | null>(() =>
     this.state().games.length ? this.state().games[this.state().gameIndex] : null
   );
+  public gameCount = computed(() => this.state().games.length);
   public gameIndex = computed(() => this.state().gameIndex);
   public isFinished = computed(() => this.state().isFinished);
 
