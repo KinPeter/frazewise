@@ -79,6 +79,7 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
     <p>{{ 'cards.generateCardsInfo1' | translate }}</p>
     <p>{{ 'cards.generateCardsInfo2' | translate }}</p>
     <p>{{ 'cards.generateCardsInfo3' | translate }}</p>
+    <p>{{ 'cards.generateCardsInfo4' | translate }}</p>
     <form [formGroup]="form" (ngSubmit)="onGenerate()">
       <div class="inputs">
         <pk-input
@@ -92,7 +93,7 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
             pkInput
             type="text"
             formControlName="topic"
-            [placeholder]="'cards.topicInEnglish' | translate" />
+            [placeholder]="'cards.topic' | translate" />
         </pk-input>
         <pk-input
           [label]="'cards.level' | translate"
