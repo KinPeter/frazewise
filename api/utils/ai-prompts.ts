@@ -7,7 +7,7 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
   const targetLang = supportedLanguages.get(request.targetLang as SupportedLanguage)?.name;
   const { cardCount, topic, level, targetLang: targetLangCode } = request;
 
-  let levelString = '';
+  let levelString: string;
   switch (level) {
     case 'basic':
       levelString = 'basic, for beginners';
@@ -20,7 +20,7 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       break;
   }
 
-  let languageExtra = '';
+  let languageExtra: string;
   switch (targetLangCode) {
     case 'de':
       languageExtra =
@@ -28,7 +28,11 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       break;
     case 'zh':
       languageExtra =
-        'The Chinese word should be in simplified Chinese hanzhi, and please add the pinyin pronunciation too in the format specified below.';
+        'The Chinese words should be in simplified Chinese hanzi, and please add the pinyin pronunciation too in the format specified below. For sentences please put spaces between the words.';
+      break;
+    case 'ko':
+      languageExtra =
+        'The Korean words should be in Hangul, and no need for romanization. For sentences, please put spaces between the words. Please use standard honorifics where applicable. Use the example specified below.';
       break;
     default:
       languageExtra = '';
@@ -38,24 +42,33 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
   let example = '';
   switch (targetLangCode as SupportedLanguage) {
     case 'en':
-    case 'de':
-    case 'hu':
-    case 'ko':
       example =
-        '[{"source": "map", "target": "die Karte"}, {"source": "maps", "target": "die Karten"}]';
+        '[{"source": "물", "target": "water"}, {"source": "지하철역이 어디에 있어요?", "target": "Where is the subway station?"}]';
+      break;
+    case 'hu':
+      example =
+        '[{"source": "map", "target": "térkép"}, {"source": "How are you?", "target": "Hogy vagy?"}]';
+      break;
+    case 'de':
+      example =
+        '[{"source": "map", "target": "die Karte"}, {"source": "maps", "target": "die Karten"}, {"source": "How are you?", "target": "Wie geht es dir?"}]';
       break;
     case 'zh':
       example =
         '[{"source": "water", "target": "水", "targetAlt": "Shuǐ"}, {"source": "hello", "target": "你好", "targetAlt": "Nǐ hǎo"}]';
       break;
+    case 'ko':
+      example =
+        '[{"source": "water", "target": "물"}, {"source": "Where is the subway station?", "target": "지하철역이 어디에 있어요?"}]';
+      break;
   }
 
-  return `Please generate a list of ${cardCount} words for memorizing ${targetLang} words as flashcards.
+  return `Please generate a list of ${cardCount} words for memorizing ${targetLang} words and phrases as flashcards.
 The source language is ${sourceLang}, the target language is ${targetLang}.
 The words should be in the topic of ${topic}.
 The level of the words should be ${levelString}.
-Half of it should be nouns, but include all other kinds of words or phrases.
-Phrases should be maximum a 100 characters long.
+Half of it should be nouns, but include all other kinds of words or phrases and short sentences.
+Phrases and sentences should be maximum 100 characters long.
 ${languageExtra}
 Format the list as a JSON string, example:
 ${example}`;
