@@ -25,12 +25,14 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0.5rem 1.5rem;
+      gap: 0.5rem;
     }
 
     .title {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
       height: 2.5rem;
 
       h2 {
@@ -41,7 +43,7 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
 
       .actions {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.2rem;
       }
     }
 
@@ -50,13 +52,26 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
     }
 
     .right {
-      padding-right: 1rem;
+      padding-right: 0;
+
+      @media (min-width: 600px) {
+        padding-right: 1rem;
+      }
+    }
+
+    .flag {
+      width: 40px;
+      height: 40px;
     }
   `,
   template: `
     <div pkCard class="card">
       <div class="left">
         <div class="title">
+          <img
+            class="flag"
+            [src]="'assets/' + deck().targetLang + '.png'"
+            [alt]="'supportedLanguages.' + deck().targetLang | translate" />
           <h2 class="name" (click)="onEdit()">
             {{ deck().name }}
           </h2>
