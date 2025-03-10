@@ -58,7 +58,8 @@
     "alternative": "Alternatív szöveg",
     "noCards": "Nincsenek még kártyák a pakliban. Adj hozzá, importálj vagy generálj kártyákat a gyakorláshoz.",
     "numberOfCards": "{{count}} kártya",
-    "lastPracticed": "Utoljára gyakorolva"
+    "lastPracticed": "Utoljára gyakorolva",
+    "needTenCardsToPractice": ""
   },
   "cards": {
     "source": "Forrás",
@@ -91,8 +92,8 @@
     "generateCardsInfo1": "Kártyák generálása AI segítségével. Kérlek, vedd figyelembe, hogy ez egy kísérleti funkció és nem biztos, hogy tökéletesen működik.",
     "generateCardsInfo2": "Egyszerre maximum 100 kártyát generálhatsz, a pakli méretétől is függően. A generált kártyákat hozzáadhatod a paklihoz.",
     "generateCardsInfo3": "Kérlek add meg a témát, lehetőleg angolul, a nehézségi szintet és a generálandó kártyák számát.",
+    "generateCardsInfo4": "",
     "topic": "Téma",
-    "topicInEnglish": "Téma angolul",
     "level": "Szint",
     "basic": "Kezdő",
     "intermediate": "Középhaladó",
