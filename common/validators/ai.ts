@@ -17,7 +17,7 @@ export const generateCardsSchema = yup.object<GenerateCardsRequest>({
   topic: yup
     .string()
     .strict()
-    .min(5, ValidationError.MIN_LENGTH)
+    .min(1, ValidationError.MIN_LENGTH)
     .max(50, ValidationError.MAX_LENGTH)
     .required(ValidationError.STRING_REQUIRED),
   cardCount: yup

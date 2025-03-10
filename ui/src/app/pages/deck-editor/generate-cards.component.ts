@@ -190,7 +190,7 @@ export class GenerateCardsComponent {
   ) {
     this.loading = this.aiService.loading;
     this.form = this.formBuilder.group({
-      topic: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      topic: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
       level: ['basic', Validators.required],
       cardCount: [10, [Validators.required, Validators.min(10), Validators.max(100)]],
     });
