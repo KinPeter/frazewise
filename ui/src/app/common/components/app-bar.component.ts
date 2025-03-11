@@ -45,6 +45,16 @@ import { AppBarService } from '../services/app-bar.service';
       @media (max-width: 1000px) {
         text-align: center;
       }
+
+      h1 {
+        font-size: 1.2rem;
+        padding-top: 0.2rem;
+
+        @media (min-width: 500px) {
+          font-size: 1.5rem;
+          padding-top: 0;
+        }
+      }
     }
   `,
   template: `

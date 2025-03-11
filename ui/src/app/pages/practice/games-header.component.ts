@@ -24,8 +24,8 @@ import { GamesService } from './games.service';
   `,
   template: `
     <header>
+      <pk-progress-bar [total]="totalGames()" [current]="gameIndex()" />
       @if (isTtsBrowserEnabled()) {
-        <pk-progress-bar [total]="totalGames()" [current]="gameIndex()" />
         <pk-icon-button
           variant="default"
           [tooltip]="'practice.toggleVoice' | translate"

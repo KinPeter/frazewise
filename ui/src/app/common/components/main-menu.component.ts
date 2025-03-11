@@ -77,17 +77,17 @@ export class MainMenuComponent {
     {
       icon: 'tablerHome',
       label: 'pages.home',
-      action: () => this.router.navigate(['/']),
+      action: () => this.router.navigate(['/']).then(() => this.close()),
     },
     {
       icon: 'tablerVersions',
       label: 'pages.decks',
-      action: () => this.router.navigate(['/decks']),
+      action: () => this.router.navigate(['/decks']).then(() => this.close()),
     },
     {
       icon: 'tablerSettings',
       label: 'pages.settings',
-      action: () => this.router.navigate(['/settings']),
+      action: () => this.router.navigate(['/settings']).then(() => this.close()),
     },
     {
       icon: 'tablerCloudDown',
@@ -117,7 +117,7 @@ export class MainMenuComponent {
   private enterFullScreen(): void {
     const element = document.documentElement;
     if (element.requestFullscreen) {
-      element.requestFullscreen();
+      element.requestFullscreen().then(() => this.close());
     }
   }
 

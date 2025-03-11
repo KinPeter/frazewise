@@ -25,8 +25,12 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem 1.5rem;
+      padding: 1rem;
       gap: 0.5rem;
+
+      @media (min-width: 600px) {
+        padding: 0.5rem 1.5rem;
+      }
     }
 
     .title {
