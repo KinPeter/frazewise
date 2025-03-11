@@ -11,6 +11,7 @@ import { PkCheckboxDirective } from '../../common/directives/pk-checkbox.directi
 import { NgIcon } from '@ng-icons/core';
 import { MAX_DECK_NAME_LENGTH, MIN_DECK_NAME_LENGTH } from '../../../../../common/utils/constants';
 import { PkIconButtonComponent } from '../../common/components/pk-icon-button.component';
+import { TooltipDirective } from '../../common/directives/tooltip.directive';
 
 @Component({
   selector: 'pk-deck-form',
@@ -23,6 +24,7 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
     PkCheckboxDirective,
     NgIcon,
     PkIconButtonComponent,
+    TooltipDirective,
   ],
   providers: [],
   styles: `
@@ -101,8 +103,13 @@ import { PkIconButtonComponent } from '../../common/components/pk-icon-button.co
           <pk-checkbox [label]="'decks.alternative' | translate" [disabled]="!isNew()">
             <input pkCheckbox type="checkbox" formControlName="hasTargetAlt" />
           </pk-checkbox>
-          <ng-icon name="tablerInfoCircle" class="info-icon" size="1.2rem" />
+          <ng-icon
+            name="tablerInfoCircle"
+            class="info-icon"
+            size="1.2rem"
+            [pkTooltip]="'decks.alternativeTooltip' | translate" />
         </div>
+
         <div class="actions">
           <pk-icon-button
             variant="filled"

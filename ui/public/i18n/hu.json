@@ -56,6 +56,7 @@
     "sourceLang": "Forrás nyelv",
     "targetLang": "Cél nyelv",
     "alternative": "Alternatív szöveg",
+    "alternativeTooltip": "",
     "noCards": "Nincsenek még kártyák a pakliban. Adj hozzá, importálj vagy generálj kártyákat a gyakorláshoz.",
     "numberOfCards": "{{count}} kártya",
     "lastPracticed": "Utoljára gyakorolva",
