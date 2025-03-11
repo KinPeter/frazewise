@@ -56,6 +56,7 @@
     "sourceLang": "Source language",
     "targetLang": "Target language",
     "alternative": "Alternative phrasing",
+    "alternativeTooltip": "An extra field for the target word or phrase. Can be for example pronunciation or just a different way to say the same thing.",
     "noCards": "There are no cards yet in this deck. Add, import or generate cards to start practicing.",
     "numberOfCards": "{{count}} cards",
     "lastPracticed": "Last practiced",
