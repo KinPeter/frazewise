@@ -20,9 +20,9 @@ export class TtsService {
     this.supportedVoices().filter(voice => {
       const lang = this.currentLang();
       if (lang === 'en') {
-        return voice.lang === 'en-US' || voice.lang === 'en-GB';
+        return ['en-US', 'en_US', 'en-GB', 'en_GB'].includes(voice.lang);
       } else if (lang === 'de') {
-        return voice.lang === 'de-DE' || voice.lang === 'de-AT';
+        return ['de-DE', 'de_DE', 'de-AT', 'de_AT'].includes(voice.lang);
       } else {
         return voice.lang.toLowerCase().startsWith(lang.toLowerCase());
       }
