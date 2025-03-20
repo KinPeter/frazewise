@@ -31,4 +31,9 @@ export const generateCardsSchema = yup.object<GenerateCardsRequest>({
     .strict()
     .oneOf(['basic', 'intermediate', 'advanced'], ValidationError.NOT_SUPPORTED_VALUE)
     .required(ValidationError.STRING_REQUIRED),
+  type: yup
+    .string()
+    .strict()
+    .oneOf(['wordsOnly', 'phrasesOnly', 'mixed'], ValidationError.NOT_SUPPORTED_VALUE)
+    .required(ValidationError.STRING_REQUIRED),
 });

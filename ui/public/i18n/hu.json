@@ -92,7 +92,7 @@
     "generateCards": "Kártyák generálása",
     "generateCardsInfo1": "Kártyák generálása AI segítségével. Kérlek, vedd figyelembe, hogy ez egy kísérleti funkció és nem biztos, hogy tökéletesen működik.",
     "generateCardsInfo2": "Egyszerre maximum 100 kártyát generálhatsz, a pakli méretétől is függően. A generált kártyákat hozzáadhatod a paklihoz.",
-    "generateCardsInfo3": "Kérlek add meg a témát, a nehézségi szintet és a generálandó kártyák számát.",
+    "generateCardsInfo3": "Kérlek add meg a témát, a kártyák típusát, hogy csak szavakat, vagy kifejezéseket és mondatokat is szeretnél, a nehézségi szintet és a generálandó kártyák számát.",
     "generateCardsInfo4": "Amennyiben nem vagy elégedett a generált kártyákkal, kérlek próbáld meg angolul megadni a témát.",
     "topic": "Téma",
     "level": "Szint",
@@ -104,7 +104,11 @@
     "generateSuccess": "A kártyák generálása sikeres, kérlek görgess le, ellenőrizd a kártyákat és kattints a Mentésre.",
     "generateError": "Nem sikerült kártyákat generálni. Próbáld meg később vagy más paraméterekkel.",
     "generateLoading": "Az AI varázsol, kérlek várj...",
-    "nCardsInThisDeck": "{{count}}/{{total}} kártya ebben a pakliban"
+    "nCardsInThisDeck": "{{count}}/{{total}} kártya ebben a pakliban",
+    "type": "Típus",
+    "wordsOnly": "Csak szavak",
+    "phrasesOnly": "Kifejezések és mondatok",
+    "mixed": "Vegyes"
   },
   "practice": {
     "finished": "Gratulálok, az összes kártyát gyakoroltad ebben a pakliban!",

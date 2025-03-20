@@ -5,7 +5,7 @@ import { SupportedLanguage } from '../../common/types/languages';
 export function getPromptForCards(request: GenerateCardsRequest): string {
   const sourceLang = supportedLanguages.get(request.sourceLang as SupportedLanguage)?.name;
   const targetLang = supportedLanguages.get(request.targetLang as SupportedLanguage)?.name;
-  const { cardCount, topic, level, targetLang: targetLangCode } = request;
+  const { cardCount, topic, level, type, targetLang: targetLangCode } = request;
 
   let levelString: string;
   switch (level) {
@@ -24,7 +24,9 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
   switch (targetLangCode) {
     case 'de':
       languageExtra =
-        "If you add a noun always add if it's der/die/das. Please add it's plural form version as a separate card.";
+        type === 'phrasesOnly'
+          ? ''
+          : "If you add a noun always add if it's der/die/das. Please add it's plural form version as a separate card.";
       break;
     case 'zh':
       languageExtra =
@@ -32,7 +34,7 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       break;
     case 'ko':
       languageExtra =
-        'The Korean words should be in Hangul, and no need for romanization. For sentences, please put spaces between the words. Please use standard honorifics where applicable. Use the example specified below.';
+        'The Korean words should be in Hangul, and please add romanization too in the format specified below. For sentences, please put spaces between the words. Please use standard honorifics where applicable. Use the example specified below.';
       break;
     default:
       languageExtra = '';
@@ -55,20 +57,52 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       break;
     case 'zh':
       example =
-        '[{"source": "water", "target": "水", "targetAlt": "Shuǐ"}, {"source": "hello", "target": "你好", "targetAlt": "Nǐ hǎo"}]';
+        '[{"source": "water", "target": "水", "targetAlt": "Shuǐ"}, {"source": "hello", "target": "你好", "targetAlt": "Nǐ hǎo"}, {}{"source": "I speak Chinese.", "target": "我 说 中文", "targetAlt": "Wǒ shuō zhōngwén"}]';
       break;
     case 'ko':
       example =
-        '[{"source": "water", "target": "물"}, {"source": "Where is the subway station?", "target": "지하철역이 어디에 있어요?"}]';
+        '[{"source": "water", "target": "물", "targetAlt": "mul"}, {"source": "Where is the subway station?", "target": "지하철역이 어디에 있어요?", "targetAlt": "jihacheolyeogi eodie isseoyo?"}]';
       break;
   }
 
-  return `Please generate a list of ${cardCount} words for memorizing ${targetLang} words and phrases as flashcards.
+  let typeString = '';
+  switch (type) {
+    case 'mixed':
+      typeString = 'words and phrases';
+      break;
+    case 'wordsOnly':
+      typeString = 'words';
+      break;
+    case 'phrasesOnly':
+      typeString = 'phrases and sentences';
+      break;
+  }
+
+  const isSyllabic = ['zh'].includes(targetLangCode);
+  const maxLengthString = isSyllabic
+    ? '10-15 characters (syllables or logograms) long.'
+    : '100 characters long.';
+
+  let typeExplanation = '';
+  switch (type) {
+    case 'mixed':
+      typeExplanation = `Half of it should be words, the other half should be short sentences and common phrases. 
+      At least half of the words should be nouns, the rest are other types of words.
+      Sentences and phrases should be maximum ${maxLengthString}`;
+      break;
+    case 'wordsOnly':
+      typeExplanation = 'Half of it should be nouns, the rest are other types of words.';
+      break;
+    case 'phrasesOnly':
+      typeExplanation = `Please only include short sentences and common multi-word phrases, each should be maximum ${maxLengthString}`;
+      break;
+  }
+
+  return `Please generate a list of ${cardCount} ${typeString} for memorizing ${targetLang} ${typeString} as flashcards.
 The source language is ${sourceLang}, the target language is ${targetLang}.
-The words should be in the topic of ${topic}.
-The level of the words should be ${levelString}.
-Half of it should be nouns, but include all other kinds of words or phrases and short sentences.
-Phrases and sentences should be maximum 100 characters long.
+The ${typeString} should be in the topic of ${topic}.
+The level of the ${typeString} should be ${levelString}.
+${typeExplanation}
 ${languageExtra}
 Format the list as a JSON string, example:
 ${example}`;

@@ -5,7 +5,7 @@ import { BulkCardsRequest } from '../../../../../common/types/cards';
 import { CardFormValues, NewCardsFormComponent } from './new-cards-form.component';
 import { MAX_CARD_COUNT } from '../../../../../common/utils/constants';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { GenerateCardsRequest, LanguageLevel } from '../../../../../common/types/ai';
+import { CardType, GenerateCardsRequest, LanguageLevel } from '../../../../../common/types/ai';
 import { PkLoaderComponent } from '../../common/components/pk-loader.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PkInputComponent } from '../../common/components/pk-input.component';
@@ -96,11 +96,24 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
             [placeholder]="'cards.topic' | translate" />
         </pk-input>
         <pk-input
+          [label]="'cards.type' | translate"
+          [withAsterisk]="true"
+          [disabled]="loading() || isLessThan10Remaining() || isFull()"
+          [error]="getError('type') | translate"
+          width="200px"
+          type="select">
+          <select pkInput name="type" formControlName="type">
+            @for (item of typeOptions; track item) {
+              <option [value]="item">{{ 'cards.' + item | translate }}</option>
+            }
+          </select>
+        </pk-input>
+        <pk-input
           [label]="'cards.level' | translate"
           [withAsterisk]="true"
           [disabled]="loading() || isLessThan10Remaining() || isFull()"
           [error]="getError('level') | translate"
-          width="150px"
+          width="100px"
           type="select">
           <select pkInput name="level" formControlName="level">
             @for (item of levelOptions; track item) {
@@ -113,7 +126,7 @@ import { InfoMessageComponent } from '../../common/components/info-message.compo
           [withAsterisk]="true"
           [disabled]="loading() || isLessThan10Remaining() || isFull()"
           [error]="getError('cardCount') | translate"
-          width="150px"
+          width="120px"
           type="select">
           <select pkInput name="cardCount" formControlName="cardCount">
             @for (item of countOptions(); track item) {
@@ -183,6 +196,7 @@ export class GenerateCardsComponent {
     [10, 25, 50, 100].filter(num => num < this.remainingCount())
   );
   public levelOptions: LanguageLevel[] = ['basic', 'intermediate', 'advanced'];
+  public typeOptions: CardType[] = ['mixed', 'wordsOnly', 'phrasesOnly'];
 
   constructor(
     private aiService: AiService,
@@ -192,13 +206,14 @@ export class GenerateCardsComponent {
     this.form = this.formBuilder.group({
       topic: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
       level: ['basic', Validators.required],
+      type: ['mixed', Validators.required],
       cardCount: [10, [Validators.required, Validators.min(10), Validators.max(100)]],
     });
   }
 
   public onGenerate(): void {
     this.errorMessage.set('');
-    const { topic, level, cardCount } = this.form.value;
+    const { topic, level, type, cardCount } = this.form.value;
     const deck = this.deck();
     const request: GenerateCardsRequest = {
       sourceLang: deck.sourceLang as SupportedLanguage,
@@ -206,6 +221,7 @@ export class GenerateCardsComponent {
       cardCount: Number(cardCount),
       topic,
       level,
+      type,
     };
     this.aiService.generateCards(request).subscribe({
       next: response => {

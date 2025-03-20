@@ -92,7 +92,7 @@
     "generateCards": "Generate cards",
     "generateCardsInfo1": "Generate cards using AI. Please note that this is an experimental feature and may not work perfectly.",
     "generateCardsInfo2": "You can generate up to 100 cards at a time, also depending on the size of your deck. The generated cards can be added to the end of the deck.",
-    "generateCardsInfo3": "Please choose the topic, the level of difficulty and the number of cards you want to generate.",
+    "generateCardsInfo3": "Please choose the topic, the type of cards whether you want words or phrases and sentences, the level of difficulty and the number of cards you want to generate.",
     "generateCardsInfo4": "If you're not satisfied with the generated cards please try to specify the topic in English.",
     "topic": "Topic",
     "level": "Level",
@@ -104,7 +104,11 @@
     "generateSuccess": "Cards generated successfully, please scroll down, check the cards and click Save.",
     "generateError": "Couldn't generate cards. Please try again later or with different parameters.",
     "generateLoading": "The AI is working its magic, please wait...",
-    "nCardsInThisDeck": "{{count}}/{{total}} cards in this deck"
+    "nCardsInThisDeck": "{{count}}/{{total}} cards in this deck",
+    "type": "Type",
+    "wordsOnly": "Words only",
+    "phrasesOnly": "Phrases and sentences",
+    "mixed": "Mixed"
   },
   "practice": {
     "finished": "Congrats, you practiced all the cards in this deck!",
