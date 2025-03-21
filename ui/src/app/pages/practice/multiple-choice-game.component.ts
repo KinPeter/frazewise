@@ -12,6 +12,8 @@ import { GameCardProps, MultipleChoiceData } from './games.types';
 import { GameCardComponent } from './game-card.component';
 import { getByChance, shuffleArray } from '../../utils/games';
 import { TtsService } from '../../common/services/tts.service';
+import { logographicLanguages } from '../../../../../common/constants/languages';
+import { SupportedLanguage } from '../../../../../common/types/languages';
 
 @Component({
   selector: 'pk-multiple-choice-game',
@@ -27,7 +29,7 @@ import { TtsService } from '../../common/services/tts.service';
       margin-bottom: 1rem;
       padding: 3rem 0;
 
-      &.hanzi {
+      &.logographic {
         font-size: 3rem;
 
         .source-alt {
@@ -44,7 +46,7 @@ import { TtsService } from '../../common/services/tts.service';
   `,
   template: `
     <div class="container">
-      <div class="source" [class.hanzi]="isTargetFirst() && data().card.targetLang === 'zh'">
+      <div class="source" [class.logographic]="logographic()">
         <span (click)="readSource()">{{ source() }}</span>
         @if (sourceAlt()) {
           <span class="source-alt">{{ sourceAlt() }}</span>
@@ -77,6 +79,12 @@ export class MultipleChoiceGameComponent implements OnChanges {
   public correct = computed(() => this.data().card.id);
 
   constructor(private ttsService: TtsService) {}
+
+  public logographic = computed(
+    () =>
+      this.isTargetFirst() &&
+      logographicLanguages.has(this.data().card.targetLang as SupportedLanguage)
+  );
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['data']) return;

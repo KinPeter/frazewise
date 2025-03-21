@@ -1,5 +1,5 @@
 import { GenerateCardsRequest } from '../../common/types/ai';
-import { supportedLanguages } from '../../common/constants/languages';
+import { logographicLanguages, supportedLanguages } from '../../common/constants/languages';
 import { SupportedLanguage } from '../../common/types/languages';
 
 export function getPromptForCards(request: GenerateCardsRequest): string {
@@ -32,6 +32,10 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       languageExtra =
         'The Chinese words should be in simplified Chinese hanzi, and please add the pinyin pronunciation too in the format specified below. For sentences please put spaces between the words.';
       break;
+    case 'ja':
+      languageExtra =
+        'The Japanese words should use kanji, hiragana and katakana, and please add the romanized pronunciation too in the format specified below. For sentences please put spaces between the words.';
+      break;
     case 'ko':
       languageExtra =
         'The Korean words should be in Hangul, and please add romanization too in the format specified below. For sentences, please put spaces between the words. Please use standard honorifics where applicable. Use the example specified below.';
@@ -63,6 +67,10 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       example =
         '[{"source": "water", "target": "물", "targetAlt": "mul"}, {"source": "Where is the subway station?", "target": "지하철역이 어디에 있어요?", "targetAlt": "jihacheolyeogi eodie isseoyo?"}]';
       break;
+    case 'ja':
+      example =
+        '[{"source": "water", "target": "水", "targetAlt": "mizu"}, {"source": "Where is the subway station?", "target": "地下鉄の 駅は どこですか?", "targetAlt": "Chikatetsu no eki wa dokodesu ka?"}]';
+      break;
   }
 
   let typeString = '';
@@ -78,8 +86,7 @@ export function getPromptForCards(request: GenerateCardsRequest): string {
       break;
   }
 
-  const isSyllabic = ['zh'].includes(targetLangCode);
-  const maxLengthString = isSyllabic
+  const maxLengthString = logographicLanguages.has(targetLangCode)
     ? '10-15 characters (syllables or logograms) long.'
     : '100 characters long.';
 

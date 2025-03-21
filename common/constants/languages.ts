@@ -6,4 +6,7 @@ export const supportedLanguages = new Map<SupportedLanguage, LanguageInfo>([
   ['hu', { name: 'Hungarian', translation: 'supportedLanguages.hu', flag: 'hu.png' }],
   ['de', { name: 'German', translation: 'supportedLanguages.de', flag: 'de.png' }],
   ['zh', { name: 'Chinese', translation: 'supportedLanguages.zh', flag: 'zh.png' }],
+  ['ja', { name: 'Japanese', translation: 'supportedLanguages.ja', flag: 'ja.png' }],
 ]);
+
+export const logographicLanguages = new Set<SupportedLanguage>(['zh', 'ja']);

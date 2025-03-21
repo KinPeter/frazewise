@@ -1,5 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { logographicLanguages } from '../../../../../common/constants/languages';
+import { SupportedLanguage } from '../../../../../common/types/languages';
 
 @Component({
   selector: 'pk-game-card',
@@ -30,7 +32,7 @@ import { NgClass } from '@angular/common';
         }
       }
 
-      &.hanzi {
+      &.logographic {
         font-size: 2rem;
       }
 
@@ -67,7 +69,7 @@ import { NgClass } from '@angular/common';
         info: info(),
         selected: selected(),
         narrow: narrow(),
-        hanzi: lang() === 'zh',
+        logographic: logographic(),
       }"
       [disabled]="disabled()"
       (click)="clicked.emit()">
@@ -89,4 +91,6 @@ export class GameCardComponent {
   public narrow = input<boolean>();
   public disabled = input<boolean>();
   public clicked = output<void>();
+
+  public logographic = computed(() => logographicLanguages.has(this.lang() as SupportedLanguage));
 }
