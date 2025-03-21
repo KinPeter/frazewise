@@ -29,7 +29,7 @@ export async function setPassword(req: Request, db: Db, user: User): Promise<Res
     const users = db.collection<User>(DbCollection.USERS);
     if (!user || user.email !== email) return new UnauthorizedInvalidAccessTokenErrorResponse();
 
-    const { hashedString: passwordHash, salt: passwordSalt } = await getHashed(password);
+    const { hashedString: passwordHash, salt: passwordSalt } = getHashed(password);
     await users.updateOne(
       { id: user.id },
       {

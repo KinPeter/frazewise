@@ -46,7 +46,7 @@ export async function instantLoginCode(req: Request, db: Db): Promise<Response> 
       user = existingUser;
     }
 
-    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = await getLoginCode();
+    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = getLoginCode();
     await users.updateOne(
       { id: user.id },
       {

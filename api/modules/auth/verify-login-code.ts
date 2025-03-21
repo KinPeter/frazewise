@@ -35,12 +35,7 @@ export async function verifyLoginCode(req: Request, db: Db): Promise<Response> {
     if (!hashedLoginCode || !salt || !loginCodeExpires) {
       return new UnauthorizedErrorResponse(ApiError.INVALID_LOGIN_CODE);
     }
-    const loginCodeValidity = await validateLoginCode(
-      loginCode,
-      salt,
-      hashedLoginCode,
-      loginCodeExpires
-    );
+    const loginCodeValidity = validateLoginCode(loginCode, salt, hashedLoginCode, loginCodeExpires);
     if (loginCodeValidity !== 'valid') {
       return new UnauthorizedErrorResponse(
         loginCodeValidity === 'invalid' ? ApiError.INVALID_LOGIN_CODE : ApiError.EXPIRED_LOGIN_CODE

@@ -48,7 +48,7 @@ export async function requestLoginCode(
       user = existingUser;
     }
 
-    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = await getLoginCode();
+    const { loginCode, hashedLoginCode, loginCodeExpires, salt } = getLoginCode();
     await users.updateOne(
       { id: user.id },
       {

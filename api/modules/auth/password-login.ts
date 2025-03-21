@@ -36,7 +36,7 @@ export async function passwordLogin(req: Request, db: Db): Promise<Response> {
     if (!passwordHash || !passwordSalt) {
       return new UnauthorizedErrorResponse(ApiError.INVALID_PASSWORD);
     }
-    const isPasswordValid = await validatePassword(password, passwordHash, passwordSalt);
+    const isPasswordValid = validatePassword(password, passwordHash, passwordSalt);
     if (!isPasswordValid) {
       return new UnauthorizedErrorResponse(ApiError.INVALID_PASSWORD);
     }

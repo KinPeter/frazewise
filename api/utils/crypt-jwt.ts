@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getEnv } from './environment';
 import { JwtPayload } from '../../common/types/auth';
+import { pbkdf2Sync, randomBytes } from 'crypto';
 
 export function getAccessToken(email: string, userId: string): { token: string; expiresAt: Date } {
   const [JWT_SECRET, TOKEN_EXPIRY] = getEnv('JWT_SECRET', 'TOKEN_EXPIRY');
@@ -12,22 +12,28 @@ export function getAccessToken(email: string, userId: string): { token: string; 
   return { token, expiresAt };
 }
 
-export async function getHashed(
-  rawString: string
-): Promise<{ hashedString: string; salt: string }> {
-  const salt = await bcrypt.genSalt();
-  const hashedString = await bcrypt.hash(rawString, salt);
+function generateSalt(): string {
+  return randomBytes(16).toString('hex');
+}
+
+function hashString(str: string, salt: string): string {
+  return pbkdf2Sync(str, salt, 100000, 64, 'sha512').toString('hex');
+}
+
+export function getHashed(rawString: string): { hashedString: string; salt: string } {
+  const salt = generateSalt();
+  const hashedString = hashString(rawString, salt);
   return { hashedString, salt };
 }
 
-export async function getLoginCode(): Promise<{
+export function getLoginCode(): {
   loginCode: string;
   hashedLoginCode: string;
   loginCodeExpires: Date;
   salt: string;
-}> {
+} {
   const { loginCode, loginCodeExpires } = generateLoginCode();
-  const { hashedString: hashedLoginCode, salt } = await getHashed(loginCode);
+  const { hashedString: hashedLoginCode, salt } = getHashed(loginCode);
 
   return {
     loginCode,
@@ -48,24 +54,20 @@ function generateLoginCode(): { loginCode: string; loginCodeExpires: Date } {
   };
 }
 
-export async function validateLoginCode(
+export function validateLoginCode(
   loginCode: string,
   salt: string,
   hashedLoginCode: string,
   loginCodeExpires: Date | string
-): Promise<'valid' | 'invalid' | 'expired'> {
-  const hash = await bcrypt.hash(loginCode, salt);
+): 'valid' | 'invalid' | 'expired' {
+  const hash = hashString(loginCode, salt);
   if (hash !== hashedLoginCode) return 'invalid';
   if (new Date() >= new Date(loginCodeExpires)) return 'expired';
   return 'valid';
 }
 
-export async function validatePassword(
-  password: string,
-  hashedPassword: string,
-  salt: string
-): Promise<boolean> {
-  const hash = await bcrypt.hash(password, salt);
+export function validatePassword(password: string, hashedPassword: string, salt: string): boolean {
+  const hash = hashString(password, salt);
   return hash === hashedPassword;
 }
 
