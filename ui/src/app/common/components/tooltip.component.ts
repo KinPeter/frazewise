@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, signal, viewChild, WritableSignal } from '@angular/core';
+import { Component, ElementRef, signal, viewChild, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'pk-tooltip',
@@ -33,14 +33,27 @@ import { Component, ElementRef, input, signal, viewChild, WritableSignal } from 
   `,
 })
 export class TooltipComponent {
-  public text = input<string>('');
-  isVisible: WritableSignal<boolean> = signal(false);
-  positionX: WritableSignal<number> = signal(0);
-  positionY: WritableSignal<number> = signal(0);
-  tooltipRef = viewChild.required<ElementRef<HTMLDivElement>>('tooltip');
+  public text = signal('');
+  public isVisible: WritableSignal<boolean> = signal(false);
+  public positionX: WritableSignal<number> = signal(0);
+  public positionY: WritableSignal<number> = signal(0);
+  public tooltipRef = viewChild.required<ElementRef<HTMLDivElement>>('tooltip');
 
-  show({ left, top, height, width }: { left: number; top: number; height: number; width: number }) {
+  public show({
+    text,
+    left,
+    top,
+    height,
+    width,
+  }: {
+    text: string;
+    left: number;
+    top: number;
+    height: number;
+    width: number;
+  }) {
     this.isVisible.set(true);
+    this.text.set(text);
     setTimeout(() => {
       const tooltipRect = this.tooltipRef().nativeElement.getBoundingClientRect();
       const iconCenterX = left + width / 2;

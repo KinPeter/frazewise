@@ -4,10 +4,11 @@ import { AuthService } from './pages/auth/auth.service';
 import { AppBarComponent } from './common/components/app-bar.component';
 import { MainMenuComponent } from './common/components/main-menu.component';
 import { LocaleService } from './common/services/locale.service';
+import { TooltipHostComponent } from './common/components/tooltip-host.component';
 
 @Component({
   selector: 'pk-root',
-  imports: [RouterOutlet, AppBarComponent, MainMenuComponent],
+  imports: [RouterOutlet, AppBarComponent, MainMenuComponent, TooltipHostComponent],
   styles: `
     .wrapper {
       height: 100vh;
@@ -20,6 +21,7 @@ import { LocaleService } from './common/services/locale.service';
       <router-outlet />
     </div>
     <pk-main-menu />
+    <pk-tooltip-host />
   `,
 })
 export class AppComponent {
