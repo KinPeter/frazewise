@@ -11,6 +11,7 @@ import { PkButtonComponent } from '../../common/components/pk-button.component';
 import { NotificationService } from '../../common/services/notification.service';
 import { parseError } from '../../utils/parse-error';
 import { TranslatePipe } from '@ngx-translate/core';
+import { TooltipDirective } from '../../common/directives/tooltip.directive';
 
 @Component({
   selector: 'pk-auth',
@@ -21,6 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     PkInputComponent,
     PkButtonComponent,
     TranslatePipe,
+    TooltipDirective,
   ],
   providers: [],
   styles: `
@@ -67,9 +69,15 @@ import { TranslatePipe } from '@ngx-translate/core';
           <pk-button variant="link" (clicked)="usePassword.set(false)">
             {{ 'auth.useLoginCode' | translate }}
           </pk-button>
+          <pk-button variant="subtle" [pkTooltip]="'auth.passwordTooltip' | translate">
+            {{ 'auth.forgotOrNoPassword' | translate }}
+          </pk-button>
         } @else {
           <pk-button variant="link" (clicked)="usePassword.set(true)">
             {{ 'auth.usePassword' | translate }}
+          </pk-button>
+          <pk-button variant="subtle" [pkTooltip]="'auth.signupTooltip' | translate">
+            {{ 'auth.signingUp' | translate }}
           </pk-button>
         }
         @if (hasEmailSaved() && !usePassword()) {
