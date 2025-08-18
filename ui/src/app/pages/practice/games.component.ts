@@ -18,6 +18,9 @@ import { DerDieDasGameComponent } from './der-die-das-game.component';
 import { TtsService } from '../../common/services/tts.service';
 import { GamesHeaderComponent } from './games-header.component';
 
+import { PkButtonComponent } from '../../common/components/pk-button.component';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'pk-games',
   imports: [
@@ -27,23 +30,29 @@ import { GamesHeaderComponent } from './games-header.component';
     MultipleChoiceGameComponent,
     DerDieDasGameComponent,
     GamesHeaderComponent,
+    PkButtonComponent,
   ],
   providers: [],
   styles: `
     .finished {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: 2rem;
       color: var(--color-success);
       padding-top: 8rem;
+      gap: 2rem;
     }
   `,
   template: `
     @if (isFinished()) {
       <div class="finished">
         <p>{{ 'practice.finished' | translate }}</p>
+        <pk-button class="back-button" (clicked)="onGoToDeck()">{{
+          'common.okay' | translate
+        }}</pk-button>
       </div>
     } @else if (currentGame()) {
       <pk-games-header />
@@ -74,7 +83,8 @@ export class GamesComponent implements OnInit {
 
   constructor(
     private gamesService: GamesService,
-    private ttsService: TtsService
+    private ttsService: TtsService,
+    private router: Router
   ) {
     this.currentGame = this.gamesService.currentGame;
     this.gameIndex = this.gamesService.gameIndex;
@@ -102,5 +112,8 @@ export class GamesComponent implements OnInit {
     results.forEach(result => {
       this.result.emit(result);
     });
+  }
+  public async onGoToDeck(): Promise<void> {
+    await this.router.navigate(['/decks']);
   }
 }

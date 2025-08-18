@@ -29,6 +29,10 @@ import { SupportedLanguage } from '../../../../../common/types/languages';
       margin-bottom: 1rem;
       padding: 3rem 0;
 
+      span {
+        cursor: pointer;
+      }
+
       &.logographic {
         font-size: 3rem;
 
